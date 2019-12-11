@@ -1,0 +1,42 @@
+class TreeNode:
+	def __init__(self, val, left=None, right=None):
+		self.val = val
+		self.left = left
+		self.right = right
+
+	def __repr__(self):
+		return 'N(%s, %s, %s)' % (self.val, self.left or '', self.right or '')
+
+class Solution:
+	# recursion
+    def hasPathSum(self, root: TreeNode, sum: int) :
+        if not root:
+            return
+        sum -= root.val
+        if not root.left and not root.right: # reach the bottom
+            return sum == 0
+        return self.hasPathSum(root.left, sum) or self.hasPathSum(root.right, sum)
+        
+    # iteration
+    def hasPathSum(self, root: TreeNode, sum: int) :
+    	if not root:
+    		return False
+    	cur = [(root, sum - root.val),]
+    	while cur:
+    		node, curr_sum = cur.pop()
+    		if not node.left and not node.right and curr_sum == 0:
+    			return True
+    		if node.left:
+    			cur.append((node.left, curr_sum - node.left.val))
+    		if node.right:
+    			cur.append((node.right, curr_sum - node.right.val))
+    	return False
+
+
+if __name__ == '__main__':
+	T = TreeNode
+	root = T(5, T(4, T(11, T(7), T(2)), None), T(8,T(13),T(4, None, T(1))))
+	print(root)
+
+	s = Solution()
+	print(s.hasPathSum(root, 22))
