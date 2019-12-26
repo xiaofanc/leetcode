@@ -42,6 +42,20 @@ class Solution:
         return max(dp(i-2) + nums[i], dp(i-1))
     return dp(len(nums)-1)
 
+
+    def rob(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        if len(nums) <= 2:
+            return max(nums)
+        # f(k) = max(f(k – 2) + Ak, f(k – 1)) from f(1)
+        f = [0] * len(nums)
+        f[0], f[1] = nums[0], max(nums[0], nums[1])
+        for i in range(2,len(nums)):
+            f[i] = max(f[i-2] + nums[i], f[i-1])
+            print(f[i-2], f[i-1], f[i])
+        return f[-1]
+
 s = Solution()
 print(s.rob1([2,7,9,3,1,4,2,8,10]))
 
