@@ -5,8 +5,8 @@ class Solution:
     def mctFromLeafValues(self, arr: List[int]) -> int:
         # for each node
         # return sum as sum of root and subtree 
-        # return max as and max of subtree 
-        #recursion
+        # return max as max of subtree 
+        # recursion
         def sum_max(arr):
             n = len(arr)
             if n == 1:

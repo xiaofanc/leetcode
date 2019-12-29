@@ -46,6 +46,24 @@ class Solution:
                 return False
         return True
 
+
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        
+        def helper(l, r):
+            if not l and not r:
+                return True
+            elif not l and r:
+                return False
+            elif not r and l:
+                return False
+            else:
+                return l.val == r.val and helper(l.left, r.right) and helper(l.right, r.left)
+            
+        return helper(root.left, root.right)
+        
+
 if __name__ == '__main__':
     T = TreeNode
     t1 = T(1, T(2,T(3),T(4)), T(2,T(4),T(3)))
