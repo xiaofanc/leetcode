@@ -43,7 +43,23 @@ class Solution:
                     
         paths = []
         construct_paths(root,'')
-        return paths      
+        return paths    
+
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        def dfs(node):
+            if not node: return []
+            ans = []
+            if not node.left and not node.right:
+                ans.append(str(node.val))
+            if node.left:
+                for l in dfs(node.left):
+                    ans.append(str(node.val) + "->" + l)
+            if node.right:
+                for r in dfs(node.right):
+                    ans.append(str(node.val) + "->" + r)
+            return ans
+        return dfs(root)
+
 
 if __name__ == '__main__':
     T = TreeNode

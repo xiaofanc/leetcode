@@ -29,6 +29,15 @@ class Solution:
         s = sum(i for i in traverse(root) if L <= i <= R)
         return s
 
+
+    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
+        def traverse(node):
+            if not node: return []
+            return traverse(node.left) + [node.val] + traverse(node.right)
+        nums = traverse(root)
+        return sum(n for n in nums if L <= n <= R)
+
+
     def rangeSumBST2(self, root: TreeNode, L: int, R: int) -> int:
     	l = (self.rangeSumBST2(root.left, L, R) if root.left != None else 0)
     	r = (self.rangeSumBST2(root.right, L, R) if root.right != None else 0)

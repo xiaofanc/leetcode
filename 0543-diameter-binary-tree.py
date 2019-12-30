@@ -10,7 +10,7 @@ class TreeNode:
 
 class Solution:
     def diameterOfBinaryTree0(self, root: TreeNode) -> int:
-        self.ans = 1
+        self.ans = 1 # for root == None; ans = 0
         def depth(node):
             if not node:
                 return 0

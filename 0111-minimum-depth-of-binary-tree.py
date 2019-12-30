@@ -76,6 +76,16 @@ class Solution:
         r = self.minDepth(root.right)
         return l + r + 1 if l == 0 or r == 0 else min(l, r) + 1 
 
+
+    def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        if not root.left and not root.right: 
+            return 1
+        # if no leaf node, should return float("inf"), so that it will return the minimum depth 
+        # [1,2] should return 2 instead of 1
+        return min(self.minDepth(root.left) if root.left else float("inf"), self.minDepth(root.right) if root.right else float("inf")) + 1
+
 if __name__ == '__main__':
     T = TreeNode
     root = T(1, T(2), T(3,T(4)))

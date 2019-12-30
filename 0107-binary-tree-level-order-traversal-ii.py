@@ -34,6 +34,16 @@ class Solution:
         print(levels)
         return [levels[i] for i in reversed(sorted(levels.keys()))]
 
+    
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        ans = []
+        if not root: return None
+        frontier = [root]
+        while frontier:
+            ans.append([f.val for f in frontier])
+            frontier = [n for f in frontier for n in (f.left, f.right) if n]
+        return ans[::-1]
+
 if __name__ == '__main__':
 	T = TreeNode
 	root = T(1, T(2), T(3,T(4)))
