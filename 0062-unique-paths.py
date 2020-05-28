@@ -1,3 +1,21 @@
+"""
+create a new matrix with 0, and update the matrix with the paths at each point.
+first row: only one path to each point, update all to 1
+first col: only one path to each point, update all to 1
+calculate the middle of matrix by adding the path from the left and the path from 
+the up
+
+3*3
+
+[[0,0,0]
+ [0,0,0]
+ [0,0,0]]
+
+[[1,1,1]
+ [1,2,3]
+ [1,3,6]]
+
+"""
 from math import factorial
 
 class Solution:
@@ -33,6 +51,11 @@ class Solution:
             f = factorial
             return f(n) // (f(r)*f(n-r))
         return fcr(m+n-2, m-1)
+
+    def uniquePaths(self, m: int, n: int) -> int:
+        if m == 1 or n == 1:
+            return 1
+        return self.uniquePaths(m-1, n) + self.uniquePaths(m, n-1)
 
 if __name__ == '__main__':
     s = Solution()

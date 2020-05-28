@@ -1,3 +1,12 @@
+"""
+We get the mimimum prices at each point, and calculate the max profit
+
+       [7, 1, 5, 3, 6, 4]
+min  = [7, 1, 1, 1, 1, 1]
+maxp = [0, 0, 4, 2, 5, 5]
+
+"""
+
 class Solution:
     """ 
     def maxProfit(self, prices: List[int]) -> int:

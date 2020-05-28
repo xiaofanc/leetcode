@@ -1,3 +1,17 @@
+"""
+let DP[i] = the maximum money the robber can get from the first i house 
+base case:
+DP[0] = nums[0]
+DP[1] = max(nums[0], nums[1])
+recursive rule:
+DP[i] = max(DP[i-1], DP[i-2] + nums[i])
+
+[2, 7, 9, 13, 11, 1]
+[2, 7, 11,20, 22, 22]
+
+"""
+
+
 from typing import List
 class Solution:
     def rob1(self, nums: List[int]) -> int:

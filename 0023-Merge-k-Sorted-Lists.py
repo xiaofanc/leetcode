@@ -26,8 +26,8 @@ class Solution:
         heap = []
         for i, node in enumerate(lists):
             if node != None:
+                # add the first node of lists, random() makes tuples comparable 
                 heappush(heap, (node.val, random(), node))
-                # random() prevent comparison between nodes
                 # use list as binary search tree
         curr = prehead = ListNode(0)
         while heap:

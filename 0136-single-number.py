@@ -1,4 +1,6 @@
 from typing import List
+from functools import reduce
+import operator
 
 class Solution:
     def singleNumber0(self, nums: List[int]) -> int:
@@ -19,6 +21,9 @@ class Solution:
             a ^= i
         return a 
             
+    def singleNumber(self, nums: List[int]) -> int:
+        return reduce(lambda x,y: x^y, nums, 0)
+        # return reduce(operator.xor, nums, 0)
         
 s = Solution()
 print(s.singleNumber0([1,1,2,2,4]))

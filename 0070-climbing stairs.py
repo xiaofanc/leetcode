@@ -1,3 +1,8 @@
+"""
+fibonacci number:
+f(n) = f(n-1) + f(n-2)
+
+"""
 class Solution:
     def climbStairs(self, n: int) -> int:
         if n <= 2: return n

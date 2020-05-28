@@ -64,3 +64,8 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.mctFromLeafValues([6,2,4]) == 32)
+
+
+
+
+    
