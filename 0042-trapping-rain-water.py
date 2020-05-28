@@ -26,6 +26,7 @@ class Solution:
                 if stack == []:
                     break
                 distance = cur - stack[-1] - 1
+                #find minimum of left and right, 
                 bounded_height = min(cur_height, height[stack[-1]]) - height[top]
                 ans += distance * bounded_height
             stack.append(cur)

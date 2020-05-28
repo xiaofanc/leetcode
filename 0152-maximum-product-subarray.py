@@ -1,3 +1,17 @@
+"""
+Need to maintain the highest and lowest product value for each number:
+
+[-2, 3, -4]
+[-2,-6, 24]
+lo, hi, ans:
+[-2, -2, -2]
+[-6,  3,  3]
+[-12,24, 24]   24 = (-6)*(-4)
+
+if dp = max(nums[i], dp*nums[i]): final result is 3
+[-2, 3, 3]
+
+"""
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         dpmax = [0]*len(nums)
