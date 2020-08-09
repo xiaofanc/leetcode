@@ -53,6 +53,12 @@ class Solution:
             ans = max(ans, dp)        # the max sum for any substring
         return ans
 
-
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp, maxsum = nums[0], nums[0]
+        for n in nums[1:]:
+            dp = max(dp, 0) + n
+            maxsum = max(maxsum, dp)
+        return maxsum
+        
 s=Solution()
 print(s.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
