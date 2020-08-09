@@ -1,4 +1,7 @@
 from typing import List
+# find the highest left and right blocks
+# get the minimum of these two blocks
+# substract the oright height
 
 class Solution:
     def trap(self, height: List[int]):
