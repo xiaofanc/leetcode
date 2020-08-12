@@ -1,3 +1,5 @@
+# stack
+
 class Solution:
     def isValid(self, s: str) -> bool:
         if not s:
