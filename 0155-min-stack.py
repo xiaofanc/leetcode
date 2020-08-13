@@ -1,3 +1,9 @@
+"""
+
+min stack:
+store min value in the stack at the same time
+
+"""
 class MinStack:
 
     def __init__(self):
