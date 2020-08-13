@@ -90,10 +90,10 @@ class Solution:
                 res = 0
             elif ch == ')':
                 res += sign*operand
-                res *= stack.pop()
-                res += stack.pop()
+                res *= stack.pop()   # pop out sign
+                res += stack.pop()   # pop out prev res
                 operand = 0
-        return res + sign*operand
+        return res + sign*operand    # any numbers left
                              
 
             
