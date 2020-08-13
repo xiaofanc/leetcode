@@ -36,9 +36,33 @@ class Solution:
                 string_builder.append(c)
         return ''.join(string_builder)
     
-
+    # two parse string builder
+    def minRemoveToMakeValid(self, s: str) -> str: # O(n)
+        # build up a string builder in the first loop that has all of the invalid ')' removed
+        # for the left unmatched '(': look at the string in reverse, for each ')' there is a '(' to match with, then remove all the invalid '('
+        # the last step is to reverse all characters left
+        def delete_invalid_closing(string, open_symbol, close_symbol):
+            string_builder = []
+            balance = 0
+            for c in string:
+                if c == open_symbol:
+                    balance += 1
+                if c == close_symbol:
+                    if balance == 0:
+                        continue
+                    else:
+                        balance -= 1
+                string_builder.append(c)
+            return ''.join(string_builder)
         
+        s = delete_invalid_closing(s, '(', ')')
+        print(s)
+        s = delete_invalid_closing(s[::-1], ')', '(')
+        print(s)
+        return s[::-1]
         
                 
-                
+if __name__ == '__main__':
+    s = Solution()
+    print(s.minRemoveToMakeValid("lee(t(c)o)de)"))       # "lee(t(c)o)de"  
             
