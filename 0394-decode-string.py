@@ -1,7 +1,7 @@
 """
 Given an encoded string, return its decoded string.
 """
-class Solution:
+class Solution: # Time: O(n)
     def decodeString(self, s: str) -> str:
         stack = []
         curstr = ''
