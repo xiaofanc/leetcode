@@ -58,6 +58,32 @@ class Solution:
                     
             return odd if len(odd) > len(even) else even
 
+    def longestPalindrome(self, s: str) -> str:
+        if not s or len(s) == 1:
+            return s
+        
+        def expand(l, r):
+            while l >= 0 and r <= len(s)-1 and s[l] == s[r]:
+                l -= 1
+                r += 1
+                #print(l, r, s[l+1:r])
+            return s[l+1:r]
+        
+        maxstr = ''
+        for i in range(len(s)):
+            #print(i)
+            opt1 = expand(i, i)
+            if len(opt1) > len(maxstr): 
+                maxstr = opt1
+                #print(opt1)
+            opt2 = expand(i, i+1)
+            if len(opt2) > len(maxstr):
+                maxstr = opt2
+                #print(opt2)
+        return maxstr
+                
+            
+                
 if __name__ == '__main__':
     s = Solution()
     print(s.longestPalindrome("babad"))
