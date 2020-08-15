@@ -1,5 +1,9 @@
 """
 let dp[i] = s[:i] can be built from wordDict
+# dp[i]         = True if s[0:i] in wordDict
+#               = True if dp[k] == True and s[k+1:i] in wordDict for 0<k<i
+#               = False if no such k exist
+
 base case:
 dp[0] = True -> empty string can be built 
 recusive rule:
@@ -19,7 +23,11 @@ DP[10]:
 DP[0] + s[0:10]: True + "catsanddog" not in wordDict
 DP[1] + s[1:10]: False + "atsanddog" not in wordDict
 ...
+DP[4] + s[4:10]: ("cats")True + "anddog" not in wordDict
+...
 DP[7] + s[7:10]: ("catsand")True + "dog" in wordDict -> True
+
+=> DP[7] true since DP[4] + ["and"] in wordDict
 
 """
 class Solution:
