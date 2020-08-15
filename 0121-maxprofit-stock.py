@@ -25,7 +25,14 @@ class Solution:
             max_ = max(max_, (prices[i] - min_))
         return max_
     
-    
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices: return 0
+        minprice, maxprofit = prices[0], 0
+        for price in prices[1:]:
+            minprice = min(minprice, price)
+            maxprofit = max(maxprofit, price-minprice)
+            print(minprice, maxprofit)
+        return maxprofit
     
 s=Solution()
 print(s.maxProfit([7,1,5,3,6,4]))
