@@ -16,7 +16,7 @@ helper["12345"]     memo = [-1,-1,-1,-1,-1,-1]
 helper["12345", 5]  memo[5] = helper["12345", 5]
 """
 
-class Solution:
+class Solution: # time - O(n)
     def numDecodings(self, s: str) -> int:
         def helper(s, k, memo): # the last k digits
             # base case 1
