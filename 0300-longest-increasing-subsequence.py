@@ -14,17 +14,15 @@ j = 2 nums[5](7) > nums[2](2) and 1 < 1+1: L[5] = 2     {2,7}
 j = 3 nums[5](7) > nums[3](5) and 2 < 2+1: L[5] = 3     {2,5,7}
 j = 4 nums[5](7) > nums[4](3) and 3   2+1: same length  {2,3,7}
 
-
-
 """
 
-class Solution:
+class Solution: # time: O(n)
     def lengthOfLIS(self, nums: List[int]) -> int:
         if not nums:
             return 0
         L = [1]*len(nums)
         for i in range(1, len(nums)):
-            for j in range(i):  # look back 
+            for j in range(i):  # look back to check the longest subsequence before
                 if nums[i] > nums[j] and L[i] < L[j]+1:
                     L[i] = L[j]+1
         return max(L)

@@ -1,8 +1,9 @@
 """
-Need to maintain the highest and lowest product value for each number:
+Need to maintain the highest and lowest product value which include this number:
 
 [-2, 3, -4]
 [-2,-6, 24]
+
 lo, hi, ans:
 [-2, -2, -2]
 [-6,  3,  3]
@@ -32,6 +33,18 @@ class Solution:
             hi, lo = max(n, lo*n, hi*n), min(n, lo*n, hi*n)
             ans = max(ans, hi)
         return ans
+
+    def maxProduct(self, nums: List[int]) -> int:
+        # subarray is contiguous
+        lo, hi = 1, 1
+        ans = nums[0]
+        for i in range(len(nums)):
+            # update simultaneously
+            lo, hi = min(nums[i], lo*nums[i], hi*nums[i]), max(nums[i], lo*nums[i], hi*nums[i])
+            print(i, lo, hi)
+            ans = max(ans, hi)
+        return ans
+            
 
 if __name__ == '__main__':
     s = Solution()
