@@ -1,3 +1,28 @@
+"""
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+
+build up a matrix finding the minimum path from top left to the bottom right 
+grid[i][j].
+
+cost(i,j)=grid[i][j]+min(cost(i-1,j),cost(i,j-1))
+
+[
+  [1,3,1],
+  [1,5,1],
+  [4,2,1]
+]
+
+[
+ [1, 4, 5], 
+ [2, 7, 6], 
+ [6, 8, 7]
+]
+
+
+"""
+
 from typing import List
 
 class Solution:
@@ -31,3 +56,5 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.minPathSum([[1,3,1],[1,5,1],[4,2,1]]) == 7)
+
+
