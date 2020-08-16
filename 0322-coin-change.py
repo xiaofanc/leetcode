@@ -12,7 +12,7 @@ dp(i) = -1 表示无解
 
 """
 
-class Solution:
+class Solution:  # time O(n*k) k=# of coins  n=0-amount
     def coinChange(self, coins: List[int], amount: int) -> int:
         dp = [-1]*(amount+1)
         dp[0] = 0
