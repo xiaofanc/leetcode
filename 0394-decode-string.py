@@ -22,7 +22,28 @@ class Solution: # Time: O(n)
             else: # .isalpha()
                 curstr += c
         return curstr
-                
+
+    def decodeString(self, s: str) -> str:
+        curstr = ''
+        stack = [] # store the prevstr and nums before '['
+        nums = 0
+        # "3[a]2[bc]"
+        for c in s:
+            if c == '[':
+                stack.append(curstr) # ''  'aaa'
+                stack.append(nums)   # 3   2
+                nums = 0
+                curstr = ''
+            elif c == ']':
+                num = stack.pop()   # 3   2
+                prevstr = stack.pop()  # ''  'aaa'
+                curstr = prevstr + num*curstr # 'aaa'  'aaabcbc'
+            elif c.isdigit():
+                nums = nums*10 + int(c) # 2
+            else:
+                curstr += c  # 'a'  'bc'
+        return curstr
+        
                 
 if __name__ == '__main__':
     s = Solution()

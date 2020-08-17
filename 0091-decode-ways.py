@@ -35,7 +35,7 @@ class Solution: # time - O(n)
             memo[k] = result
             return result
         
-        memo = [-1]*(len(s)+1)
+        memo = [-1]*(len(s)+1)  # a space for empty ""
         return helper(s, len(s), memo)
                 
         
