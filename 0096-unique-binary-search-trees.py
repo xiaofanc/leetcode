@@ -39,6 +39,20 @@ F(i, n) = dp[i-1] * dp[n-i] (1 <= i <= n)
 base case: dp[0] = 1, dp[1] = 1
 recursive relation: dp[i] = sum(dp[j] * dp[i-j-1]) & j -> [0,i-1]
 
+dp[4]: [1 2 3 4]
+   1
+   | 234
+
+   2
+  1|34
+
+   3
+ 12|4
+
+   4
+123|   
+
+= dp[0]*dp[3]+dp[1]*dp[2]+dp[2]*dp[1]+dp[3]*dp[0]
 """
 class Solution:
     def numTrees(self, n: int) -> int:
@@ -57,8 +71,6 @@ class Solution:
         return dp[-1]
 
 
-                
-                
 if __name__ == '__main__':
     s = Solution()
     print(s.numTrees(3) == 5)
