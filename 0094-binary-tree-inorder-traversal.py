@@ -17,6 +17,8 @@ class Solution:
         while stack:
             top = stack.pop()   # node.left
             ans.append(top.val) # node.left
+            # if node has right subtree, output the right substree first
+            # if node does not have right subtree, then it will output the parent node
             pushleft(top.right) # node.left.right
         return ans
             
