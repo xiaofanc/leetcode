@@ -2,6 +2,7 @@
 #SELECT DATEDIFF(year, '2017/08/25', '2011/08/25') AS DateDiff;
 
 #set @miny=(select min(year(period_start)) from sales), @maxy=(select max(year(period_end)) from sales);
+#https://dev.mysql.com/doc/refman/8.0/en/with.html
 
 # method 1
 declare @miny int=(select min(year(period_start)) from sales);
