@@ -40,3 +40,19 @@ e.student_id not in (
      where a.grade_asc = 1 or a.grade_desc = 1)
      
 order by 1
+
+# Unlike the RANK() function, the DENSE_RANK() function returns consecutive rank values.
+select * from student
+    where student_id not in (
+        select distinct student_id from (
+            select *, 
+            dense_rank() over (partition by exam_id order by score desc) rank, 
+            dense_rank() over (partition by exam_id order by score) rank_reverse
+            from exam 
+            ) tbl 
+        where rank = 1 or rank_reverse = 1
+        ) 
+    and student_id in (select distinct student_id from exam)
+order by student_id
+
+
