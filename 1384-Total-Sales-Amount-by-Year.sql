@@ -73,4 +73,58 @@ SELECT c.product_id,
 FROM cte c
 JOIN Product p ON c.product_id = p.product_id 
 WHERE c.days_in_year>0
+
+# method 3
+WITH sales_by_year AS (
+    SELECT product_id,
+        average_daily_sales * GREATEST(
+            DATEDIFF(
+                LEAST('2018-12-31', period_end),
+                GREATEST(period_start, '2018-01-01')
+            ) + 1,
+            0
+        ) AS sales_2018,
+        average_daily_sales * GREATEST(
+            DATEDIFF(
+                LEAST('2019-12-31', period_end),
+                GREATEST(period_start, '2019-01-01')
+            ) + 1,
+            0
+        ) AS sales_2019,
+        average_daily_sales * GREATEST(
+            DATEDIFF(
+                LEAST('2020-12-31', period_end),
+                GREATEST(period_start, '2020-01-01')
+            ) + 1,
+            0
+        ) AS sales_2020
+    FROM Sales
+),
+
+sales_by_year_unpivot AS (
+    SELECT product_id,
+        '2018' AS report_year,
+        sales_2018 AS total_amount
+    FROM sales_by_year
+    UNION ALL
+    SELECT product_id,
+        '2019' AS report_year,
+        sales_2019 AS total_amount
+    FROM sales_by_year
+    UNION ALL
+    SELECT product_id,
+        '2020' AS report_year,
+        sales_2020 AS total_amount
+    FROM sales_by_year
+)
+SELECT CAST(a.product_id AS CHAR) AS PRODUCT_ID,
+    a.product_name AS PRODUCT_NAME,
+    b.report_year AS REPORT_YEAR,
+    b.total_amount AS TOTAL_AMOUNT
+FROM Product AS a
+    JOIN sales_by_year_unpivot AS b ON a.product_id = b.product_id
+WHERE b.total_amount <> 0
 ORDER BY 1, 3
+
+
+
