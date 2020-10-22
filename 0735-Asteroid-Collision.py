@@ -21,8 +21,19 @@ class Solution:
                 res.append(new)
         return res
                     
-                    
-                
+
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        # stack
+        # when it will collide: asteroids[i] > 0 > asteroids[i+1]
+        ans = [-1]
+        for new in asteroids:
+            while new < 0 < ans[-1]:
+                if -new < ans[-1] or -new == ans.pop():
+                    break
+            else:
+                ans.append(new)
+        return ans[1:]
+                      
 if __name__ == '__main__':
     s = Solution()
     print(s.asteroidCollision([5,10,-5]) == [5,10])
