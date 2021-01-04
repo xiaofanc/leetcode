@@ -39,7 +39,7 @@ CASE WHEN host_goals < guest_goals THEN 3
      END AS points
 FROM Matches )
 
-SELECT team_id, team_name, SUM(coalesce(points,0)) AS num_points
+SELECT team_id, team_name, SUM(ifnull(points,0)) AS num_points
 FROM Teams T 
 LEFT JOIN Points P
 ON team = team_id
