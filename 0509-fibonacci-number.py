@@ -8,6 +8,18 @@
 # Recursive Case:
 #    n > 1 : fibonacci(n) => fibonacci(n-1) + fibonacci(n-2)
 
+def memo(func):
+    cache = {}
+    def new_func(n):
+        if n in cache:
+            return cache[n]
+        else:
+            v = func(n)
+            cache[n] = v
+            return v
+    return new_func
+
+@memo    
 def fibonacci(n):
     if n == 0:
         return 0
@@ -37,9 +49,21 @@ def fib(self, N):
         f0, f1 = f1, f0+f1
     return f1
 
+def main():
+    n = 1
+    while n >= 1:
+        if fibonacci(n) > n**2:
+            print(n, fibonacci(n), n**2)
+            break
+        else:
+            n += 1
+
+if __name__ == '__main__':
+    main()
+
 #print fibonacci(0)
 #>>> 0
 #print fibonacci(1)
 #>>> 1
-print fibonacci(15)
+#print fibonacci(15)
 #>>> 610

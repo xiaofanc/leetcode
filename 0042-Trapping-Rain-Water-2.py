@@ -62,6 +62,29 @@ class Solution:
             stack.append(i)
         return res
 
+    def trap(self, height: List[int]) -> int:
+        # trapping water horizontally
+        stack = []
+        cur, water, w, h = 0, 0, 0, 0
+        while cur < len(height):
+            while stack and height[cur] > height[stack[-1]]:
+                # print("current height: ", height[cur])
+                # print("middle height: ", height[stack[-1]])
+                mid = stack.pop()
+                if not stack:
+                    break
+                prev = stack[-1]
+                w = cur - prev - 1
+                # print("previous height: ", height[prev])
+                # print("trapping water between: ", prev, mid, cur)
+                h = min(height[cur], height[prev]) - height[mid]
+                water += w*h           
+            stack.append(cur)
+            # print("stack:", stack)
+            cur += 1
+        
+        return water   
+
 """
     def trap(self, height: List[int]):
         print([index for index, bar in enumerate(height) if bar > 0])
