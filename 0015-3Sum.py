@@ -84,7 +84,68 @@ class Solution:
                     res.add((nums[i],nums[l],nums[r]))
                     l, r = l+1, r-1
         return res
-                    
+ 
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+
+        results = []
+        nums.sort()
+        #print(nums)
+
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i] != nums[i-1]:
+                self.twoSum(nums, i, results)
+        return results
+
+    def twoSum(self, nums, i, res):
+        lo, hi = i+1, len(nums)-1
+        while lo < hi:
+        s = nums[i] + nums[lo] + nums[hi]
+        if s < 0:
+            lo += 1
+        elif s > 0:
+            hi -= 1
+        else:
+            res.append([nums[i], nums[lo], nums[hi]])
+            #print(res)
+            lo += 1
+            hi -= 1
+            while lo < hi and nums[lo] == nums[lo-1]:
+                lo += 1
+                #print(lo)
+            while lo < hi and nums[hi] == nums[hi+1]:
+                hi -= 1
+                #print(hi)
+
+    def twoSum(self, nums, i, res):
+        seen = set()
+        j = i + 1
+        while j < len(nums):
+            complement = -nums[i]-nums[j]
+            if complement in seen:
+                res.append([nums[i], nums[j], complement])
+                while j+1 < len(nums) and nums[j] == nums[j+1]:
+                    j += 1
+            seen.add(nums[j])
+            j += 1  
+
+# without sort
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+
+        res, dups = set(), set()
+        seen = {}
+        for i, val1 in enumerate(nums):
+            if val1 not in dups:
+                dups.add(val1)
+                for j, val2 in enumerate(nums[i+1:]):
+                    complement = -val1-val2
+                    if complement in seen and seen[complement] == i:
+                        res.add(tuple(sorted((val1, val2, complement)))) # remove duplicates
+                        # print('res', res)
+                    seen[val2] = i
+        return res
 
 if __name__ == '__main__':
     s = Solution()

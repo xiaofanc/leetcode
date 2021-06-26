@@ -23,6 +23,24 @@ class Solution:
                     return True
         return False
 
+    # two pointers
+    def findTarget(self, root: TreeNode, k: int) -> bool:
+        nums = self.inorder(root)
+        lo, hi = 0, len(nums)-1
+        while lo < hi:
+            s = nums[lo] + nums[hi]
+            if s == k:
+                return True
+            elif s < k:
+                lo += 1
+            else:
+                hi -= 1               
+        return False
+          
+    def inorder(self, root):
+        if not root:
+            return []
+        return self.inorder(root.left) + [root.val] + self.inorder(root.right)
 
     def findTarget(self, root, k) :
         def tranversal(root):
@@ -40,7 +58,7 @@ class Solution:
                 l += 1
         return False
             
-
+    # hashset
     def findTarget(self, root, k) :
         seen = []
         def find(root, k, seen):
@@ -52,7 +70,8 @@ class Solution:
             return find(root.left, k, seen) or find(root.right, k, seen)
         return find(root, k, seen)
 
-
+    
+    # bfs + hashset
     def findTarget(self, root, k):
         if not root: return False
         bfs, s = [root], set()
