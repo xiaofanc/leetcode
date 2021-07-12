@@ -38,7 +38,9 @@ class Solution:
             nums1[k] = nums2[j]
             j -= 1
             k -= 1
-        return nums1
+        # return nums1
+
+
 
 s=Solution()
 print(s.merge([1,2,3,0,0,0],3,[2,5,6],3))

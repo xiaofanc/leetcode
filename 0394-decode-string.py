@@ -1,5 +1,6 @@
 """
 Given an encoded string, return its decoded string.
+Using stack to store the prevstr and nums before '['
 """
 class Solution: # Time: O(n)
     def decodeString(self, s: str) -> str:

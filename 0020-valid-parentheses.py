@@ -9,11 +9,11 @@ class Solution:
         for i in range(len(s)):
             if s[i] in dct:
                 stack.append(s[i])
-            elif stack and s[i] == dct[stack[-1]]:
-                stack.pop()
+            elif stack and s[i] == dct[stack[-1]]: 
+                stack.pop()  # stack must have values to pop
             else:
                 return False
-        return stack == []
+        return stack == [] #stack must be empty
 
 s=Solution()
 print(s.isValid("()[]{}"))

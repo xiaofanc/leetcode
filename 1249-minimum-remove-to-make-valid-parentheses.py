@@ -61,7 +61,28 @@ class Solution:
         print(s)
         return s[::-1]
         
-                
+
+    def minRemoveToMakeValid(self, s: str) -> str:
+        stack = []
+        remove = []
+
+        for idx, c in enumerate(s):
+            if c == "(":
+                stack.append((idx, c))
+            if c == ")":
+                if stack:
+                    stack.pop()
+                else:
+                    remove.append(idx)
+        # print(remove, s)
+        # check if "(" left in the stack
+        if stack:
+            for i in range(len(stack)):
+                remove.append(stack[i][0] )
+        
+        # print(remove, s)
+        return "".join(s[i] for i in range(len(s)) if i not in remove) 
+                        
 if __name__ == '__main__':
     s = Solution()
     print(s.minRemoveToMakeValid("lee(t(c)o)de)"))       # "lee(t(c)o)de"  
