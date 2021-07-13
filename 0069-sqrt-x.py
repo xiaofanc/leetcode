@@ -24,6 +24,22 @@ class Solution:
             print(left, right, mid)
         return right
 
+    def mySqrt(self, x: int) -> int:
+        if x == 0: return 0
+        l, r = 1, x
+        while l <= r:
+            mid = l + (r-l)//2
+            print(l, mid, r)
+            if mid * mid == x:
+                return mid
+            elif mid * mid > x:
+                r = mid - 1
+            else:
+                l = mid + 1
+        # outside the loop l > r
+        # we are rounding down the result, so r is returned
+        return r
+        
     #newton's method
     def mySqrt2(self, x: int) -> int:
         if x < 2:
