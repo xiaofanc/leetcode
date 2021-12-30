@@ -16,7 +16,7 @@ j = 4 nums[5](7) > nums[4](3) and 3   2+1: same length  {2,3,7}
 
 """
 
-class Solution: # time: O(n)
+class Solution: # time: O(n^2)
     def lengthOfLIS(self, nums: List[int]) -> int:
         if not nums:
             return 0

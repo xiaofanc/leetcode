@@ -63,9 +63,9 @@ class Solution:
 
 if __name__ == '__main__':
     T = TreeNode
-    t1 = T(1, T(2,T(5)), T(3))
+    t1 = T(1, T(2, T(4), T(5)), T(3))
     print(t1)
    
     s=Solution()
-    print(s.binaryTreePaths0(t1))
+    print(s.binaryTreePaths0(t1)) # ["1->3","1->2->5","1->2->4"]
     print(s.binaryTreePaths1(t1))    

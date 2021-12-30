@@ -30,13 +30,24 @@ DP[7] + s[7:10]: ("catsand")True + "dog" in wordDict -> True
 => DP[7] true since DP[4] + ["and"] in wordDict
 
 """
+def memo(f):
+    m = dict()
+    def wrapper(*args):
+        if args not in m:  # list is not hashable
+            m[args] = f(*args)
+        return m[args]
+    return wrapper
+
+
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         dp = [True] + [False]*len(s)
         for i in range(1, len(s)+1):
             dp[i] = any(dp[j] and s[j:i] in wordDict for j in range(i))
         return dp[-1]
-           
+    
+    # Time: O(n^3) 
+    # There are two nested loops, and substring computation at each iteration       
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         wordDict = set(wordDict)
         size = len(s)+1
@@ -48,7 +59,26 @@ class Solution:
                     dp[i] = True
                     break      # jump out of the j-loop
         return dp[size-1] 
+
+    # Time: O(n^3) 
+    # Size of recursion tree can go up to O(n^2) 
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        @memo
+        def wordBreakMemo(s, wordDict, start):
+            if start == len(s): # empty s
+                return True
+            for end in range(start+1, len(s)+1):
+                if s[start:end] in wordDict and wordBreakMemo(s, wordDict, end):
+                    return True
+            return False
         
+        return wordBreakMemo(s, frozenset(wordDict), 0) # frozenset is hashable, list is not
+
 if __name__ == '__main__':
     s = Solution()
     print(s.wordBreak("leetcode", ["leet", "code"]) == True)
+
+
+
+
+    
