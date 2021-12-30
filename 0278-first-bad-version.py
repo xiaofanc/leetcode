@@ -22,7 +22,24 @@ class Solution:
             else:
                 left = mid + 1
         return left
-                
+    
+    def firstBadVersion2(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return self.search(n)
+    
+    def search(self, n):
+        left, right = 1, n
+        while left < right:
+            mid = left + (right - left) // 2
+            if isBadVersion(mid):
+                right = mid
+            else:
+                left = mid + 1
+        return left
+
 if __name__ == '__main__':
     s = Solution()
     data = [0,0,1,1,1]
