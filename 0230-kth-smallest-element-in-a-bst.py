@@ -8,10 +8,10 @@
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         def inorder(node):
-            if not node: return []
+            if not node: return []  # important
             return inorder(node.left) + [node.val] + inorder(node.right)
         nums = inorder(root)
-        return nums[k-1]
+        return nums[k-1] # the first smallest number has index 0
 
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         stack = []

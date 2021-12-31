@@ -11,7 +11,7 @@ class Solution:
                 stack.append(s[i])
             elif stack and s[i] == dct[stack[-1]]: 
                 stack.pop()  # stack must have values to pop
-            else:
+            else: # stack is empty
                 return False
         return stack == [] #stack must be empty
 

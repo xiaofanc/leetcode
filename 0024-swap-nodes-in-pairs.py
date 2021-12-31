@@ -18,6 +18,24 @@ class Solution:
             n1.next=next_node
             pre = n1
         return dummy.next
-            
+        
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        # recursion
+        first_node = head
+        second_node = head.next
+        first_node.next = self.swapPairs(second_node.next)
+        second_node.next = first_node
+        
+        return second_node
+
 
 Given 1->2->3->4, you should return 2->1->4->3
+
+0 -> 1 -> 2 -> 3 -> 4
+p    n1   n2 next_node
+0 -> 2 -> 1 -> 3 -> 4
+          p    n1   n2  next_node
+0 -> 2 -> 1 -> 4 -> 3
+

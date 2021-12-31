@@ -11,7 +11,7 @@ If the current number is larger than the number in the double-ended queue,
 then pop the number in the double-ended queue, and append the current number. 
 Else append the number to the double-ended queue 
 
-The largest number is always in the beginningm in the double-ended queue 
+The largest number is always in the beginning in the double-ended queue 
 
 [1, 3, -1, -3, 5, 3, 6, 7]    k = 3
 a. Process the first k elements separately to initiate the deque.
@@ -76,7 +76,7 @@ class Solution:
             while q and n > nums[q[-1]]:
                 q.pop()
             q.append(i)
-            if q[0] == i-k:
+            if q[0] == i-k: # index is out of current window
                 q.popleft()
             if i >= k - 1:
                 res.append(nums[q[0]])
