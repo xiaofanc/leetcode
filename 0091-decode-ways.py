@@ -111,6 +111,27 @@ class Solution: # time - O(n)
             res += self.numDecodings(s[:-2])                
         return res
 
+
+class Solution: # Time: O(n), space: O(n)
+    @lru_cache(maxsize=None)
+    def recursiveWithMemo(self, index, s):
+        # If you reach the end of the string, return 1 for success
+        # an empty string can only be decoded as an empty string
+        if index == len(s):
+            return 1
+        # # If the string starts with a zero, it can't be decoded
+        if s[index] == '0':
+            return 0
+        if index == len(s)-1:
+            return 1
+        answer = self.recursiveWithMemo(index+1, s)
+        if int(s[index:index+2]) <= 26:
+            answer += self.recursiveWithMemo(index+2, s)
+        return answer
+    
+    def numDecodings(self, s: str) -> int:
+        return self.recursiveWithMemo(0, s)
+
 if __name__ == '__main__':
     s = Solution()
     print(s.numDecodings("226"))  # 3
