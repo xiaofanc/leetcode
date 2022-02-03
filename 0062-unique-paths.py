@@ -33,13 +33,7 @@ class Solution:
         return row[-1]
 
     def uniquePaths(self, m: int, n: int) -> int:
-        matrix = [[0]*m for _ in range(n)]
-        print(matrix)
-        for i in range(m):
-            matrix[0][i] = 1
-        for j in range(n):
-            matrix[j][0] = 1
-        print(matrix)
+        matrix = [[1]*m for _ in range(n)]
         for i in range(1,m):
             for j in range(1,n):
                 matrix[j][i] = matrix[j][i-1] + matrix[j-1][i]
