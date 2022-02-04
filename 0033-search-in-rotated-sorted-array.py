@@ -82,7 +82,28 @@ class Solution:
             return search(0, pivot_index)
         else: # search right part of pivot
             return search(pivot_index, n-1)              
-                    
+
+    def search(self, nums: List[int], target: int) -> int:
+        low, high = 0, len(nums)-1
+        
+        def helper(nums, target, l, r):
+            if l > r:
+                return -1
+            mid = l + (r-l)//2
+            if nums[mid] == target:
+                return mid
+            if nums[mid] >= nums[l]: # left is sorted
+                if nums[l] <= target and target < nums[mid]:
+                    return helper(nums, target, l, mid-1)
+                else:
+                    return helper(nums, target, mid+1, r)
+            else: # right is sorted
+                if nums[mid] < target and target <= nums[r]:
+                    return helper(nums, target, mid+1, r)
+                else:
+                    return helper(nums, target, l, mid-1)
+                
+        return helper(nums, target, low, high)                    
 
 if __name__ == '__main__':
     s = Solution()

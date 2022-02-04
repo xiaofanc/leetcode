@@ -67,6 +67,35 @@ class Solution:
         
         return -1
 
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        lower = higher = -1
+        
+        def searchLowerBound(nums, target, low, high):
+            if low > high:
+                return -1
+            middle = low + (high-low)//2
+            if nums[middle] == target and (middle == 0 or nums[middle-1] < target):
+                return middle
+            if target <= nums[middle]:
+                return searchLowerBound(nums, target, low, middle-1)
+            else:
+                return searchLowerBound(nums, target, middle+1, high)
+
+        def searchHigherBound(nums, target, low, high):
+            if low > high:
+                return -1
+            middle = low + (high-low)//2
+            if nums[middle] == target and (middle == len(nums)-1 or nums[middle+1] > target):
+                return middle
+            if target < nums[middle]:
+                return searchHigherBound(nums, target, low, middle-1)
+            else:
+                return searchHigherBound(nums, target, middle+1, high)
+        
+        lower = searchLowerBound(nums, target, 0, len(nums)-1)
+        higher = searchHigherBound(nums, target, 0, len(nums)-1)
+        return [lower, higher]
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.searchRange([1], 1)) # [0,0]
