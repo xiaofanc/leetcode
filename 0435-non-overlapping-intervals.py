@@ -8,6 +8,7 @@ class Solution:
         # since we prefer to keep the non-overlapping intervals with the small end
         intervals_sorted = sorted(intervals, key = lambda x: x[1])
         # interval.sort(key = lambda x: x[1])
+        # stack to store maximum nonoverlapping intervals
         stack = [intervals_sorted[0]]
         
         for i in range(1, len(intervals_sorted)):

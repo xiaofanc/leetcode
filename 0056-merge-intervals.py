@@ -1,6 +1,8 @@
 # Given a collection of intervals, merge all overlapping intervals.
 
 class Solution:
+    # Time: O(nlogn), space: O(n)
+    # runtime is dominated by the O(nlogn) complexity of sorting
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         merged = []
         intervals.sort()

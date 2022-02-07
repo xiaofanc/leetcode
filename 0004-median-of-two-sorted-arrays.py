@@ -3,7 +3,8 @@
 # O(log (m+n)).
 # 2 pointers
 
-class Solution:
+class Solution: 
+    # time: O(m+n)
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         l = len(nums1) + len(nums2)
         nums = []
