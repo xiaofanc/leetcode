@@ -22,11 +22,14 @@ class ListNode:
         else: return cls(nums[0], cls.from_list(nums[1:]))
 
 class Solution:
+    # time: O(nlogk), space: O(k)
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         heap = []
         for i, node in enumerate(lists):
             if node != None:
                 # add the first node of lists, random() makes tuples comparable 
+                # If two elements have the same val, the next tuple items will be compared:
+                # random() to make it unique
                 heappush(heap, (node.val, random(), node))
                 # use list as binary search tree
         curr = prehead = ListNode(0)
@@ -39,6 +42,23 @@ class Solution:
                 heappush(heap,(node.val, random(), node))
         return prehead.next
 
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        heap = []
+        for i, node in enumerate(lists):
+            if node:
+                heapq.heappush(heap, (node.val, i, node))
+        cur = prehead = ListNode(0)
+        while heap:
+            val, i, node = heapq.heappop(heap)
+            cur.next = ListNode(val)
+            if node.next:
+                node = node.next
+                # recycling tie-breaker i guarantees uniqueness
+                # print(node.val, i)
+                heapq.heappush(heap, (node.val, i, node))
+            cur = cur.next
+        return prehead.next
+        
 if __name__ == '__main__':
     s = Solution()
     l1 = ListNode.from_list([1,4,5])
