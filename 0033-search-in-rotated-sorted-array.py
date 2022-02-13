@@ -21,16 +21,35 @@ class Solution:
             # stop point
             if nums[mid] == target:
                 return mid
-            if nums[mid] > nums[end]: #left part of mid is sorted
+            if nums[mid] > nums[end]: #right part of mid is sorted
                 if target > nums[end] and target < nums[mid]:
                     end = mid - 1
                 else: # target > nums[mid] or target <= nums[end]
                     start = mid + 1
-            else: # right side of mid is sorted
+            else: # left side of mid is sorted
                 if target <= nums[end] and target > nums[mid]:
                     start = mid + 1
                 else:
                     end = mid - 1
+        return -1
+
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums)-1
+        while l <= r:
+            m = l + (r - l) // 2
+            if nums[m] == target:
+                return m
+            # find the sorted window
+            if nums[m] >= nums[l]:
+                if nums[l] <= target < nums[m]:
+                    r = m - 1
+                else:
+                    l = m + 1
+            else:
+                if nums[m] < target <= nums[r]:
+                    l = m + 1
+                else:
+                    r = m - 1
         return -1
 
 
