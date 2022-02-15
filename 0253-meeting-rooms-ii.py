@@ -46,7 +46,22 @@ class Solution:
         return rooms
                 
 
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        intervals = sorted(intervals, key = lambda x: x[0])
+        # arrage meeting rooms based on the start time
+        # need to know when the meeting ends first
+        minheap = []
+        heapq.heappush(minheap, intervals[0][1])
+        for interval in intervals[1:]:
+            # if next meeting start time is later than the smallest end time, then pop the min and update the end time
+            if minheap[0] <= interval[0]:
+                heapq.heappop(minheap)
+            # else need to add a new room
+            heapq.heappush(minheap, interval[1])
+        return len(minheap)
+
 if __name__ == '__main__':
     s = Solution()
     print(s.minMeetingRooms([[1,5],[8,9],[8,9]])) #2
     print(s.minMeetingRooms([[0,30],[5,10],[15,20]])) #2
+

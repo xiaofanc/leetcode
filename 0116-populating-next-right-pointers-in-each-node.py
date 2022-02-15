@@ -25,8 +25,6 @@ class Solution:
         if root.right:     # 2 conditions
             if root.next:
                 root.right.next = root.next.left
-            else:
-                root.right.next = None
         self.connect(root.left)
         self.connect(root.right)
         return root
