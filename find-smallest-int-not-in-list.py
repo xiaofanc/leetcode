@@ -1,7 +1,7 @@
 
 
 class Solution:
-	def smallestposint(self, lists):
+	def smallestposint0(self, lists):
 		lists = [x for x in lists if x > 0]
 		lists = sorted(lists)
 		print(lists)
@@ -19,5 +19,5 @@ class Solution:
 if __name__ == '__main__':
 	s = Solution()
 	print(s.smallestposint([1,3,6,4,1,2])) # 5
-	print(s.smallestposint([-1,-2])) # 1
-	print(s.smallestposint([1,2,3])) # 4
+	# print(s.smallestposint([-1,-2])) # 1
+	# print(s.smallestposint([1,2,3])) # 4
