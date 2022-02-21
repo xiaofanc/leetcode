@@ -1,3 +1,8 @@
+"""
+Keep all records, tuple is immutable.
+Find the last record.
+
+"""
 class MyHashMap:
 
     def __init__(self):

@@ -1,4 +1,6 @@
 """
+Note that we have to keep track of nodes already processed because, as pointed out earlier, we can have cycles because of the random pointers.
+    
 # Definition for a Node.
 class Node:
     def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
@@ -28,6 +30,26 @@ class Solution:
             cur0, cur1 = cur0.next, cur1.next
         return prehead1.next
 
+
+class Solution:
+    def __init__(self):
+        self.visited = {}
+        
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if not head:
+            return head
+        
+        if head in self.visited:
+            return self.visited[head]
+        
+        node = Node(head.val, None, None)
+        self.visited[head] = node
+        
+        node.next = self.copyRandomList(head.next)
+        node.random = self.copyRandomList(head.random)
+        
+        return node
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.copyRandomList([[7,null],[13,0],[11,4],[10,2],[1,0]]))

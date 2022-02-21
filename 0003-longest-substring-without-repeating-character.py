@@ -21,6 +21,19 @@ class Solution:
         return ans
 
     def lengthOfLongestSubstring(self, s: str) -> int:
+        low = 0
+        ans = 0
+        chars = dict()
+        
+        for high in range(len(s)):
+            shi = s[high]
+            if shi in chars:
+                low = max(chars[shi]+1, low)
+            chars[shi] = high
+            ans = max(ans, high-low+1)
+        return ans
+        
+    def lengthOfLongestSubstring(self, s: str) -> int:
         ans, lo, hi = 0, 0, 0
         charidx = {}
         for hi in range(len(s)):
