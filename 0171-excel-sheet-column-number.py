@@ -16,6 +16,15 @@ class Solution:
     def titleToNumber(self, s: str) -> int:
         return reduce(lambda x, y : x * 26 + y, [ord(c) - 64 for c in list(s)])
 
+    def titleToNumber(self, columnTitle: str) -> int:
+        map = {chr(i+65): i+1 for i in range(26)}
+        # print(map)
+        res = 0
+        for i in range(len(columnTitle)):
+            curchar = columnTitle[len(columnTitle)-i-1]
+            res += map[curchar] * (26**i)
+        return res
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.titleToNumber("A"))  #1
