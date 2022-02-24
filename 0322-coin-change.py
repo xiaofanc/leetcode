@@ -39,7 +39,7 @@ class Solution:  # time O(n*k) k=# of coins  n=0-amount
             if options != []:
                 dp[amt] = min(options) + 1
         return dp[-1]
-
+        
     def coinChange(self, coins: List[int], amount: int) -> int:
         dp = [float('inf')] * (amount+1)
         dp[0] = 0

@@ -35,6 +35,16 @@ class Solution:
             else:   # when p, q are in both sides, then root is the lowest common ancestor
                 return node.val              
             
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if p.val > q.val: p, q = q, p
+        node = root
+        while node:
+            if node.val < p.val:
+                node = node.right
+            elif p.val <= node.val <= q.val:
+                return node
+            else:
+                node = node.left
 
 if __name__ == '__main__':
     T = TreeNode

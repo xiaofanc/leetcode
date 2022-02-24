@@ -17,7 +17,22 @@ class Solution:
         right = self. lowestCommonAncestor(root.right, p, q)
         return root if (left and right) else (left or right)
 
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def dfs(node):
+            if not node:
+                return node
+            if node == p or node == q:
+                return node
+            l = dfs(node.left)
+            r = dfs(node.right)
+            if l and r: return node
+            return l or r
+        return dfs(root)
+
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.lowestCommonAncestor([3,5,1,6,2,0,8,null,null,7,4],5,1))
+    print(s.lowestCommonAncestor([3,5,1,6,2,0,8,null,null,7,4],5,1)) # 3
+    
+
+
