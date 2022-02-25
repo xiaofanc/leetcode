@@ -19,6 +19,7 @@ class ListNode:
         else: return cls(nums[0], cls.from_list(nums[1:]))
     
 class Solution:
+    # Time/Space: O(max(m, n))
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         carry=0
         cur = prehead = ListNode('')
@@ -33,6 +34,23 @@ class Solution:
             carry, vcur = divmod(v1+v2+carry, 10)
             cur.next = ListNode(vcur)
             cur = cur.next
+        return prehead.next
+
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        carry = 0
+        prehead = cur = ListNode(0)
+        while l1 or l2 or carry:
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
+            # print("S->", S)
+            # carry = S // 10, out = S % 10
+            carry, out = divmod(val1 + val2 + carry, 10)
+                
+            cur.next = ListNode(out)
+            cur = cur.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
         return prehead.next
 
 if __name__ == '__main__':
