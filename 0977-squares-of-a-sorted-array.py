@@ -1,4 +1,7 @@
+"""
+iterate over the negative part in reverse, and the positive part in the forward direction.
 
+"""
 
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
@@ -6,11 +9,12 @@ class Solution:
         res = [0] * len(nums)
         for i in range(r, -1, -1):
             if abs(nums[l]) <= abs(nums[r]):
-                res[i] = abs(nums[r]) * abs(nums[r])
+                square = abs(nums[r]) 
                 r -= 1
             else:
-                res[i] = abs(nums[l]) * abs(nums[l])
+                square = abs(nums[l]) 
                 l += 1
+            res[i] = square * square
         return res
 
 if __name__ == "__main__":

@@ -15,8 +15,11 @@ class Solution:
             i += 2
         return num == 0
 
+    # binary search: O(logn)
     def isPerfectSquare(self, num: int) -> bool:
-        left, right = 0, num
+        if num < 2:
+            return True
+        left, right = 2, num // 2
         while left <= right:
             mid = (left + right) // 2
             if mid*mid == num:

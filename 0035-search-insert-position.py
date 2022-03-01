@@ -5,20 +5,18 @@ class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums)-1
         count = 0
-        print()
         while l <= r:
             mid = (l + r) // 2
             count += 1
             if count == 30:
                 return
-            print(l, r, mid)
             if nums[mid] == target:
                 return mid
             elif nums[mid] > target:
                 r = mid -1
             else:
                 l = mid +1
-        return l
+        return l # the first number that larger than target
 
     def searchInsert(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums)

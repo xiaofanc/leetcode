@@ -1,3 +1,6 @@
+"""
+sqrt(x) <= x//2 for x >= 4
+"""
 from math import e, log
 class Solution:
     def mySqrt0(self, x: int) -> int:
@@ -7,7 +10,7 @@ class Solution:
         right = left + 1
         return left if right*right > x else right
         
-    #binary search
+    #binary search: O(logn)
     def mySqrt1(self, x: int) -> int:
         if x < 2:
             return x
@@ -22,7 +25,7 @@ class Solution:
             else:
                 return mid
             print(left, right, mid)
-        return right
+        return right # right is the first number less than sqrt(x)
 
     def mySqrt(self, x: int) -> int:
         if x == 0: return 0

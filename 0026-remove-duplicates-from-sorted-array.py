@@ -12,7 +12,7 @@ class Solution:
         print(nums)
         return len(nums)
 
-    
+    # two pointers
     def removeDuplicates1(self, nums: List[int]) -> int:
         slow = 0
         for fast in range(1,len(nums)):
@@ -34,6 +34,15 @@ class Solution:
         print(nums)
         return len_
         
+    def removeDuplicates(self, nums: List[int]) -> int:
+        slow, fast = 0, 0
+        while fast < len(nums)-1:
+            if nums[fast] != nums[fast+1]:
+                nums[slow] = nums[fast]
+                slow += 1
+            fast += 1
+        nums[slow] = nums[fast]
+        return slow+1        
   
             
 s=Solution()

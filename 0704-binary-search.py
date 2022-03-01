@@ -1,6 +1,7 @@
 
 
 class Solution:
+    # Time: O(logn), space: O(1)
     def search(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums)-1
         while left <= right:
