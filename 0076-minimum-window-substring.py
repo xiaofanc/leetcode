@@ -10,7 +10,8 @@ If the window is not desirable any more, we repeat step2 onwards.
 """
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        
+        if len(s) < len(t):
+            return ""    
         # count for each unique characters
         dict_t = collections.Counter(t)
         
@@ -36,7 +37,8 @@ class Solution:
             if c in dict_t and window_counts[c] == dict_t[c]:
                 formed += 1
             # try and contract the window it ceases to be 'desirable'
-            while l <= r and formed == required:
+            # while l <= r and formed == required:
+            while formed == required:
                 c = s[l]
                 if r-l+1 < ans[0]:
                     ans = (r-l+1, l, r)
@@ -54,6 +56,7 @@ class Solution:
 if __name__ == '__main__':
 	s = Solution()
 	print(s.minWindow("ADOBECODEBANC", "ABC")) # "BANC"
+    print(s.minWindow("a", "b")) # ""
 
 
 
