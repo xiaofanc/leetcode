@@ -41,36 +41,29 @@ while (T <= B && L <= R):
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         if matrix == []: return []
-        r0, rn, c0, cn = 0, len(matrix)-1, 0, len(matrix[0])-1
+        m, n = len(matrix), len(matrix[0])
+        left, right, up, down = 0, n-1, 0, m-1 
         res = []
-        while rn >= r0 and cn >= c0:
-            if rn == r0: # only have one row
-                for i in range(c0, cn+1):
-                    res.append(matrix[r0][i])
-                    print(res)
-            elif c0 == cn: # only have one column
-                for i in range(r0, rn+1):
-                    res.append(matrix[i][c0])
-                    print(res)
+        while left <= right and up <= down:
+            if left == right:    # [[1],[2],[3]]
+                for i in range(up, down+1):
+                    res.append(matrix[i][left])
+            elif up == down:     # [1,2,3]
+                for j in range(left, right+1):
+                    res.append(matrix[up][j])
             else:
-                for i1 in range(c0, cn): # topmost row
-                    res.append(matrix[r0][i1])
-                    print(res)
-                for i2 in range(r0, rn): # rightmost col
-                    res.append(matrix[i2][cn])
-                    print(res)
-                for i3 in range(cn, c0, -1): # bottommost row
-                    res.append(matrix[rn][i3])
-                    print(res)
-                for i4 in range(rn, r0, -1): # leftmost col
-                    res.append(matrix[i4][c0])
-                    print(res)
-            #print(res)
-            r0 += 1
-            rn -= 1
-            c0 += 1
-            cn -= 1
-            print(r0, rn, c0, cn)
+                for j in range(left, right):
+                    res.append(matrix[up][j])
+                for i in range(up, down):
+                    res.append(matrix[i][right])
+                for j in range(right, left, -1):
+                    res.append(matrix[down][j])
+                for i in range(down, up, -1):
+                    res.append(matrix[i][left])
+            left += 1
+            right -= 1
+            up += 1
+            down -= 1
         return res
                 
 
@@ -122,3 +115,7 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.spiralOrder([[1,2,3],[4,5,6],[7,8,9]]))  # [1,2,3,6,9,8,7,4,5]
+    print(s.spiralOrder([[1,2,3]]))  # [1,2,3]
+    print(s.spiralOrder([[1],[2],[3]]))  # [1,2,3]
+
+
