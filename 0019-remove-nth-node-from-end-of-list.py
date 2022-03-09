@@ -18,24 +18,28 @@ class ListNode:
         if nums == []: return None
         else: return cls(nums[0], cls.from_list(nums[1:]))
 
+"""
+fast首先走n + 1步 ，为什么是n+1呢，因为只有这样同时移动的时候slow才能指向删除节点的上一个节点.
+"""
 
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         # two pointers with n numbers apart
-        # when first pointer reaches the end, the second pointer points to the previous node of the to-be-deleted node
+        # when fast pointer reaches the end, the slow pointer points to the previous node of the to-be-deleted node
         # create the dummy head in case head needs to be deleted
         dummy = ListNode(0)
         dummy.next = head
-        second = first = dummy
-        # advance the first pointer until the gap is n nodes apart
-        # first needs to go n+1 steps
+        slow = fast = dummy
+        # advance the fast pointer until the gap is n nodes apart
+        # fast needs to go n+1 steps
         for i in range(n+1):
-            first = first.next
-        while first:
-            first = first.next
-            second = second.next
-        # second pointer points to the node before the to-be-deleted node
-        second.next = second.next.next 
+            fast = fast.next
+        # fast和slow同时移动，直到fast指向末尾
+        while fast:
+            fast = fast.next
+            slow = slow.next
+        #fast 走到结尾后，slow的下一个节点为倒数第N个节点
+        slow.next = slow.next.next 
         return dummy.next
 
 if __name__ == '__main__':
