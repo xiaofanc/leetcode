@@ -28,7 +28,7 @@ one reaches E, the other also reaches E
 
 class Solution:
     def detectCycle(self, head: ListNode) -> ListNode:
-        slow, fast = head, head
+        slow, fast = head, head  # fast = head.next does not work
         # find the intersection if there is a cycle
         while fast and fast.next: # while slow != fast does not work
             slow = slow.next

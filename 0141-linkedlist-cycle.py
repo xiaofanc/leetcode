@@ -42,6 +42,17 @@ class Solution:
                 return True
         return False
 
+    def detectCycle(self, head: ListNode) -> ListNode:
+        visited = set()
+        node = head
+        while node:
+            if node in visited:
+                return True
+            else:
+                visited.add(node)
+                node = node.next
+        return False
+
 s=Solution()
 l=ListNode.from_list([1,2,3,4,5,6,7])
 print(l)
