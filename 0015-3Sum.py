@@ -9,6 +9,7 @@
 from typing import List
 #a+b+c = 0
 class Solution:
+    # Time: O(n^(k-1)) = O(n^2)
     def threeSum0(self, nums: List[int]) -> List[List[int]]:
         res = []
         nums.sort()
@@ -37,7 +38,7 @@ class Solution:
         if len(nums) < 3:
             return []
         nums.sort()
-        res = set()
+        res = set()  # 去重
         for i, v in enumerate(nums[:-2]):
             if i >= 1 and v == nums[i-1]:
                 continue
@@ -46,7 +47,7 @@ class Solution:
                 if x not in d:
                     d.add(-v-x)
                 else:
-                    res.add((v, -v-x, x))
+                    res.add((v, -v-x, x))  # list is unhashable
         return list(map(list, res))  # trasform to list
 
 
@@ -54,7 +55,7 @@ class Solution:
         res = set()
         nums.sort()
         for i, v in enumerate(nums[:-2]):
-            if i > 0 and nums[i] == nums[i-1]:
+            if i > 0 and nums[i] == nums[i-1]: # make it faster
                 continue
             d = set()
             # find target -v using 2 sum
@@ -65,7 +66,6 @@ class Solution:
                 else:
                     res.add((v, x, -v-x))
         return res
-                    
 
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = set()
