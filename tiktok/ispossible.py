@@ -12,6 +12,8 @@ One series of moves that transforms the starting point to the target is:
 (1, 2) -> (3, 2)
 (3, 2) -> (3, 5)
 
+constraints: sx, sy, tx, ty > 1
+
 approach:
 if tx > ty: the previous coordinate must be (tx-ty, ty)
 if tx < ty: the previous coordinate must be (tx, ty-tx)
