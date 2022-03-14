@@ -21,7 +21,7 @@ if tx < ty: the previous coordinate must be (tx, ty-tx)
 
 class Solution:
 	# Time limit exceed
-    def reachingPoints(self, sx: int, sy: int, tx: int, ty: int) -> bool:
+    def reachingPoints(self, sx, sy, tx, ty):
         if sx > tx or sy > ty:
             return False
         if sx == tx:
@@ -37,7 +37,8 @@ class Solution:
         else:
             return False
 
-    def reachingPoints(self, sx: int, sy: int, tx: int, ty: int) -> bool:
+    # Time O(log(max(tx, ty)))
+    def reachingPoints(self, sx, sy, tx, ty):
         if sx > tx or sy > ty:
             return False
         if sx == tx:
@@ -55,7 +56,7 @@ class Solution:
         else:
             return False
 
-    def reachingPoints(self, sx: int, sy: int, tx: int, ty: int) -> bool:
+    def reachingPoints(self, sx, sy, tx, ty):
         while tx >= sx and ty >= sy:
             if tx == sx:
                 return (ty-sy) % sx == 0
