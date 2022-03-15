@@ -1,4 +1,5 @@
 """
+LC 2055
 Given a string s consisting of stars "*" and bars "|", an array of starting indices startIndex and an array of ending indices endIndex, determine the number of stars between any two bars within the substring between the two indices, inclusive, note that in this problem, indexing starts at 1.
 
 s = '|**|*|*'

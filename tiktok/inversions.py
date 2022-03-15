@@ -47,6 +47,7 @@ class Solution:
 		res = 0
 		n = len(arr)
 		visited_curr = set()
+		# total = large numbers before i * small numbers after i
 		for i in range(1, n-1):
 			if arr[i] in visited_curr:
 				continue 
