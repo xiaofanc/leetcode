@@ -131,7 +131,7 @@ class Solution:
             seen.add(nums[j])
             j += 1  
 
-# without sort
+    # without sort
     def threeSum(self, nums: List[int]) -> List[List[int]]:
 
         res, dups = set(), set()

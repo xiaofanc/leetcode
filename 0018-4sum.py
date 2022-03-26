@@ -88,7 +88,42 @@ class Solution:
         nums.sort()
         return kSum(nums, target, 4)
                     
-                
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        
+        def ksum(nums, target, k):
+            res = []
+            if not nums:
+                return res
+            if len(nums) < k:
+                return res
+            avgv = target // k
+            if nums[0] > avgv or nums[-1] < avgv:
+                return res
+            if k == 2:
+                return twosum(nums, target)
+            
+            for i in range(len(nums)):
+                if i > 0 and nums[i-1] == nums[i]:
+                    continue
+                for subset in ksum(nums[i+1:], target-nums[i], k-1):
+                    res.append([nums[i]] + list(subset))
+            return res
+            
+        
+        def twosum(nums, target):
+            dct = {}
+            res = set()
+            for i in range(len(nums)):
+                if target-nums[i] in dct:
+                    res.add((nums[i], target-nums[i]))
+                else:
+                    dct[nums[i]] = i
+            return res
+        
+        nums.sort()
+        return ksum(nums, target, 4)
+                        
 if __name__ == '__main__':
 	s = Solution()
 	print(s.fourSum([-2,-1,-1,1,1,2,2], 0)) # [[-2,-1,1,2],[-1,-1,1,1]]
