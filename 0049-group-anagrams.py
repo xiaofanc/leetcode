@@ -19,3 +19,4 @@ class Solution:
 if __name__ == '__main__':
 	s = Solution()
 	print(s.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))  # [["bat"],["nat","tan"],["ate","eat","tea"]]
+    print(s.groupAnagrams(["",""]))  # [["",""]]
