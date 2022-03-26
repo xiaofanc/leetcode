@@ -36,3 +36,6 @@ class Solution:
 
 s = Solution()
 print(s.reverseWords("the sky is     blue")) # "blue is sky the"
+
+
+
