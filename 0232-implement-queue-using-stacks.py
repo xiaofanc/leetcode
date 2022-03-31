@@ -18,6 +18,9 @@ class MyQueue:
         if self.stack_out:
             return self.stack_out[-1]
         return self.stack_in[0]
+        # ans = self.pop()
+        # self.stack_out.append(ans)
+        # return ans
 
     def empty(self) -> bool:
         return not self.stack1 and not self.stack2 
