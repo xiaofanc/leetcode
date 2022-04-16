@@ -8,32 +8,38 @@ class TreeNode:
 		return 'N(%s, %s, %s)' % (self.val, self.left or '', self.right or '')
 
 class Solution:
-    def sumOfLeftLeaves(self, root: TreeNode) -> int:
-        if not root:
-            return 0
-        elif root.left and not any([root.left.left, root.left.right]):
-            return root.left.val + self.sumOfLeftLeaves(root.right)
-        else:
-            return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
-        
-        
-    def sumOfLeftLeaves(self, root: TreeNode) -> int:
-        if not root:
-            return 0
-        res = 0
-        s = [root]
-        while s:
-            tmp = s.pop()
-            if tmp.left:
-                s.append(tmp.left)
-                if not tmp.left.left and not tmp.left.right:
-                    res += tmp.left.val
-            if tmp.right:
-                s.append(tmp.right)
-        return res
+	def sumOfLeftLeaves(self, root: TreeNode) -> int:
+		if not root:
+			return 0
+		elif root.left and not any([root.left.left, root.left.right]):
+			return root.left.val + self.sumOfLeftLeaves(root.right)
+		else:
+			# sum up the left leaves of left subtree and right subtree
+			return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
+		
+		
+	def sumOfLeftLeaves(self, root: TreeNode) -> int:
+		if not root:
+			return 0
+		res = 0
+		s = [root]
+		while s:
+			tmp = s.pop()
+			if tmp.left:
+				s.append(tmp.left)
+				if not tmp.left.left and not tmp.left.right:
+					res += tmp.left.val
+			if tmp.right:
+				s.append(tmp.right)
+		return res
 
 if __name__ == '__main__':
 	T = TreeNode
-	root = T(1, T(2), T(3,T(4)))
+	# root = T(1, T(2), T(3,T(4)))
+	root2 = T(3, T(9), T(20, T(15, T(3), T(6)), T(7)))
 	s = Solution()
-	print(s.sumOfLeftLeaves(root) == 6)
+	# print(s.sumOfLeftLeaves(root) == 6)
+	print(s.sumOfLeftLeaves(root2) == 12)  # 9+3
+
+
+
