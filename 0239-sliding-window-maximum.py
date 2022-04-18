@@ -33,6 +33,9 @@ deque = [6], 7              max = [3, 3, 5, 5, 6]
 deque = [7]                 max = [3, 3, 5, 5, 6, 7]
 res = [3, 3, 5, 5, 6, 7] (always append the head of the deque)
 
+单调队列:
+主要思想是队列没有必要维护窗口里的所有元素，只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队列里的元素数值是由大到小的。
+
 """
 from collections import deque
 from typing import List
@@ -69,15 +72,20 @@ class Solution:
             res.append(nums[deq[0]])
         return res
 
+    # Time: O(n)
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        # queue stores the index of the max number in the sliding window
         q = deque() # store index
         res = []
         for i, n in enumerate(nums):
+            # if the current number is larger than the number in the queue, then pop
             while q and n > nums[q[-1]]:
                 q.pop()
             q.append(i)
-            if q[0] == i-k: # index is out of current window
+            # check if the index of the max num is out of current window
+            if q[0] == i-k:
                 q.popleft()
+            # when to get max num from queue
             if i >= k - 1:
                 res.append(nums[q[0]])
         return res

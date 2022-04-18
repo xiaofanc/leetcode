@@ -1,4 +1,6 @@
 """
+我们要用小顶堆，因为要统计最大前k个元素，只有小顶堆每次将最小的元素弹出，最后小顶堆里积累的才是前k个最大元素。
+
 Time for heap:
 heappush/heappop: logn
 heapify: O(nlogn)
@@ -27,7 +29,6 @@ class Solution:
             if len(heap) > k: 
                 heapq.heappop(heap) # pop the small values
         
-
         # convert the heap into array - O(klogk)
         res = [0] * k
         for i in range(k-1, -1, -1):
