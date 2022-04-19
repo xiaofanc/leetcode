@@ -1,5 +1,24 @@
+"""
+each number can be used infinity times.
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+
+Time: O(N^(T/M)+1)
+Let N be the number of candidates, T be the target value, and M be the minimal value among the candidates.
+As we illustrated before, the execution of the backtracking is unfolded as a DFS traversal in a n-ary tree. The total number of steps during the backtracking would be the number of nodes in the tree.
+
+Here we provide a loose upper bound on the number of nodes.
+First of all, the fan-out of each node would be bounded to N - the total number of candidates.
+The maximal depth of the tree, would be T/M, where we keep on adding the smallest element to the combination.
+As we know, the maximal number of nodes in N-ary tree of T/M height is N^(T/M)+1.
+
+Space: O(T/M)
+We implement the algorithm in recursion, which consumes some additional memory in the function call stack.
+The number of recursive calls can pile up to T/M, where we keep on adding the smallest element to the combination. As a result, the space overhead of the recursion is O(T/M).
+In addition, we keep a combination of numbers during the execution, which requires at most T/M as well.
+"""
 class Solution:
-    # time complexity is linear to the number of nodes of the execution tree
+    # time complexity: O(N^(T/M)+1)
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         n = len(candidates)
