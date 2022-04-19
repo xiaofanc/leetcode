@@ -4,6 +4,9 @@ Given an integer array nums of unique elements, return all possible subsets (the
 Input: nums = [1,2,3]
 Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 
+Time: O(N×2^N) to generate all subsets and then copy them into output list.
+Space: O(N)
+We are using O(N) space to maintain comb
 """
 class Solution:
     # DFS
