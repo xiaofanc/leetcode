@@ -1,6 +1,6 @@
 """
 each number can be used once.
-Input: candidates = [10,1,2,7,6,1,5], target = 8
+Input: candidates = [10,1,2,7,6,6,1,5], target = 8
 Output: 
 [
 [1,1,6],
@@ -9,11 +9,14 @@ Output:
 [2,6]
 ]
 
-Time: O(2^N)
+Time: O(Nx2^N)
 In the worst case, our algorithm will exhaust all possible combinations from the input array, which in total amounts to 2^N as we discussed before.
+copy them into output list will take O(N).
+
 sorting will take O(NlogN).
 
 Space: O(N)
+The recursion call stack occupies at most O(N) space. 
 """
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
@@ -55,7 +58,7 @@ class Solution:
                 res.append(comb[:])
                 return
             for i in range(start, n):
-                # if the first number of the subset is checked before, then skip
+                # if the number of the subset is checked before, then skip
                 if i > start and candidates[i] == candidates[i-1]:
                     continue
                 comb.append(candidates[i])
@@ -77,7 +80,7 @@ class Solution:
                 res.append(comb)
                 return
             for i in range(start, n):
-                # if the first number of the subset is checked before, then skip
+                # if the number of the subset is checked before, then skip
                 if i > start and candidates[i] == candidates[i-1]:
                     continue
                 dfs(i+1, remain-candidates[i], comb+[candidates[i]])
@@ -86,6 +89,6 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.combinationSum2([10,1,2,7,6,1,5], 8))
+    print(s.combinationSum2([10,1,2,7,6,6,1,5], 8))
 
 
