@@ -1,5 +1,14 @@
 """
 Think of it as moving back up in the tree to explore the next branch. When we moved down of one level, we swapped 2 elements (1st swap in the code). So when we go back up in the tree we need to swap these 2 elements back to their original order at the parent node level (2nd swap in the code). This is called backtracking = done exploring a branch, let's go back up and explore more branches.
+
+Time: O(N x N!)
+since you will have N! permutation. And, for each permutation, you run exact N recursive call to reach it. So it should be N x N! 
+
+Space: O(N!)
+N! solutions.
+
+nums[:]
+# it is a deep copy. nums refers to the same address, and every time a permutation is there, need to copy the current nums, and backtracking will modify the nums in the same address
 """
 
 
