@@ -5,6 +5,12 @@ The word can be constructed from letters of sequentially adjacent cells, where a
 Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
 Output: true
 
+Time: O(MxNx(4^L))
+for each direction, run recursive call L times
+
+Space: O(L)
+The main consumption of the memory lies in the recursion call of the backtracking function. The maximum length of the call stack would be the length of the word. Therefore, the space complexity of the algorithm is O(L).
+
 """
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
