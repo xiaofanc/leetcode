@@ -9,7 +9,7 @@ Output:
 Time: O(N⋅N!)
 It takes N steps to generate a single permutation. Since there are in total N! possible permutations, at most it would take us N⋅N! steps to generate all permutations, simply assuming that there is no overlapping effort (which is not true).
 
-Space: O(N)
+Space: O(N!)
 """
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
