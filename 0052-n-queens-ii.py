@@ -4,7 +4,8 @@ To make sure we only place 1 queen per column, we will use a set. Whenever we pl
 For each square on a given diagonal, the difference between the row and column indexes (row - col) will be constant 0.
 For each square on a given anti-diagonal, the sum of the row and column indexes (row + col) will be constant.
 In the same way we had a set for the column, we should also have a set for both the diagonals and anti-diagonals.
-Time complexity: O(N!)
+Time complexity: O(N!), O(NxN!)?
+Space: O(N^2)
 """
 
 

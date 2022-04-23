@@ -1,7 +1,20 @@
+"""
+A queen can be attacked if another queen is on the same row, column, diagonal, or anti-diagonal
+Methodology:
+- Place the Queen row by row
+- For each row, check which cols can be selected
+- use three sets to check if the position is fine, if okay, add to the board
+- continue to explore next row
+- backtracking to explore next col
+
+Time: O(NxN!)
+It taks N steps to generate the board. There are N(N-2)(N-4)... ~= N! solutions.
+
+Space: O(N^2)
+
+"""
 class Solution:
-    # Time: O(n!), Space: O(n^2)
     def solveNQueens(self, n: int) -> List[List[str]]:
-        # A queen can be attacked if another queen is on the same row, column, diagonal, or anti-diagonal
                 
         def create_board(board):
             res = []
