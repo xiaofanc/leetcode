@@ -74,7 +74,33 @@ class Solution:
                 
         dfs(0, target, [])
         return res       
+
+    # Time: O(2^(T/M))
+    def combinationSum3(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        n = len(candidates)
         
+        def backtrack(index, comb, total):
+            if total > target or index >= n:
+                return
+            if total == target:
+                res.append(comb[:])
+                return
+            
+            # option 1: add current value
+            comb.append(candidates[index])
+            backtrack(index, comb, total+candidates[index])
+            comb.pop()
+            # option 2: do not add current value
+            backtrack(index+1, comb, total)
+            
+        backtrack(0, [], 0)
+        return res
+
 if __name__ == '__main__':
     s = Solution()
     print(s.combinationSum([2,3,6,7], 7)) # [[2,2,3],[7]]
+
+
+
+    
