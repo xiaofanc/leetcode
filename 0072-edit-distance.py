@@ -37,10 +37,25 @@ class Solution:
                 dp[i][j] = dp[i-1][j-1] if word1[i-1] == word2[j-1] else min(dp[i-1][j-1], dp[i][j-1], dp[i-1][j])+1
         return dp[-1][-1]
 
+    def minDistance(self, word1: str, word2: str) -> int:
+        w, h = len(word1)+1, len(word2)+1
+        dp = [[float("inf")] * w for _ in range(h)]
+        
+        for j in range(w):
+            dp[h-1][j] = len(word1) - j
+        for i in range(h):
+            dp[i][w-1] = len(word2) - i
+
+        for i in range(h-2, -1, -1):
+            for j in range(w-2, -1, -1):
+                if word1[j] == word2[i]:
+                    dp[i][j] = dp[i+1][j+1]
+                else:
+                    dp[i][j] = 1+min(dp[i+1][j+1], dp[i][j+1], dp[i+1][j])
+        return dp[0][0]
         
 if __name__ == '__main__':
     s = Solution()
     print(s.minDistance("horse","ros") == 3)
 
 
-    
