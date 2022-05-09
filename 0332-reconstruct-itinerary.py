@@ -9,7 +9,7 @@ You may assume all tickets form at least one valid itinerary. You must use all t
 Time: O(|E|^d)
 where ∣E∣ is the number of total flights and d is the maximum number of flights from an airport.
 
-Sapce: O(∣V∣+∣E∣)
+Space: O(∣V∣+∣E∣)
 dct takes the space ∣V∣+∣E∣
 recursion maximum depth = the number of flights in the input = |E|
 
