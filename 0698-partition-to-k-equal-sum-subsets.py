@@ -5,8 +5,8 @@ We are traversing the entire array for each subset (once we are done with one su
 
 Time: O(kx2^n)
 Space: O(n)
-We have used an extra array of size NN to mark the already used elements.
-And the recursive tree makes at most NN calls at one time, so the recursive stack also takes O(N) space.
+We have used an extra array of size N to mark the already used elements.
+And the recursive tree makes at most N calls at one time, so the recursive stack also takes O(N) space.
 
 """
 
