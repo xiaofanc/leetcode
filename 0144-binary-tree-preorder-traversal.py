@@ -14,6 +14,7 @@ Space complexity : depending on the tree structure, we could keep up to the enti
 #         self.right = None
 
 class Solution:
+    # BFS
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
             return 
@@ -25,7 +26,7 @@ class Solution:
             if node.left:  stack.append(node.left)
         return ans
 
-    # 统一写法
+    # 统一写法 BFS
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if not root: return []
         stack, res = [root], []
@@ -43,6 +44,7 @@ class Solution:
                 res.append(node.val)
         return res
 
+    # DFS - recursion
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
         def helper(cur):
@@ -54,6 +56,7 @@ class Solution:
         helper(root)
         return res
 
+    # DFS - recursion
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right) if root else []
 

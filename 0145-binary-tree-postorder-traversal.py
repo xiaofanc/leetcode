@@ -14,7 +14,7 @@ Space complexity : depending on the tree structure, we could keep up to the enti
 #         self.right = right
 
 class Solution:
-    # similar to preorder traversal
+    # similar to preorder traversal - BFS
     # pop -> 中右左 -> reverse -> 左右中(postorder)
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
@@ -28,7 +28,7 @@ class Solution:
         res = res[::-1]
         return res
 
-    # 统一写法
+    # 统一写法 BFS
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if not root: return []
         stack, res = [root], []
@@ -46,9 +46,11 @@ class Solution:
                 res.append(node.val)
         return res
 
+    # DFS - recursion
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         return  self.postorderTraversal(root.left) + self.postorderTraversal(root.right) +[root.val] if root else []
 
+    # DFS - recursion
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
         def helper(cur):

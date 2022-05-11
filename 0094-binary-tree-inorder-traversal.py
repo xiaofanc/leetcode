@@ -11,7 +11,7 @@
 #         self.right = None
 
 class Solution:
-    # 统一写法
+    # 统一写法 BFS
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if not root: return []
         stack, res = [root], []
@@ -29,6 +29,7 @@ class Solution:
                 res.append(node.val)
         return res
 
+    # DFS
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         ans, stack = [], []
         def pushleft(node):
@@ -40,14 +41,16 @@ class Solution:
         while stack:
             top = stack.pop()   # node.left
             ans.append(top.val) # node.left
-            # if node has right subtree, output the right substree first
+            # if node has right subtree, output the right substree
             # if node does not have right subtree, then it will output the parent node
             pushleft(top.right) # node.left.right
         return ans
-            
+    
+    # DFS - recursion
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right) if root else []        
-        
+    
+    # DFS - recursion
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
         def helper(cur):
