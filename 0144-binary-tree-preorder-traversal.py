@@ -1,5 +1,5 @@
 """
-node + left + right
+preorder: node + left + right
 
 Time complexity : we visit each node exactly once, thus the time complexity is O(N), where N is the number of nodes, i.e. the size of tree.
 
@@ -45,4 +45,3 @@ if __name__ == '__main__':
 
 
 
-    

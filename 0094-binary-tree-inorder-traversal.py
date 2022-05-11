@@ -22,8 +22,23 @@ class Solution:
             pushleft(top.right) # node.left.right
         return ans
             
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right) if root else []        
         
-        
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        def helper(cur):
+            if not cur:
+                return
+            helper(cur.left)
+            res.append(cur.val)
+            helper(cur.right)
+        helper(root)
+        return res
+
 if __name__ == '__main__':
     s = Solution()
     print(s.inorderTraversal([1,null,2,3]) == [1, 3, 2])
+
+
+    
