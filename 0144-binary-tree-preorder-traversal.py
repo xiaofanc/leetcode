@@ -24,7 +24,25 @@ class Solution:
             if node.right: stack.append(node.right)
             if node.left:  stack.append(node.left)
         return ans
-                
+
+    # 统一写法
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root: return []
+        stack, res = [root], []
+        while stack:
+            top = stack[-1]
+            if top != None:
+                node = stack.pop()
+                if node.right: stack.append(node.right)
+                if node.left: stack.append(node.left)
+                stack.append(node)
+                stack.append(None)
+            else:
+                stack.pop() # pop the None
+                node = stack.pop()
+                res.append(node.val)
+        return res
+
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
         def helper(cur):

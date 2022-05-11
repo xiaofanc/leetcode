@@ -1,3 +1,8 @@
+"""
+我们以中序遍历为例，在二叉树中提到说使用栈的话，无法同时解决访问节点（遍历节点）和处理节点（将元素放进结果集）不一致的情况。
+那我们就将访问的节点放入栈中，把要处理的节点也放入栈中但是要做标记。
+如何标记呢，就是要处理的节点放入栈之后，紧接着放入一个空指针作为标记。 这种方法也可以叫做标记法。
+"""
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -6,6 +11,24 @@
 #         self.right = None
 
 class Solution:
+    # 统一写法
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root: return []
+        stack, res = [root], []
+        while stack:
+            top = stack[-1]
+            if top != None:
+                node = stack.pop()
+                if node.right: stack.append(node.right)
+                stack.append(node)
+                stack.append(None) # 标记要处理的节点
+                if node.left: stack.append(node.left)
+            else:
+                stack.pop() # pop the None
+                node = stack.pop()
+                res.append(node.val)
+        return res
+
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         ans, stack = [], []
         def pushleft(node):

@@ -28,6 +28,24 @@ class Solution:
         res = res[::-1]
         return res
 
+    # 统一写法
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root: return []
+        stack, res = [root], []
+        while stack:
+            top = stack[-1]
+            if top != None:
+                node = stack.pop()
+                stack.append(node)
+                stack.append(None)
+                if node.right: stack.append(node.right)
+                if node.left: stack.append(node.left)
+            else:
+                stack.pop() # pop the None
+                node = stack.pop()
+                res.append(node.val)
+        return res
+
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         return  self.postorderTraversal(root.left) + self.postorderTraversal(root.right) +[root.val] if root else []
 
