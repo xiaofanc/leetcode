@@ -1,3 +1,10 @@
+"""
+只有当左右孩子都为空的时候，才说明遍历的最低点了。如果其中一个孩子为空则不是最低点.
+Python list implementation is array-based. pop(0) removes the first item from the list and it requires to shift left len(lst) - 1 items to fill the gap.
+deque() implementation uses a doubly linked list. No matter how large the deque, deque.popleft() requires a constant (limited above) number of operations.
+
+"""
+
 class TreeNode:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -37,6 +44,20 @@ class Solution:
                     stack.append((depth+1, c))
         return mindepth
 
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        level = deque([(root, 1)])
+        while level:
+            node, depth = level.popleft()  # O(1), list pop(0) is O(N)
+            if not node.left and not node.right:
+                return depth
+            if node.left:
+                level.append((node.left, depth+1))
+            if node.right:
+                level.append((node.right, depth+1))
+        return 0
+
     #BFS
     def minDepth(self, root: TreeNode) -> int:
         if not root:          # root is None, return 0
@@ -57,7 +78,7 @@ class Solution:
     def minDepth(self, root):
         if root == None:
             return 0
-        if root.left==None or root.right==None:
+        if not root.left or not root.right:
             return self.minDepth(root.left)+self.minDepth(root.right)+1
         return min(self.minDepth(root.right),self.minDepth(root.left))+1
 
