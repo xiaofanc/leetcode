@@ -1,5 +1,5 @@
 """
-connect nodes for a complete binary tree
+connect nodes for a binary tree
 
 # Definition for a Node.
 class Node:
@@ -9,6 +9,7 @@ class Node:
         self.right = right
         self.next = next
 """
+
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
@@ -21,16 +22,21 @@ class Solution:
         return root
 
     def connect(self, root: 'Node') -> 'Node':
-        if not root: return None
-        if root.left: 
-            root.left.next = root.right
-        if root.right:     # 2 conditions
-            if root.next:
-                root.right.next = root.next.left
-        self.connect(root.left)
-        self.connect(root.right)
+        if not root:
+            return root
+        res = []
+        def helper(node, depth):
+            if len(res) == depth:
+                res.append([])
+            # if res[depth] != []:              does not work
+            #     res[depth][-1].next = node
+            res[depth].append(node)
+            if node.left:
+                helper(node.left, depth+1)
+            if node.right:
+                helper(node.right, depth+1)
+        helper(root, 0)
+        for lst in res:
+            for i in range(len(lst)-1):
+                lst[i].next = lst[i+1]
         return root
-
-if __name__ == '__main__':
-    s = Solution()
-    print(s.connect([1,2,3,4,5,6,7]))
