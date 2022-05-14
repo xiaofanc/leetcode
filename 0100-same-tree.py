@@ -8,14 +8,6 @@ class TreeNode:
         return 'N(%s, %s, %s)' % (self.val, self.left or '', self.right or '')
 
 class Solution:
-    #wrong
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        def helper(root):
-            if not root:
-                return ['Null']
-            return helper(root.left) + [root.val] + helper(root.right)
-        return helper(p) == helper(q)
-
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         def helper(root1, root2):
             if not root1 and not root2:
