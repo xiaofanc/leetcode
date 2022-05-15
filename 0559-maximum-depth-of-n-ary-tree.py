@@ -25,3 +25,22 @@ class Solution:
         for child in root.children:
             depth = max(self.maxDepth(child), depth)
         return depth + 1
+
+    def maxDepth(self, root: 'Node') -> int:
+        res = 0
+        if not root:
+            return res
+        def getDepth(node):
+            if not node:
+                return 0
+            depth = 0
+            for child in node.children:
+                depth = max(depth, getDepth(child))
+            return depth + 1
+        res = getDepth(root)
+        return res
+
+
+
+
+        
