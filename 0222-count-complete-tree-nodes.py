@@ -12,6 +12,15 @@ class Solution:
         else:
             return 1+self.countNodes(root.left)+self.countNodes(root.right)
 
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        level = [root]
+        cnt = 0
+        while level:
+            cnt += len(level)
+            level = [c for node in level for c in (node.left, node.right) if c]
+        return cnt
 
     def countNodes(self, root: TreeNode) -> int:
         def depth(node):
