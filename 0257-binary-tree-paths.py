@@ -60,6 +60,24 @@ class Solution:
             return ans
         return dfs(root)
 
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        if not root:
+            return []
+        res = []
+        def backtrack(node, path):
+            if not node.left and not node.right:
+                path = [str(c) for c in path]
+                res.append('->'.join(path))
+                return
+            children = []
+            if node.left: children.append(node.left)
+            if node.right: children.append(node.right)
+            for child in children:
+                path.append(child.val)
+                backtrack(child, path)
+                path.pop()
+        backtrack(root, [root.val])
+        return res
 
 if __name__ == '__main__':
     T = TreeNode
