@@ -37,6 +37,19 @@ class Solution(object):
         
         return check(root)[1]
 
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def getHeight(node):
+            if not node:
+                return 0
+            lefth = getHeight(node.left)
+            righth = getHeight(node.right)
+            if lefth == -1 or righth == -1 or abs(lefth-righth) > 1:
+                return -1
+            return 1 + max(getHeight(node.left), getHeight(node.right))
+        if getHeight(root) == -1:
+            return False
+        return True
+        
 if __name__ == '__main__':
     T = TreeNode
     root = T(1, T(2), T(3,T(4)))

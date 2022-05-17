@@ -22,6 +22,22 @@ class Solution:
             level = [c for node in level for c in (node.left, node.right) if c]
         return cnt
 
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        l, r = root.left, root.right
+        left, right = 0, 0
+        while l:
+            l = l.left
+            left += 1
+        while r:
+            r = r.right
+            right += 1
+        if left == right:
+            return 2**(left+1) - 1
+        
+        return self.countNodes(root.left) + self.countNodes(root.right) + 1
+        
     def countNodes(self, root: TreeNode) -> int:
         def depth(node):
             return 0 if node == None else 1+depth(node.left)
