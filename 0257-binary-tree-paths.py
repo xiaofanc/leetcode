@@ -65,18 +65,37 @@ class Solution:
             return []
         res = []
         def backtrack(node, path):
+            path.append(node.val)
             if not node.left and not node.right:
                 path = [str(c) for c in path]
                 res.append('->'.join(path))
                 return
-            children = []
-            if node.left: children.append(node.left)
-            if node.right: children.append(node.right)
-            for child in children:
-                path.append(child.val)
-                backtrack(child, path)
+            if node.left: 
+                backtrack(node.left, path)
                 path.pop()
-        backtrack(root, [root.val])
+            if node.right:
+                backtrack(node.right, path)
+                path.pop()               
+                
+        backtrack(root, [])
+        return res
+
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        if not root:
+            return []
+        res = []
+        def dfs(node, path):
+            path += str(node.val)
+            if not node.left and not node.right:
+                res.append(path)
+                return
+            if node.left: 
+                dfs(node.left, path + "->") 
+                # why no backtracking?
+            if node.right:
+                dfs(node.right, path + "->")
+                
+        dfs(root, "")
         return res
 
 if __name__ == '__main__':
