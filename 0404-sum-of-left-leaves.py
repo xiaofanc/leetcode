@@ -1,7 +1,7 @@
 """
-首先要注意是判断左叶子，不是二叉树左侧节点.
-因为题目中其实没有说清楚左叶子究竟是什么节点，那么我来给出左叶子的明确定义：如果左节点不为空，且左节点没有左右孩子，那么这个节点的左节点就是左叶子.
-
+首先要注意是判断左叶子，不是二叉树左侧节点。
+因为题目中其实没有说清楚左叶子究竟是什么节点，那么我来给出左叶子的明确定义：如果左节点不为空，且左节点没有左右孩子，那么这个节点的左节点就是左叶子。
+平时我们解二叉树的题目时，已经习惯了通过节点的左右孩子判断本节点的属性，而本题我们要通过节点的父节点判断本节点的属性。
 """
 class TreeNode:
 	def __init__(self, val, left=None, right=None):
@@ -22,7 +22,17 @@ class Solution:
 			# sum up the left leaves of left subtree and right subtree
 			return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
 		
-		
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        leftvalue = self.sumOfLeftLeaves(root.left)
+        rightvalue = self.sumOfLeftLeaves(root.right)
+        
+        midvalue = 0
+        if root.left and not root.left.left and not root.left.right:
+            midvalue = root.left.val
+        return leftvalue + rightvalue + midvalue
+
 	def sumOfLeftLeaves(self, root: TreeNode) -> int:
 		"""
 		1. we use a list to store nodes and res to store sum of left leaves
