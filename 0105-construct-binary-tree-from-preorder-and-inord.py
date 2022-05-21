@@ -8,13 +8,14 @@
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         #find the root based on preorder traversal 
-        #then find the root in inorder traversal
+        #then find the index of the root in inorder traversal
         #Left is the left subtree, and right is the right subtree
         if inorder == []:
             return None
         pivot = preorder[0]  # root
         i = inorder.index(pivot)
         node = TreeNode(pivot)
+        # split lists based on root, length should be same
         node.left  = self.buildTree(preorder[1:i+1], inorder[0:i])
         node.right = self.buildTree(preorder[i+1:], inorder[i+1:])   
         return node
