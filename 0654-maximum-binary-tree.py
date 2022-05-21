@@ -18,7 +18,21 @@ class Solution:
                 n.right = traverse(subnums[i+1:])
                 return n
         return traverse(nums)
-        
+
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        if not nums:
+            return None
+        maxval = max(nums)
+        idx = nums.index(maxval)
+        root = TreeNode(maxval)
+        root.left = self.constructMaximumBinaryTree(nums[:idx])
+        root.right = self.constructMaximumBinaryTree(nums[idx+1:])
+        return root
+
 if __name__ == '__main__':
     s = Solution()
     print(s.constructMaximumBinaryTree([3,2,1,6,0,5]))
+
+
+
+    
