@@ -12,10 +12,35 @@ class Solution:
         #Left is the left subtree, and right is the right subtree
         if inorder == []:
             return None
-        pivot = preorder[0]
+        pivot = preorder[0]  # root
         i = inorder.index(pivot)
         node = TreeNode(pivot)
         node.left  = self.buildTree(preorder[1:i+1], inorder[0:i])
         node.right = self.buildTree(preorder[i+1:], inorder[i+1:])   
         return node
+
+
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+
+        def traversal(preorder, inorder):
+            if preorder == [] and inorder == []:
+                return None         
+            # step 1: get the root from preorder list   
+            val = preorder[0]
+            root = TreeNode(val)
+            # step 2: find the root in the inorder list
+            idx = inorder.index(val)
+            # step 4: split preorder and inorder list into two parts based on root
+            # step 5: get the left and right subtree for the root
+            root.left = traversal(preorder[1:idx+1], inorder[:idx])
+            root.right = traversal(preorder[idx+1:], inorder[idx+1:])
+            return root
+        
+        return traversal(preorder, inorder)
+
+
+
+
+
+
         
