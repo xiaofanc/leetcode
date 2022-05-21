@@ -28,6 +28,8 @@ class Solution:
             # step 1: get the root from preorder list   
             val = preorder[0]
             root = TreeNode(val)
+            if len(preorder) == 1:
+                return root
             # step 2: find the root in the inorder list
             idx = inorder.index(val)
             # step 4: split preorder and inorder list into two parts based on root
