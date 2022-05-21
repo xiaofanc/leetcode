@@ -33,6 +33,7 @@ class Solution:
             root = TreeNode(val)
             if len(postorder) == 1:
                 return root
+                
             # find the index of the root in the inorder
             idx = inorder.index(val)
             # split inorder list
@@ -40,8 +41,12 @@ class Solution:
             # split postorder list
             postorder = postorder[:-1]
             left2, right2 = postorder[:len(left1)], postorder[len(left1):]
-            root.left = traversal(left1, left2)
+
+            root.left = traversal(left1, left2) 
             root.right = traversal(right1, right2)
+
+            # root.left = traversal(inorder[:idx], postorder[:idx])
+            # root.right = traversal(inorder[idx+1:], postorder[idx:-1])
             return root
         return traversal(inorder, postorder)
                 
