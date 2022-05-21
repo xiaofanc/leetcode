@@ -44,6 +44,30 @@ class Solution:
         else:
             return t1 or t2
 
+    # iterative, replace root1
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root1:
+            return root2
+        if not root2:
+            return root1
+        que = deque()
+        que.append(root1)
+        que.append(root2)
+        while que:
+            node1, node2 = que.popleft(), que.popleft()
+            node1.val += node2.val
+            if node1.left and node2.left:
+                que.append(node1.left)
+                que.append(node2.left)
+            if node1.right and node2.right:
+                que.append(node1.right)
+                que.append(node2.right)
+            if not node1.left and node2.left:
+                node1.left = node2.left
+            if not node1.right and node2.right:
+                node1.right = node2.right
+        return root1
+
 if __name__ == '__main__':
     T = TreeNode
     r1 = T(1, T(2), T(3,T(4)))
