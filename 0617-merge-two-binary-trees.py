@@ -9,7 +9,6 @@ class TreeNode:
 
 class Solution:
     def mergeTrees(self, r1: TreeNode, r2: TreeNode) -> TreeNode:
-        
         if r1 == None and r2 == None:
             return None
         elif r1 == None and r2 != None:
@@ -23,6 +22,7 @@ class Solution:
             return node
     
     def mergeTrees(self, r1: TreeNode, r2: TreeNode) -> TreeNode:
+        # reuse r1
         if r1 == None and r2 == None:
             return None
         elif r1 == None and r2 != None:
