@@ -33,6 +33,7 @@ class Solution:
             # step 2: find the root in the inorder list
             idx = inorder.index(val)
             # step 4: split preorder and inorder list into two parts based on root
+                      # 中序数组大小一定跟前序数组大小是相同的
             # step 5: get the left and right subtree for the root
             root.left = traversal(preorder[1:idx+1], inorder[:idx])
             root.right = traversal(preorder[idx+1:], inorder[idx+1:])

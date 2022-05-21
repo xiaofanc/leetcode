@@ -33,13 +33,14 @@ class Solution:
             root = TreeNode(val)
             if len(postorder) == 1:
                 return root
-                
+
             # find the index of the root in the inorder
             idx = inorder.index(val)
             # split inorder list
             left1, right1 = inorder[:idx], inorder[idx+1:]
             # split postorder list
             postorder = postorder[:-1]
+            # 中序数组大小一定跟前序数组大小是相同的
             left2, right2 = postorder[:len(left1)], postorder[len(left1):]
 
             root.left = traversal(left1, left2) 
