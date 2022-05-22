@@ -30,6 +30,7 @@ class Solution:
         return mindiff
 
     # inorder traversal - recursion
+    # 既然是搜索树，它中序遍历就是有序的
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
         nodes = []
         mindiff = float("inf")

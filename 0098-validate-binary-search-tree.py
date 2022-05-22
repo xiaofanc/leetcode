@@ -46,6 +46,7 @@ class Solution:
         return helper(root, lower, upper)
 
     # inorder traversal
+    # 既然是搜索树，它中序遍历就是有序的
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         maxval = -float("inf")
         
@@ -63,6 +64,21 @@ class Solution:
             return left and right
         
         return helper(root)
+
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        prev = TreeNode(None)
+        def traversal(node):
+            nonlocal prev
+            if not node:
+                return True
+            left = traversal(node.left)
+            if prev.val != None and node.val <= prev.val:
+                return False
+            else:
+                prev = node
+            right = traversal(node.right)
+            return left and right
+        return traversal(root)
 
     # stack
     def isValidBST(self, root: TreeNode) -> bool:
