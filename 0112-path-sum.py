@@ -51,6 +51,21 @@ class Solution:
             return root.val == sum
         return self.hasPathSum(root.left, sum-root.val) or self.hasPathSum(root.right, sum-root.val)
 
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root:
+            return False
+        def traversal(node, target):
+            if not node.left and not node.right and target == 0:
+                return True
+            if node.left:
+                if traversal(node.left, target-node.left.val):
+                    return True
+            if node.right:
+                if traversal(node.right, target-node.right.val):
+                    return True
+        if traversal(root, targetSum-root.val):
+            return True
+        return False
 
 if __name__ == '__main__':
 	T = TreeNode
@@ -59,3 +74,6 @@ if __name__ == '__main__':
 
 	s = Solution()
 	print(s.hasPathSum(root, 22))
+
+
+    
