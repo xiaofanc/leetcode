@@ -8,7 +8,8 @@ The left subtree of a node contains only nodes with keys less than the node's ke
 The right subtree of a node contains only nodes with keys greater than the node's key.
 Both the left and right subtrees must also be binary search trees.
 
-#DFS
+不能单纯的比较左节点小于中间节点，右节点大于中间节点就完事了。
+我们要比较的是 左子树所有节点小于中间节点，右子树所有节点大于中间节点。
 
 """
 
@@ -34,6 +35,34 @@ class Solution:
             return True
         return helper(root)
 
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        lower, upper = -float("inf"), float("inf")
+        def helper(node, lower, upper):
+            if not node:
+                return True
+            if node.val > lower and node.val < upper:
+                return helper(node.left, lower, node.val) and helper(node.right, node.val, upper)
+            return False
+        return helper(root, lower, upper)
+
+    # inorder traversal
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        maxval = -float("inf")
+        
+        def helper(node):
+            nonlocal maxval
+            if not node:
+                return True
+            left = helper(node.left)
+            # 中序遍历，验证遍历的元素是不是从小到大
+            if maxval >= node.val:
+                return False
+            else:
+                maxval = node.val
+            right = helper(node.right)
+            return left and right
+        
+        return helper(root)
 
     # stack
     def isValidBST(self, root: TreeNode) -> bool:
@@ -52,6 +81,23 @@ class Solution:
             stack.append((root.right, v, upper))
         return True
 
+    # inorder traversal
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        stack = []
+        cur = root
+        prev = None
+        while cur or stack:
+            if cur: # 指针来访问节点，访问到最底层
+                stack.append(cur)
+                cur = cur.left
+            else: # 逐一处理节点
+                cur = stack.pop()
+                # 比较当前节点和前节点的值的大小
+                if prev and prev.val >= cur.val:
+                    return False
+                prev = cur
+                cur = cur.right
+        return True
 
 if __name__ == '__main__':
     s = Solution()
