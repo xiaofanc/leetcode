@@ -1,3 +1,10 @@
+"""
+给出二叉 搜索 树的根节点，该树的节点值各不相同，请你将其转换为累加树（Greater Sum Tree），使每个节点 node 的新值等于原树中大于或等于 node.val 的值之和。
+那么有序的元素如果求累加呢？
+
+其实这就是一棵树，大家可能看起来有点别扭，换一个角度来看，这就是一个有序数组[2, 5, 13]，求从后到前的累加数组，也就是[20, 18, 13]，是不是感觉这就简单了。
+从树中可以看出累加的顺序是右中左，所以我们需要反中序遍历这个二叉树，然后顺序累加就可以了。
+"""
 class TreeNode:
     def __init__(self, val, left = None, right = None):
         self.val = val
@@ -19,7 +26,21 @@ class Solution:
             trans(node.left)
         trans(root)
         return root
-        
+
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        pre = None
+        def traversal(node):
+            nonlocal pre
+            if not node:
+                return node
+            traversal(node.right)
+            if pre:
+                node.val += pre.val
+            pre = node
+            traversal(node.left)
+        traversal(root)
+        return root
+                
 
 if __name__ == '__main__':
     s = Solution()
