@@ -40,8 +40,25 @@ class Solution:
             traversal(node.left)
         traversal(root)
         return root
-                
 
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+        stack = []
+        cur = root
+        prev = None
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur = cur.right # 反中序遍历
+            else:
+                cur = stack.pop()
+                if prev:
+                    cur.val += prev.val
+                prev = cur
+                cur = cur.left
+        return root
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.convertBST([5,2,13]) == [18,20,13]) 
