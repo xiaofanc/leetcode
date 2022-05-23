@@ -1,3 +1,15 @@
+"""
+在有序树里，如果判断一个节点的左子树里有p，右子树里有q呢？
+其实只要从上到下遍历的时候，cur节点是数值在[p, q]区间中则说明该节点cur就是最近公共祖先了。
+和236不同，普通二叉树求最近公共祖先需要使用回溯，从底向上来查找，二叉搜索树就不用了，因为搜索树有序（相当于自带方向），那么只要从上向下遍历就可以了。
+
+确定单层递归的逻辑：
+在遍历二叉搜索树的时候就是寻找区间[p->val, q->val]（注意这里是左闭又闭）
+那么如果 cur->val 大于 p->val，同时 cur->val 大于q->val，那么就应该向左遍历（说明目标区间在左子树上）。
+如果 cur->val 小于 p->val，同时 cur->val 小于 q->val，那么就应该向右遍历（目标区间在右子树）。
+剩下的情况，那么cur就是最近公共祖先了，直接返回cur。
+
+"""
 class TreeNode:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -9,6 +21,7 @@ class TreeNode:
 
 
 class Solution:
+    # recursion
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         parent_node = root.val
         p_val = p.val
@@ -21,6 +34,7 @@ class Solution:
         else:   # when p, q are in both sides, then root is the lowest common ancestor
             return root.val
     
+    # iterative
     def lowestCommonAncestor1(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         node = root
         p_val = p.val
