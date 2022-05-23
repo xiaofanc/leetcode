@@ -45,7 +45,23 @@ class Solution:
             # if node does not have right subtree, then it will output the parent node
             pushleft(top.right) # node.left.right
         return ans
-    
+
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return root
+        stack = []
+        cur = root
+        res = []
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur = cur.left
+            else:
+                cur = stack.pop()
+                res.append(cur.val)
+                cur = cur.right
+        return res
+            
     # DFS - recursion
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right) if root else []        
