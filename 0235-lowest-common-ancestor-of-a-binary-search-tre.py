@@ -21,6 +21,14 @@ class TreeNode:
 
 
 class Solution:
+    # 普通二叉树求公共祖先
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root in (None, p, q):
+            return root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        return root if left and right else left or right
+
     # recursion
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         parent_node = root.val
@@ -31,7 +39,8 @@ class Solution:
             return self.lowestCommonAncestor(root.left, p, q)
         elif p_val > parent_node and q_val > parent_node:
             return self.lowestCommonAncestor(root.right, p, q)
-        else:   # when p, q are in both sides, then root is the lowest common ancestor
+        # when p, q are in both sides, then root is the lowest common ancestor
+        else:   
             return root.val
     
     # iterative
