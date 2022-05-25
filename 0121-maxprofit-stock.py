@@ -31,8 +31,19 @@ class Solution:
         for price in prices[1:]:
             minprice = min(minprice, price)
             maxprofit = max(maxprofit, price-minprice)
-            print(minprice, maxprofit)
         return maxprofit
-    
+
+    def maxProfit(self, prices: List[int]) -> int:
+        l, r = 0, 1
+        maxp = 0
+        while r < len(prices):
+            profit = prices[r] - prices[l]
+            if profit > 0:
+                maxp = max(maxp, profit)
+            else:
+                l = r
+            r += 1
+        return maxp
+            
 s=Solution()
 print(s.maxProfit([7,1,5,3,6,4]))
