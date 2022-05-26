@@ -48,6 +48,23 @@ class Solution:
         dfs(0, k, n, [])
         return res
 
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        res = []
+        def backtrack(start, comb):
+            if len(comb) == k:
+                if sum(comb) == n:
+                    res.append(comb[:])
+                return
+            if sum(comb) > n:  # 剪枝
+                return
+            last = 9-(k-len(comb))+1 # 剪枝
+            for i in range(start, last+1):
+                comb.append(i)
+                backtrack(i+1, comb)
+                comb.pop()
+        backtrack(1, [])
+        return res
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.combinationSum3(3, 9)) # [[1,2,6],[1,3,5],[2,3,4]]
