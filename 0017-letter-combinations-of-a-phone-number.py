@@ -26,9 +26,12 @@ class Solution:
         smap = {2:"abc", 3:"def", 4:"ghi", 5:"jkl", 6:"mno", 7:"pqrs", 8:"tuv", 9:"wxyz"}
         if not digits:
             return []
-        
+
+        # index就是用来遍历digits的, 而77.combinations中index表示从startIndex开始遍历的
+        # 每一个数字代表的是不同集合，也就是求不同集合之间的组合， 而77是求同一个集合中的组合
         def backtrack(index, path):
             if len(path) == len(digits):
+            # if index == len(digits):
                 combinations.append("".join(path))
                 return
             
@@ -48,14 +51,14 @@ class Solution:
         n = len(digits)
         if n == 0:
             return res
-        def backtrack(start, comb):
+        def backtrack(index, comb):
             if len(comb) == n:
                 res.append(comb[:])
                 return
-            d = digits[start]
+            d = digits[index]
             for l in mapping[d]:
                 comb += l
-                backtrack(start+1, comb)
+                backtrack(index+1, comb)
                 comb = comb[:-1]
         backtrack(0,"")
         return res
