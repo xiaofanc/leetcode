@@ -1,3 +1,8 @@
+"""
+Given the sorted rotated array nums that may contain duplicates, return the minimum element of this array.
+Input: nums = [2,2,2,0,1]
+Output: 0
+"""
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         l, r = 0, len(nums)-1
@@ -7,10 +12,10 @@ class Solution:
             # print(l, mid, r)
             if nums[mid] == nums[r]:
                 r -= 1
-            # right side is non-decreasing
+            # right side is non-decreasing, search left part
             elif nums[mid] < nums[r]:
                 r = mid
-            # left side is non-decreasing
+            # left side is non-decreasing, search right part
             else:
                 l = mid + 1
         return nums[l]
