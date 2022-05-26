@@ -20,6 +20,21 @@ class Solution:
                 l = mid + 1
         return nums[l]
 
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums)-1
+        while l <= r:
+            if nums[l] < nums[r]:
+                return nums[l]
+            
+            m = (l+r) // 2
+            if nums[m] == nums[l]:
+                l += 1
+            elif nums[m] > nums[l]: # left is sorted
+                l = m + 1
+            else:
+                r = m
+        return nums[m]
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.findMin([2,2,2,0,1]))
