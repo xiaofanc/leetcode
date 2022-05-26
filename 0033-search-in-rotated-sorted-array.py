@@ -12,46 +12,27 @@ Your algorithm's runtime complexity must be in the order of O(log n).
 
 class Solution: 
     # one pass solution
-    # compare with middle and end to find out which part to search
-    def search(self, nums: List[int], target: int) -> int:
-        # modified binary search
-        start, end = 0, len(nums)-1
-        while start <= end:
-            mid = (start + end)//2
-            # stop point
-            if nums[mid] == target:
-                return mid
-            if nums[mid] > nums[end]: #right part of mid is sorted
-                if target > nums[end] and target < nums[mid]:
-                    end = mid - 1
-                else: # target > nums[mid] or target <= nums[end]
-                    start = mid + 1
-            else: # left side of mid is sorted
-                if target <= nums[end] and target > nums[mid]:
-                    start = mid + 1
-                else:
-                    end = mid - 1
-        return -1
-
     def search(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums)-1
         while l <= r:
             m = l + (r - l) // 2
-            if nums[m] == target:
+            if nums[m] == target: 
                 return m
+
             # find the sorted window
+            # if the left portion is sorted
             if nums[m] >= nums[l]:
                 if nums[l] <= target < nums[m]:
                     r = m - 1
                 else:
                     l = m + 1
+            # if the right portion is sorted
             else:
                 if nums[m] < target <= nums[r]:
                     l = m + 1
                 else:
                     r = m - 1
         return -1
-
 
     def search(self, nums: List[int], target: int) -> int:
         # find the index of the smallest value using binary search.
@@ -112,12 +93,12 @@ class Solution:
             if nums[mid] == target:
                 return mid
             if nums[mid] >= nums[l]: # left is sorted
-                if nums[l] <= target and target < nums[mid]:
+                if nums[l] <= target < nums[mid]:
                     return helper(nums, target, l, mid-1)
                 else:
                     return helper(nums, target, mid+1, r)
             else: # right is sorted
-                if nums[mid] < target and target <= nums[r]:
+                if nums[mid] < target <= nums[r]:
                     return helper(nums, target, mid+1, r)
                 else:
                     return helper(nums, target, l, mid-1)
