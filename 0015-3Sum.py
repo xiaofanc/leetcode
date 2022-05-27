@@ -26,11 +26,11 @@ class Solution:
                     r -= 1
                 else:
                     res.append((nums[i],nums[l], nums[r]))
-                    while l<r and nums[l] == nums[l+1]:
+                    # remove the duplicates and keep l in range
+                    # another pointer will be taken care of before
+                    l += 1
+                    while l < r and nums[l-1] == nums[l]:
                         l += 1
-                    while l<r and nums[r] == nums[r-1]:
-                        r -= 1
-                    l += 1; r-=1;
         return res
 
     def threeSum1(self, nums: List[int]) -> List[List[int]]:
@@ -150,5 +150,6 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.threeSum0([-1, 0, 1, 2, -1, -4]))
-    print(s.threeSum1([-1, 0, 1, 2, -1, -4]))
-    print(s.threeSum1([-1, 0, 1, 2, -1, -4]))
+    print(s.threeSum1([[-2, 0, 0, 2, 2]]))
+
+
