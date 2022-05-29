@@ -88,7 +88,7 @@ class Solution:
             if total > target or index >= n:
                 return
             if total == target:
-                res.append(comb[:])
+                res.append(comb[:]) # deep copy
                 return
             
             # option 1: add current value

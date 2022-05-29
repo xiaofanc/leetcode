@@ -9,7 +9,7 @@ Output:
 [2,6]
 ]
 
-Time: O(Nx2^N)
+Time: O(2^N) / O(Nx2^N)
 In the worst case, our algorithm will exhaust all possible combinations from the input array, which in total amounts to 2^N as we discussed before.
 copy them into output list will take O(N).
 
@@ -18,14 +18,17 @@ sorting will take O(NlogN).
 Space: O(N)
 The recursion call stack occupies at most O(N) space. 
 """
+
+
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         # find all unique combinations
         counter = collections.Counter(candidates)
         # convert the counter table to a list of (num, count) tuples
         counters = [(c, counter[c]) for c in counter]
-        #print(counters)
+        # print(counters)
         res = []
+
         def backtrack(start, comb, counters):
             if sum(comb) == target:
                 res.append(comb[:])
@@ -41,7 +44,7 @@ class Solution:
                     #print(comb, num)
                     backtrack(i, comb, counters)
                     comb.pop()
-                    counters[i] = (num, freq)                    
+                    counters[i] = (num, freq)
         backtrack(0, [], counters)
         return res
 
@@ -50,7 +53,7 @@ class Solution:
         res = []
         n = len(candidates)
         candidates.sort()
-        
+
         def backtrack(start, remain, comb):
             if remain < 0:
                 return
@@ -65,14 +68,14 @@ class Solution:
                 backtrack(i+1, remain-candidates[i], comb)
                 comb.pop()
         backtrack(0, target, [])
-        return res                  
+        return res
 
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         n = len(candidates)
         candidates.sort()
         print(candidates)
-        
+
         def dfs(start, remain, comb):
             if remain < 0:
                 return
@@ -85,19 +88,19 @@ class Solution:
                     continue
                 dfs(i+1, remain-candidates[i], comb+[candidates[i]])
         dfs(0, target, [])
-        return res  
+        return res
 
     # do not use i > start
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         n = len(candidates)
-        candidates.sort()  
-        
+        candidates.sort()
+
         def backtrack(index, comb, remain):
             if remain == 0:
                 res.append(comb[:])
             if index >= n or remain < 0:
-                return            
+                return
             prev = -1
             for i in range(index, n):
                 if candidates[i] == prev:
@@ -108,10 +111,9 @@ class Solution:
                 prev = candidates[i]
 
         backtrack(0, [], target)
-        return res 
+        return res
+
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.combinationSum2([10,1,2,7,6,6,1,5], 8))
-
-
+    print(s.combinationSum2([10, 1, 2, 7, 6, 6, 1, 5], 8))
