@@ -1,5 +1,7 @@
 """
+Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
 each number can be used infinity times.
+
 Input: candidates = [2,3,6,7], target = 7
 Output: [[2,2,3],[7]]
 
@@ -17,12 +19,14 @@ We implement the algorithm in recursion, which consumes some additional memory i
 The number of recursive calls can pile up to T/M, where we keep on adding the smallest element to the combination. As a result, the space overhead of the recursion is O(T/M).
 In addition, we keep a combination of numbers during the execution, which requires at most T/M as well.
 """
+
+
 class Solution:
     # time complexity: O(N^(T/M)+1)
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         n = len(candidates)
-        
+
         def backtrack(start, comb):
             if comb and sum(comb) > target:
                 return
@@ -35,14 +39,14 @@ class Solution:
                 comb.append(candidates[i])
                 backtrack(i, comb)
                 comb.pop()
-        
+
         backtrack(0, [])
         return res
 
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         n = len(candidates)
-        
+
         def backtrack(index, remain, comb):
             if remain == 0:
                 # make a deep copy of the current combination
@@ -55,10 +59,10 @@ class Solution:
                 comb.append(candidates[i])
                 backtrack(i, remain-candidates[i], comb)
                 comb.pop()
-        
+
         backtrack(0, target, [])
         return res
- 
+
      def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         n = len(candidates)
