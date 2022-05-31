@@ -15,13 +15,17 @@ class Solution(object):
         return uniq[0]
         
     def missingNumber1(self, nums):
-        nums = set(nums)
+        nums = set(nums) # O(N)
         i = 0
         while True:
             if i not in nums:
                 return i 
             i += 1
 
+    # XOR: (exclusive or) different -> 1, same -> 0
+    # 2 (10) ^ 3 (11) = 0 1
+    # 5 ^ 5 = 0
+    # 5 ^ 5 ^ 3 = 3
     def missingNumber2(self, nums):
         res = len(nums)
         for i, n in enumerate(nums):
@@ -29,6 +33,12 @@ class Solution(object):
             res ^= i
         return res
 
+    # sum([0,1,2,3]) - sum([0,1,3])
+    def missingNumber(self, nums: List[int]) -> int:
+        res = len(nums)
+        for i in range(len(nums)):
+            res += (i - nums[i])
+        return res
 
 s=Solution()
 print(s.missingNumber0([0]))
