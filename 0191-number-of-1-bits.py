@@ -14,7 +14,27 @@ class Solution:
             n = n >> 1
         return res
 
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+        while n:
+            # n-1 get rid of 1 each time
+            # n & (n-1) keep the left ones
+            n = n & (n-1)
+            res += 1
+        return res
+
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+        mask = 1
+        for i in range(32):
+            # check every bit in the input
+            if ((n & mask) != 0):
+                res += 1
+            # move 1 in the mask to the right to check next bit in the input
+            mask <<= 1
+        return res
+
 if __name__ == '__main__':
 	s = Solution()
-	print(s.hammingWeight())
+	print(s.hammingWeight(11111111111111111111111111111101)) #31
 
