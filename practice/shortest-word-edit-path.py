@@ -1,10 +1,21 @@
 """
+Given two words source and target, and a list of words words, find the length of the shortest series of edits that transforms source to target.
+
 BFS:
 method 1:
 for every index i from 0 .. word.length - 1 and for every lowercase letter c in ['a-z'], copy word into word2, replace word2[i] with c, and check whether the resulting word2 is in words.
 
 method 2:
 for every word2 in the given words, check that word and word2 differ by 1. If diff = 1, then add to the Queue
+
+Queue: [(bit, 0)]
+       pop bit, append word which has one character different from bit
+       [(but, 1), (big, 1)]
+       pop but, append word which has one character different from but
+       [(big, 1), (put, 2)]
+       pop big, append word which has one character ....... big
+       [(put, 2)]
+       pop put...
 """
 
 # Time complexity: N*K^2 where N is the length of words and K is the maximum length of any given word.
