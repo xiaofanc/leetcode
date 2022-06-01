@@ -2,7 +2,7 @@
 sol1: backtrack - TLE
 Given an unsorted array of integers, find the length of longest increasing subsequence.
 
-sol2: 
+sol2: split into sub problems
 Input: [10,9,2,5,3,7,101,18]
 Output: 4 
 Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. 
@@ -12,10 +12,17 @@ L[i] = the longest increasing subsequence which must include nums[i] in the end
     [10,9,2,5,3,7,101,18]
 L = [1,1,1,2,2,?....]
 i = 5:
-j = 2 nums[5](7) > nums[2](2) and 1 < 1+1: L[5] = 2     {2,7}
-j = 3 nums[5](7) > nums[3](5) and 2 < 2+1: L[5] = 3     {2,5,7}
-j = 4 nums[5](7) > nums[4](3) and 3   2+1: same length  {2,3,7}
+    j = 2 nums[5](7) > nums[2](2) and 1 < 1+1: L[5] = 2     {2,7}
+    j = 3 nums[5](7) > nums[3](5) and 2 < 2+1: L[5] = 3     {2,5,7}
+    j = 4 nums[5](7) > nums[4](3) and 3   2+1: same length  {2,3,7}
 
+sol3: backwards
+LIS[i] = longest increasing subsequence that starts with nums[i]
+    [1,2,4,3]
+LIS[3] = 1
+LIS[2] = 1
+LIS[1] = max(1, 1+LIS[2], 1+LIS[3]) = 2
+LIS[0] = max(1, 1+LIS[1], 1+LIS[2], 1+LIS[3]) = 3
 """
 
 class Solution: # time: O(n^2)
@@ -60,3 +67,7 @@ class Solution: # time: O(n^2)
 if __name__ == '__main__':
     s = Solution()
     print(s.lengthOfLIS([10,9,2,5,3,7,101,18]))  # 4: [2,3,7,101]
+
+
+
+
