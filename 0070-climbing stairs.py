@@ -2,6 +2,14 @@
 fibonacci number:
 f(n) = f(n-1) + f(n-2)
 
+stair 1: 1 -> prev
+stair 2: 2 -> cur
+stair 3: 1+2 = 3
+stair 4: 2+3 = 5
+stair 5: 3+5 = 8
+
+update cur n-2 times.. return cur
+
 """
 class Solution:
     # Space: O(1)
