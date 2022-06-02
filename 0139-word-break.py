@@ -29,6 +29,9 @@ DP[7] + s[7:10]: ("catsand")True + "dog" in wordDict -> True
 
 => DP[7] true since DP[4] + ["and"] in wordDict
 
+Time: O(N*M*N)
+Space: O(N)
+
 """
 def memo(f):
     m = dict()
