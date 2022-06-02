@@ -1,3 +1,11 @@
+"""
+Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
+
+Input: text1 = "abcde", text2 = "ace" 
+Output: 3  
+Explanation: The longest common subsequence is "ace" and its length is 3.
+
+"""
 def memo(f):
     m = {}
     def wrapper(*args):
@@ -20,7 +28,7 @@ class Solution:
         
         return memo_solve(0, 0)
 
-    # dp[i][j] represents 到第一个字符串位置 i 为止、到 第二个字符串位置 j 为止、最长的公共子序列长度
+    # dp[i][j] = LCS for text1[:i] and text2[:j]
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         m, n = len(text1), len(text2)
         dp = [[0] * (n+1) for _ in range(m+1)]
@@ -33,6 +41,22 @@ class Solution:
                     dp[i][j] = max(dp[i-1][j], dp[i][j-1])
                 # print(dp)
         return dp[m][n]
+
+    # bottom up DP
+    # dp[i][j] = LCS for text1[i:] and text2[j:]
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        m, n = len(text1), len(text2)
+        dp = [[0]*(n+1) for _ in range(m+1)] # LCS(“abcde”, “”)
+        # print("dp->", dp)
+        for i in range(m-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                # LCS(“abcde”, “ace”) = 1 + LCS(“bcde”, “ce”)
+                if text1[i] == text2[j]:
+                    dp[i][j] = 1 + dp[i+1][j+1]
+                # LCS(“abcde”, “dce”) = max(LCS(“abcde”, “ce”), LCS(“bcde”, “dce”))
+                else:
+                    dp[i][j] = max(dp[i][j+1], dp[i+1][j])
+        return dp[0][0]
 
 if __name__ == '__main__':
     s = Solution()
