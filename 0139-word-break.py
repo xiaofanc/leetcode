@@ -40,6 +40,7 @@ def memo(f):
 
 
 class Solution:
+    # let dp[i] = s[:i] can be built from wordDict
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         dp = [True] + [False]*len(s)
         for i in range(1, len(s)+1):
@@ -73,6 +74,22 @@ class Solution:
             return False
         
         return wordBreakMemo(s, frozenset(wordDict), 0) # frozenset is hashable, list is not
+
+    # dp[i] = s[i:] can be built from the dict
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s)+1)
+        # base case: s[8:] is empty
+        dp[-1] = True  
+        
+        for i in range(len(s)-1,-1,-1):
+            for w in wordDict:
+                # "leetcode"
+                # dp[0] = s[:4] in dict & dp[4] == True
+                if i+len(w) <= len(s) and s[i:i+len(w)] == w:
+                    dp[i] = dp[i+len(w)]
+                if dp[i]:
+                    break
+        return dp[0]
 
 if __name__ == '__main__':
     s = Solution()
