@@ -14,16 +14,14 @@ DP[i] = max(DP[i-1], DP[i-2] + nums[i])
 
 from typing import List
 class Solution:
-    def rob1(self, nums: List[int]) -> int:
+    def rob(self, nums: List[int]) -> int:
         if not nums: return 0
-        if len(nums) == 1: return max(nums[0], 0)
-        prev2 = max(nums[0], 0)
-        prev1 = max(nums[0], nums[1], 0)
-        curr = prev1
+        if len(nums) == 1: return nums[0]
+        pre = nums[0]
+        cur = max(nums[0], nums[1])
         for i in range(2, len(nums)):
-            curr = max(prev1, prev2+nums[i])
-            prev2, prev1 = prev1, curr
-        return curr 
+            pre, cur = cur, max(nums[i]+pre, cur)
+        return cur
     
     def rob2(self, nums: List[int]) -> int:
         if not nums: return 0
@@ -33,7 +31,6 @@ class Solution:
         DP[1] = max(nums[0], nums[1], 0)
         for i in range(2, len(nums)):
             DP[i] = max(DP[i-2] + nums[i], DP[i-1])
-            print(DP)
         return DP[-1]
             
 
