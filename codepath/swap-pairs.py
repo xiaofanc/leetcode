@@ -18,9 +18,10 @@ class Solution:
             n2 = n1.next
             #pre.next,n2.next,n1.next=n2,n1,n2.next
             next_node = n2.next
-            pre.next = n2       # !!!!
+            pre.next = n2
             n2.next=n1
             n1.next=next_node
+            # pre.next = n2
             pre = n1
         return dummy.next
         
