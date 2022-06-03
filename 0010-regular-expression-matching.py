@@ -1,3 +1,18 @@
+"""
+'.' Matches any single character.
+'*' Matches zero or more of the preceding element.
+'a*' can be ["", "a", "aa", "aaa"...]
+
+'aa'->'a*'
+when p[1] == "*":
+    if using '*' to delete previous chars, then compare (s, p[2:])
+    if using '*' to add chars, then first char must match & compare (s[1:], p)
+        - why first char must match? 'ba'->'a*' False, no b in pattern
+        - why compare s[1:] and p?   'aaaab'->'a*b' since a might be repeated
+else p[1] != "*":
+    first_match & compare (s[1:], p[1:])
+
+"""
 def match(a,b):
     if a == "" and b == "":
         return True
@@ -30,6 +45,7 @@ class Solution:
             else:
                 first_match = (si < lens) and p[pi] in set([s[si], "."])
                 if pi <= lenp-2 and p[pi+1] == "*":
+                    # delete char or add char
                     ans = dp(si, pi+2) or (first_match and dp(si+1, pi))
                 else:
                     ans = first_match and dp(si+1, pi+1)
@@ -60,12 +76,12 @@ if __name__ == '__main__':
     #Explanation: "a" does not match the entire string "aa".
 
     print( (s.isMatch("aa", "a*") == True))
-    #Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes "aa".
+    #Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' twice, it becomes "aa".
 
     print( (s.isMatch("ab", ".*") == True))
     #Explanation: ".*" means "zero or more (*) of any character (.)".
 
     print( (s.isMatch("aab", "c*a*b") == True))
-    #Explanation: c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches "aab".
+    #Explanation: c can be repeated 0 times, a can be repeated 2 time. Therefore, it matches "aab".
 
     print( (s.isMatch("mississippi", "mis*is*p*.") == False))
