@@ -3,14 +3,18 @@
 '*' Matches zero or more of the preceding element.
 'a*' can be ["", "a", "aa", "aaa"...]
 
+edge cases:
+if p[j] is out of bound while s[i] is not, return False
+if s[i] is out of bound while p[j] is not, not sure: "a" => "a*b*"
+
 'aa'->'a*'
-when p[1] == "*":
-    if using '*' to delete previous chars, then compare (s, p[2:])
-    if using '*' to add chars, then first char must match & compare (s[1:], p)
+when p[j+1] == "*":
+    if using '*' to delete previous chars, then compare (s[i:], p[j+2:])
+    if using '*' to add chars, then first char must match & compare (s[i+1:], p[j:])
         - why first char must match? 'ba'->'a*' False, no b in pattern
-        - why compare s[1:] and p?   'aaaab'->'a*b' since a might be repeated
-else p[1] != "*":
-    first_match & compare (s[1:], p[1:])
+        - why compare s[i+1:] and p[j:]?   'aaaab'->'a*b' since a might be repeated
+else p[j+1] != "*":
+    first_match & compare (s[i+1:], p[j+1:])
 
 """
 def match(a,b):
@@ -21,6 +25,7 @@ def match(a,b):
 
 
 class Solution:
+    # Time: O(M x N)
     def isMatch(self, s: str, p: str) -> bool:
         if p == "":
             return s == ""
@@ -32,28 +37,52 @@ class Solution:
         else:
             return first_match and self.isMatch(s[1:], p[1:])
 
-    #memorization
     def isMatch(self, s: str, p: str) -> bool:
-        memo = {}
-        lens, lenp = len(s), len(p)
-        # dp(i, j) = match(s[i:], p[j:])
-        def dp(si, pi):
-            if (si, pi) in memo:
-                return memo[(si, pi)]
-            if pi == lenp:
-                ans = (si == lens)
+        def dfs(i, j):
+            if j >= len(p) and i >= len(s):
+                return True
+            if j >= len(p):
+                return False
+            # i can be out of bound, "a" => "a*b*"
+            # compare the current position
+            match = (i < len(s) and (s[i] == p[j] or p[j] == "."))
+            # check the next position
+            if j+1 < len(p) and p[j+1] == "*":
+                return (dfs(i, j+2) or # not use *
+                match and dfs(i+1, j)) # use *
             else:
-                first_match = (si < lens) and p[pi] in set([s[si], "."])
-                if pi <= lenp-2 and p[pi+1] == "*":
-                    # delete char or add char
-                    ans = dp(si, pi+2) or (first_match and dp(si+1, pi))
-                else:
-                    ans = first_match and dp(si+1, pi+1)
-            memo[(si, pi)] = ans
-            return ans
-        return dp(0,0)
+                return match and dfs(i+1, j+1)
+            return False
+        return dfs(0,0)
 
-    #DP
+    # memorization
+    def isMatch(self, s: str, p: str) -> bool:
+        cache = {}
+        def dfs(i, j):
+            if (i,j) in cache:
+                return cache[(i,j)]
+            if j >= len(p) and i >= len(s):
+                return True
+            if j >= len(p):
+                return False
+            # i can be out of bound
+            # compare the current position
+            match = (i < len(s) and (s[i] == p[j] or p[j] == "."))
+            # check the next position
+            if j+1 < len(p) and p[j+1] == "*":
+                cache[(i,j)] = (dfs(i, j+2) or # not use *
+                match and dfs(i+1, j)) # use *
+                return cache[(i,j)]
+            else:
+                cache[(i,j)] = match and dfs(i+1, j+1)
+                return cache[(i,j)]
+            
+            cache[(i,j)] = False
+            return cache[(i,j)]
+
+        return dfs(0,0)
+
+    # DP
     def isMatch(self, s: str, p: str) -> bool:
         lens, lenp = len(s), len(p)
         dp = [[False]*(lenp+1) for _ in range(lens+1)]
