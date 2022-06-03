@@ -4,12 +4,16 @@
 #         self.val = x
 #         self.next = None
 
+
+# what if not head and not head.next?
+# what if we have odd elements in the linked list?
+
 class Solution:
     # when swapping, need to keep track of the previous node of the pairs and the 
     # node after the pairs in order to connect them
     # pre -> n1 -> n2  -> tmp
     # pre -> n2 -> n1  -> tmp
-                 # pre -> n1  -> n2  -> tmp
+                 # pre -> n1  -> n2  -> tmp  
     def swapPairs(self, head: ListNode) -> ListNode:
         pre=dummy=ListNode(0)
         pre.next=head
