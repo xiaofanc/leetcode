@@ -11,6 +11,7 @@ class ListNode:
 class Solution:
     # when swapping, need to keep track of the previous node of the pairs and the 
     # node after the pairs in order to connect them
+    # pre must exist !!!!
     # pre -> n1 -> n2  -> tmp
     # pre -> n2 -> n1  -> tmp
                  # pre -> n1  -> n2  -> tmp
@@ -25,10 +26,25 @@ class Solution:
             pre.next = n2
             n2.next=n1
             n1.next=next_node
-            # pre.next = n2
             pre = n1
         return dummy.next
-        
+
+    # does not work since losing connect from pre -> n2
+    def swapPairs2(self, head):
+        if not head or not head.next:
+            return head
+        dummy = n1 = head
+        n2 = head.next
+        while n1 and n2:
+            tmp = n2.next
+            n2.next = n1
+            n1.next = tmp
+            if tmp:
+                n1 = tmp
+                n2 = tmp.next
+            print("dummy->", dummy)
+        return dummy.next
+
     def swapPairs(self, head):
         if not head or not head.next:
             return head
@@ -46,7 +62,7 @@ if __name__ == '__main__':
     a.next.next = ListNode(3)
     a.next.next.next = ListNode(4)
     s = Solution()
-    print(s.swapPairs(a))
+    print(s.swapPairs2(a))
 
 # Given 1->2->3->4, you should return 2->1->4->3
 
