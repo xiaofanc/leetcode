@@ -55,6 +55,36 @@ class Solution:
         checked[cur] = True
         return ret
 
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # map each course to prereq map
+        premap = {i:[] for i in range(numCourses)}
+        
+        for crs, pre in prerequisites:
+            premap[crs].append(pre)
+        visitedSet = set()
+        # check each course
+        def dfs(crs):
+            # if cycle is detected
+            if crs in visitedSet:
+                return False
+            # if no prereq or can be taken
+            if crs == []: 
+                return True
+            # else
+            visitedSet.add(crs)
+            for nei in premap[crs]:
+                if not dfs(nei): return False
+            # 3->[4,5], 6->[3]
+            visitedSet.remove(crs)
+            premap[crs] = [] # course can be taken
+            return True
+
+        # 1->2, 3->4, therfore we have to check every course
+        for i in range(numCourses):
+            if not dfs(i):
+                return False
+        return True
+
 if __name__ == '__main__':
     s = Solution()
     print(s.canFinish(2, [[1,0]])) # True
