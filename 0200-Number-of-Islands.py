@@ -20,6 +20,8 @@ class Solution:
         height, width = len(grid), len(grid[0])
         deltas = [(0,-1), (0,1), (-1,0), (1,0)]
         n = 0
+
+        # make the neighboring '1' to be '0' for the current island
         def dfs(x,y):
             if 0 <= x < height and 0 <= y < width and grid[x][y] == '1':
                 grid[x][y] = '0'
