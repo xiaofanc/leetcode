@@ -1,41 +1,35 @@
+"""
+start from water to visit nodes that can be reachable
+从四周向内visit，找到pacific和atlantic water可以到的点，求集合。
+从四周向内递增时才可以到达。
+"""
+
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        rows, cols = len(heights), len(heights[0])
+        atl, pac = set(), set()
+        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
         
-        if not heights or not heights[0]:
-            return []
+        def dfs(r, c, visited, preHeight):
+            # if node is in the visited set or out of bounds or not reachable, return
+            if (r,c) in visited or r < 0 or c < 0 or r == rows or c == cols or heights[r][c] < preHeight:
+                return
+            # (r,c) is reachable and find the neighbors with height > heights[r][c]
+            visited.add((r,c))
+            for dx, dy in dirs:
+                dfs(r+dx, c+dy, visited, heights[r][c])
         
-        height, width = len(heights), len(heights[0])
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        # base case: pacific can reach the first row and the first col
+        # base case: atlantic can reach the last row and the last col
+        for j in range(cols):
+            dfs(0, j, pac, heights[0][j])
+            dfs(rows-1, j, atl, heights[rows-1][j])
+        for i in range(rows):
+            dfs(i, 0, pac, heights[i][0])
+            dfs(i, cols-1, atl, heights[i][cols-1])
         
-        # points pacific reachable
-        pacific = set()
-        # points atlantic reachable
-        atlantic = set()
-
-        def dfs(x, y, reachable):
-            reachable.add((x,y))
-
-            for dx, dy in directions:
-                new_row, new_col = x+dx, y+dy
-                if new_row < 0 or new_row >= height or new_col < 0 or new_col >= width:
-                    continue
-                # check if the new cell has a higher or equal height so that water can flow
-                if heights[new_row][new_col] < heights[x][y]:
-                    continue
-                if (new_row, new_col) in reachable:
-                    continue
-                dfs(new_row, new_col, reachable)
-        
-        # initialize      
-        for i in range(height): 
-            dfs(i, 0, pacific)
-            dfs(i, width-1, atlantic)
-        for j in range(width):
-            dfs(0, j, pacific)
-            dfs(height-1, j, atlantic)
-        
-        # reachable by both
-        return list(pacific.intersection(atlantic))
+        # find the intersection
+        return list(pac.intersection(atl))
 
 if __name__ == '__main__':
     s = Solution()
