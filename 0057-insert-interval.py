@@ -27,8 +27,24 @@ class Solution:
         # finally
         res.append([start, end])
         return res
-      
+
+    def insert(self, intervals: List[List[int]], new: List[int]) -> List[List[int]]:
+        res = []
+        for i in range(len(intervals)):
+            interval = intervals[i]
+            if interval[1] < new[0]:
+                res.append(interval)
+            elif interval[0] > new[1]:
+                res.append(new)
+                res.extend(intervals[i:])
+                return res
+            else:
+                new = [min(interval[0], new[0]), max(interval[1], new[1])]
+        res.append(new)
+        return res
+              
 if __name__ == '__main__':
 	s = Solution()
-	print(s.insert([[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8]))  # [[1,2],[3,10],[12,16]]
+	print(s.insert([[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8]))  #[[1,2],[3,10],[12,16]]
+	print(s.insert([[1,5]], [2,3]))  # [1,5]
 
