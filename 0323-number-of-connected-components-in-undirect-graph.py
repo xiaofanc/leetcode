@@ -46,10 +46,11 @@ class Solution:
                 n = par[n] # grandparant
             return n
         def union(p1, p2):
+        	# find the base root of nodes
             r1, r2 = find(p1), find(p2)
             if r1 == r2:
                 return 0
-            # else union
+            # else union two trees
             if rank[r1] > rank[r2]:
                 par[r2] = r1
                 rank[r1] += rank[r2]
