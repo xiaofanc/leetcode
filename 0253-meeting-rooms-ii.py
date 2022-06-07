@@ -1,5 +1,8 @@
+"""
+Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.
+minheap to keep track of the meeting end time for each room.
+"""
 class Solution:
-
     # time: O(nlogn), space: O(n)
     def minMeetingRooms(self , intervals: List[List[int]]) -> int:
         intervals.sort()
@@ -13,6 +16,7 @@ class Solution:
         for i in intervals[1:]:
             # compare with the minimum end time of the each room
             # if the current meeting start time is >= the minimum end time of the rooms
+            # reuse that room which ends early
             if i[0] >= free_rooms[0]:
                 # no need to add a new room, update the end time of the room which will be used
                 # pop the smallest value and push the new item
