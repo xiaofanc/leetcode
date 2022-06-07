@@ -1,4 +1,5 @@
 from collections import OrderedDict
+
 class LRUCache():
 
     def __init__(self, capacity: int):
@@ -16,7 +17,7 @@ class LRUCache():
             self.od.move_to_end(key)
         self.od[key] = value
         if len(self.od) > self.capacity:
-            self.od.popitem(last=False)
+            self.od.popitem(last=False) # remove the first
         
 
 

@@ -5,6 +5,8 @@ class Solution:
 	        d1[val] = d1.get(val, []) + [i]
 	    for i, val in enumerate(t):
 	        d2[val] = d2.get(val, []) + [i]
+	    # "paper","title"
+	    # {'p': [0, 2], 'a': [1], 'e': [3], 'r': [4]} {'t': [0, 2], 'i': [1], 'l': [3], 'e': [4]}
 	    print(d1,d2)
 	    return sorted(d1.values()) == sorted(d2.values())
 	        
@@ -41,8 +43,5 @@ class Solution:
 if __name__ == '__main__':
 	s = Solution()
 	print(s.isIsomorphic1("egg","add"))
-	print(s.isIsomorphic2("egg","add"))
-	print(s.isIsomorphic3("egg","add"))
-	print(s.isIsomorphic4("egg","add"))
-	print(s.isIsomorphic5("egg","add"))
-	print(s.isIsomorphic6("egg","add"))
+	print(s.isIsomorphic2("badc","baba"))   # False
+	print(s.isIsomorphic3("paper","title")) # True
