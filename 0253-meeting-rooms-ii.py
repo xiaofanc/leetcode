@@ -1,6 +1,21 @@
 """
 Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.
 minheap to keep track of the meeting end time for each room.
+
+maximum overlapping meetings.
+
+solution 1:
+    - use minheap to keep track of the meeting end time for each room
+    - if the next interval start >= minheap[0]: we can reuse this room, replace the end time
+    - else add a new room, record its' meeting end time
+
+solution 2:
+    - count the maximum overlapping meetings
+    - sort the start and end time separately
+    - use two pointers to compare start and end
+    - if start[s] < end[e], we have another meeting going on, s += 1, count += 1
+    - else: we can reuse the room, e += 1, count -= 1
+    - res = max(res, count)
 """
 class Solution:
     # time: O(nlogn), space: O(n)
@@ -48,7 +63,21 @@ class Solution:
                 s += 1
                 e += 1
         return rooms
-                
+
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        start = sorted(i[0] for i in intervals)
+        end = sorted(i[1] for i in intervals)
+        s, e = 0, 0
+        res = count = 0
+        while s < len(start):
+            if start[s] < end[e]:
+                count += 1
+                s += 1
+            else:
+                count -= 1
+                e += 1
+            res = max(res, count)
+        return res            
 
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         intervals = sorted(intervals, key = lambda x: x[0])

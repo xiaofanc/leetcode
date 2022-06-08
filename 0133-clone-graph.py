@@ -23,4 +23,19 @@ class Solution:
                 copy.neighbors.append(DFS(nei))
             return copy
         return DFS(node) if node else None
-            
+
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return node
+        m = {node: Node(node.val)}
+
+        stack = [node]
+        while stack:
+            n = stack.pop()
+            for neigh in n.neighbors:
+                if neigh not in m: # <- this is the map used
+                    stack.append(neigh)
+                    m[neigh] = Node(neigh.val)
+                m[n].neighbors.append(m[neigh])
+        return m[node]
+
