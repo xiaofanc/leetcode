@@ -1,8 +1,16 @@
 """
 Given an array of intervals intervals where intervals[i] = [starti, endi], return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+solution 1:
+    - sort by start value
+    - if overlapping, keep the interval with smaller end
+solution 2:
+    - sort by end value
+    - if overlapping, remove the current interval (+1)
+    - else, update the end value to be compared 
 """
 
 class Solution:
+    # sort by end
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
 
         if len(intervals) < 2:
@@ -21,7 +29,7 @@ class Solution:
         
         return len(intervals)-len(stack)
 
-                
+    # sort by end            
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         if len(intervals) < 2:
             return 0
@@ -35,6 +43,20 @@ class Solution:
             else:
                 prev = intervals[i][1]
         return total
+
+    # sort by start
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        prevEnd = intervals[0][1]
+        remove = 0
+        for start, end in intervals[1:]:
+            # overlap
+            if start < prevEnd:
+                remove += 1
+                prevEnd = min(end, prevEnd)
+            else:
+                prevEnd = end
+        return remove
 
 if __name__ == '__main__':
     s = Solution()
