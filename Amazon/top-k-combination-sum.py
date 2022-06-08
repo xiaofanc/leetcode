@@ -1,4 +1,6 @@
 """
+https://leetcode.com/discuss/interview-question/1464982/Online-Assessment-Programming-Question/1092320
+
 Given an array of numbers(positive and negative) return the top k most combination sum(sorted).
 Sample case
 [5,3,-2], k=3
@@ -36,4 +38,3 @@ if __name__ == "__main__":
 
 
 
-    
