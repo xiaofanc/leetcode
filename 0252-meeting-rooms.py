@@ -27,6 +27,18 @@ class Solution:
                 return False
         return True
 
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        if not intervals:
+            return True
+        intervals.sort()
+        preEnd = intervals[0][1]
+        for start, end in intervals[1:]:
+            if start < preEnd:
+                return False
+            else:
+                preEnd = end
+        return True
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.canAttendMeetings0([[0,30],[15,20],[5,10]])) # False
