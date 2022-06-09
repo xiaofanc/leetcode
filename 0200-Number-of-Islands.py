@@ -15,13 +15,15 @@ from typing import List
 
 
 class Solution:
+    # DFS
+    # Time: O(MxN), Space: O(MxN)
     def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or len(grid) == 0: return 0
         height, width = len(grid), len(grid[0])
         deltas = [(0,-1), (0,1), (-1,0), (1,0)]
         n = 0
 
-        # make the neighboring '1' to be '0' for the current island
+        # dfs makes the neighboring '1' to be '0' for the current island
         def dfs(x,y):
             if 0 <= x < height and 0 <= y < width and grid[x][y] == '1':
                 grid[x][y] = '0'
@@ -34,6 +36,31 @@ class Solution:
                     n += 1
                     dfs(x,y)
         return n
+
+    # BFS
+    # Space complexity : O(min(M, N)) because in worst case where the grid is filled with lands, the size of queue can grow up to min(M,N)
+    def get_number_of_islands(M):
+      rows, cols = len(M), len(M[0])
+      res = 0
+      dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+      
+      def markIsland(i, j):
+        queue = deque()
+        queue.append((i, j))
+        while queue:
+          x, y = queue.popleft()
+          M[x][y] = 0
+          for dx, dy in dirs:
+            newx, newy = x+dx, y+dy
+            if 0 <= newx < rows and 0 <= newy < cols and M[newx][newy] == 1:
+              queue.append((newx, newy))
+      
+      for i in range(rows):
+        for j in range(cols):
+          if M[i][j] == 1:
+            res += 1
+            markIsland(i, j)
+      return res
 
 if __name__ == '__main__':
     s = Solution()
