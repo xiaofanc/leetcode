@@ -18,6 +18,15 @@ class ListNode:
         else: return cls(nums[0], cls.from_list(nums[1:]))
 
 class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+        
     def hasCycle0(self, head):
         if not head:
             return False
