@@ -42,10 +42,35 @@ class Solution:
         slow.next = slow.next.next 
         return dummy.next
 
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        while not head:
+            return None
+        cur = head
+        total = 0
+        while cur:
+            total += 1
+            cur = cur.next
+        idx = -1
+        dummy = pre = ListNode(0)
+        pre.next = head
+        while head:
+            if idx == total-n-1:
+                pre.next = head.next
+                break
+            else:
+                idx += 1
+                pre = head
+                head = head.next                
+        return dummy.next
+
 if __name__ == '__main__':
     s = Solution()
-    l=ListNode.from_list([1,2,3,4,5])
-    print(s.removeNthFromEnd(l, 2)) # [1,2,3,5]
+    l1=ListNode.from_list([1,2,3,4,5])
+    l2=ListNode.from_list([1,2])
+    l3=ListNode.from_list([1])
+    print(s.removeNthFromEnd(l1, 2)) # [1,2,3,5]
+    print(s.removeNthFromEnd(l2, 2)) # [2]
+    print(s.removeNthFromEnd(l3, 1)) # []
 
 
 
