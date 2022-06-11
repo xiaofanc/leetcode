@@ -1,14 +1,34 @@
 """
 sliding window:
-We use HashSet to store the characters in current window [i,j)
+We use Hashmap to store the characters index in current window [i,j)
 Then we slide the index j to the right
-If it is not in the HashSet, we slide j further. 
-Doing so until s[j] is already in the HashSet. 
-At this point, we found the maximum size of substrings without duplicate characters start with index i
-
+    - if it is not in the Hashmap, we slide j further
+    - if it is in the Hashmap, update l = max(l, hashMap[char] + 1)
+      --> move the left pointer to the previous index of repeated char + 1, do not move back
+      --> why not l += 1? not enough. i.e. s = "pwwkew"
+      --> why not l = hashMap[char] + 1? keep the left boundary of the sliding window. i.e. s = "tmmzuxt"
+- update the hashmap and res along the way
 
 """
 class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) <= 1:
+            return len(s)
+        # hashmap to store the index of char
+        hashMap = {}
+        l = r = 0
+        res = 0
+        for r in range(len(s)):
+            char = s[r]
+            if char not in hashMap:
+                hashMap[char] = r
+            else:
+                l = max(l, hashMap[char] + 1)
+                hashMap[char] = r
+            # print("l,r", l, r)
+            res = max(res, r-l+1)
+        return res
+        
     def lengthOfLongestSubstring(self, s: str) -> int:
         ans, lo, hi = 0, 0, 0
         charidx = {}
@@ -70,3 +90,9 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.lengthOfLongestSubstring("abcabcbb") == 3)
+    print(s.lengthOfLongestSubstring("pwwkew") == 3)  # l should not only += 1
+    print(s.lengthOfLongestSubstring("tmmzuxt") == 5) # l should not move back
+
+
+
+
