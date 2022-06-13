@@ -3,9 +3,13 @@ We start with two pointers, left and right initially pointing to the first eleme
 
 We use the right pointer to expand the window until we get a desirable window i.e. a window that contains all of the characters of T.
 
-Once we have a window with all the characters, we can move the left pointer ahead one by one. If the window is still a desirable one we keep on updating the minimum window size.
+Once we have a window with all the characters, we can move the left pointer ahead one by one. If the window is still valid we keep on updating the minimum window size.
 
-If the window is not desirable any more, we repeat step2 onwards.
+If the window is not valid any more, we repeat step2 onwards.
+
+dict_t = {'a':1, 'b':1, 'c':1}, required = 3
+window_counts = {'a':1, 'b':2, 'c':1}, formed = 3
+valid window, update res
 
 """
 class Solution:
@@ -57,6 +61,7 @@ if __name__ == '__main__':
 	s = Solution()
 	print(s.minWindow("ADOBECODEBANC", "ABC")) # "BANC"
     print(s.minWindow("a", "b")) # ""
+    print(s.minWindow("a", "ab")) # ""
 
 
 
