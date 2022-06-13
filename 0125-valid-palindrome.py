@@ -30,9 +30,9 @@ class Solution:
                     r -= 1
                 else:
                     return False
-            if not s[l].isalnum():
+            while not s[l].isalnum():
                 l += 1
-            if not s[r].isalnum():
+            while not s[r].isalnum():
                 r -= 1
         return True
 
