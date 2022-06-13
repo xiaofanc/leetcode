@@ -30,7 +30,7 @@ class Solution:
             dp[i] = dp[i-2] + dp[i-1]
         return dp[-1]
 
-    def climbStairs(self, n: int) -> int:
+    def climbStairs(self, n: int) -> int:  # same as fibo
         if n == 0 or n == 1:
             return 1
         prev, cur = 1, 1

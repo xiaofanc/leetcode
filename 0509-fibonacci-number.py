@@ -40,15 +40,21 @@ def fib(self, N):
     :type N: int
     :rtype: int
     """
-    if N == 0:
-        return 0
-    if N == 1:
-        return 1
+    if N < 2:
+        return N
     f0, f1 = 0, 1
     for i in range(N-1):
         f0, f1 = f1, f0+f1
     return f1
 
+def fib(self, n: int) -> int:
+    if n < 2:
+        return n
+    prev, cur = 0, 1
+    for i in range(2, n+1):
+        prev, cur = cur, prev+cur
+    return cur
+        
 def main():
     n = 1
     while n >= 1:

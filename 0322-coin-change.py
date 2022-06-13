@@ -18,7 +18,7 @@ dp(i)可以无解
 
 class Solution:  # time O(n*k) k=# of coins  n=0-amount
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [amount+1] * (amount+1) # start from 0, dp[i] < amount+1
+        dp = [amount+1] * (amount+1) # dp[i] = amount+1 不可能取到
         dp[0] = 0
         
         for i in range(1, amount+1):
@@ -67,6 +67,11 @@ class Solution:  # time O(n*k) k=# of coins  n=0-amount
 if __name__ == '__main__':
     s = Solution()
     print(s.coinChange([1, 2, 5]), 11)  #3
+    print(s.coinChange([2]), 3)  # -1
+    # dp [0, 4, 4, 4]
+    # dp [0, 4, 1, 4]
+    # dp [0, 4, 1, 4]
+
 
 
 
