@@ -10,6 +10,8 @@ So we assign each and every bag of cookies to different subsets using backtracki
 let n = size of given array, as for each element we have k subset choices and there are total of n elements, so Time complexity : O(k^n)
 
 Get the minmax for k subsets.
+
+# 0698
 """
 
 class Solution:

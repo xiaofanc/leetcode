@@ -1,6 +1,8 @@
 """
 split nums into 2 subsets with equal sum
 solution: check if exists sum(subset) == target
+
+# 0698. canPartitionKSubsets
 """
 
 class Solution:
@@ -22,6 +24,7 @@ class Solution:
         res = backtracking(0, 0)
         return True if res else False
 
+	# DP
 	# Time: O(n*sum(nums)), space: O(sum(nums))
     def canPartition(self, nums: List[int]) -> bool:
         if sum(nums)/2 != sum(nums)//2:

@@ -37,6 +37,8 @@ class Solution:
                 
         return backtrack(0, 0, k)
 
+    # create a single bucket
+    # Time: O(kx2^N)
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
         if sum(nums) % k:
             return False

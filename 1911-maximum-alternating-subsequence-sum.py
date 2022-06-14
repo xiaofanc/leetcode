@@ -19,6 +19,7 @@ class Solution:
 	        sumEven, sumOdd = tmpEven, tmpOdd
 	    return sumEven
 
+	# Time = space = O(n)
     def maxAlternatingSum(self, nums: List[int]) -> int:
         dp = {}
         def dfs(i, even):
