@@ -33,7 +33,7 @@ class Solution:
         subset(0, [])
         return min(res)
 
-
+    # Time: O(k^N), every number has k choices
     def distributeCookies(self, cookies: List[int], k: int) -> int:
         # split cookies into k subsets and find the minmax
         if len(cookies) <= k:
