@@ -15,6 +15,7 @@ def memo(f):
     return wrapper
 
 class Solution:
+    # top down DP
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         # Time: O(m*n)
         @memo
