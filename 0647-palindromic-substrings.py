@@ -16,8 +16,7 @@ class Solution:
         	# count the number of palindromes which use s[i] as the center - odd length
             helper(i, i)
             # count the number of palindromes which use s[i], s[i+1] as the center - even length
-            if i < len(s)-1:
-                helper(i, i+1)
+            helper(i, i+1)
         return res
 
 if __name__ == '__main__':
