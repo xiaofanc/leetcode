@@ -57,7 +57,30 @@ class Solution:
                 else:
                     dp[i][j] = 1+min(dp[i+1][j+1], dp[i][j+1], dp[i+1][j])
         return dp[0][0]
-        
+
+    # top down DP
+    def minDistance(self, word1: str, word2: str) -> int:
+        dp = {}
+        m, n = len(word1), len(word2)
+        if m == 0: return n
+        if n == 0: return m
+        def dfs(i, j):
+            if i == m and j == n:
+                dp[(i,j)] = 0
+            elif i == m:
+                dp[(i,j)] = n-j
+            elif j == n:
+                dp[(i,j)] = m-i
+            elif (i,j) in dp:
+                return dp[(i,j)]
+            else:
+                if word1[i] == word2[j]:
+                    dp[(i, j)] = dfs(i+1, j+1)
+                else:
+                    dp[(i, j)] = 1 + min(dfs(i+1,j), dfs(i,j+1), dfs(i+1,j+1))
+            return dp[(i, j)]
+        return dfs(0, 0)
+
 if __name__ == '__main__':
     s = Solution()
     print(s.minDistance("horse","ros") == 3)
