@@ -2,6 +2,7 @@
 Given a string s, return the number of palindromic substrings in it.
 """
 class Solution:
+    # Time: O(n^2)
     def countSubstrings(self, s: str) -> int:
         res = 0
         def helper(l, r):
