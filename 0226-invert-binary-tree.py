@@ -27,7 +27,7 @@ class Solution:
         helper(root)
         return root
 
-    #DFS 深度优先搜索 - preorder traversal
+    # DFS 深度优先搜索 - preorder traversal
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return
@@ -42,7 +42,7 @@ class Solution:
                     stack.append(node.left)
         return root
 
-    #BFS 广度优先搜索
+    # BFS 广度优先搜索
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return 
@@ -53,6 +53,7 @@ class Solution:
             level = [c for node in level for c in (node.left, node.right) if c]
         return root
 
+    # BFS
     def invertTree(self, root: TreeNode) -> TreeNode:
         queue = collections.deque([(root)])
         while queue:
