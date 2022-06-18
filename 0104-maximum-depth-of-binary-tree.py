@@ -6,6 +6,7 @@
 #         self.right = None
 
 class Solution:
+    # DFS
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
@@ -22,6 +23,7 @@ class Solution:
             level = [c for node in level for c in (node.left, node.right) if c]
         return depth
 
+    # BFS
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
