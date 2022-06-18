@@ -11,7 +11,7 @@ class Solution:
                 res += 1
                 l -= 1
                 r += 1
-        
+        # loop over every position in s
         for i in range(len(s)):
         	# count the number of palindromes which use s[i] as the center - odd length
             helper(i, i)
