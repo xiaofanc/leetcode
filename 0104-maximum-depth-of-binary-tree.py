@@ -13,6 +13,21 @@ class Solution:
         else:
             return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
+    # iterative DFS
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        res = 0
+        stack = [[root,1]]
+        while stack:
+            node, depth = stack.pop()
+            if node:
+                res = max(depth, res)
+                stack.append([node.left, depth+1])
+                stack.append([node.right, depth+1])
+        return res
+
+    # BFS
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
@@ -34,3 +49,6 @@ class Solution:
             if node.left: level.append((node.left, depth+1))
             if node.right: level.append((node.right, depth+1))
         return depth
+
+
+        
