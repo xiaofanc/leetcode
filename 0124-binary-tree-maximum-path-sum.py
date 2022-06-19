@@ -26,6 +26,18 @@ class Solution:
         traverse(root)
         return self.ans
                 
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        res = root.val
+        def dfs(root):
+            nonlocal res
+            if not root:
+                return 0
+            l, r = max(dfs(root.left), 0), max(dfs(root.right),0)
+            # if spliting
+            res = max(res, root.val + l + r)
+            return root.val + max(l, r)
+        dfs(root)
+        return res
         
 if __name__ == '__main__':
     s = Solution()
