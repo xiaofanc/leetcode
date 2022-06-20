@@ -8,7 +8,7 @@
 from collections import deque
 
 class Solution:
-    # BFS
+    # BFS - explore all nodes in the same level
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
@@ -37,7 +37,7 @@ class Solution:
             results.append(res)
         return results
 
-    # recursion - DFS
+    # recursion - DFS: stack
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         res = []
         def helper(node, depth):
