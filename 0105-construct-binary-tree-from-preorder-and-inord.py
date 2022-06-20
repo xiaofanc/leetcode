@@ -6,7 +6,7 @@
 #         self.right = None
 
 class Solution:
-    # Time: O(N), space: O(logN)
+    # Time: O(N), space: O(logN) 
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         #find the root based on preorder traversal 
         #then find the index of the root in inorder traversal
