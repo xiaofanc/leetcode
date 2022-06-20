@@ -76,8 +76,54 @@ class Codec:
         data_list = data.split(',')
         root = rdeserialize(data_list)
         return root
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
         
+        :type root: TreeNode
+        :rtype: str
+        """
+        res = []
+
+        def dfs(root):
+            nonlocal res
+            if not root:
+                res.append("N")
+                return
+            res.append(str(root.val))
+            dfs(root.left)
+            dfs(root.right)
+            # res is global variable, no need to return
+        dfs(root)
+        return ",".join(res)
+        
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        vals = data.split(",")
+        print("vals", vals)
+        self.i = 0           # must be global variable
+        
+        def dfs():
+            if vals[self.i] == "N":
+                self.i += 1
+                return None
+            root = TreeNode(int(vals[self.i]))
+            self.i += 1
+            root.left = dfs()   # if pass i into dfs, i will not change if not return
+            root.right = dfs()
+            return root
+        return dfs()        
 
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
 # codec.deserialize(codec.serialize(root))
+
+
+
+
