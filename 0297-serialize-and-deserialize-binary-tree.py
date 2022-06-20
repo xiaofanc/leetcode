@@ -78,7 +78,6 @@ class Codec:
         return root
 
 class Codec:
-
     def serialize(self, root):
         """Encodes a tree to a single string.
         
@@ -115,7 +114,8 @@ class Codec:
                 return None
             root = TreeNode(int(vals[self.i]))
             self.i += 1
-            root.left = dfs()   # if pass i into dfs, i will not change if not return
+            # if pass i into dfs, i will not change if not return
+            root.left = dfs()   
             root.right = dfs()
             return root
         return dfs()        
