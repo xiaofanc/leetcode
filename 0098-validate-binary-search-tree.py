@@ -20,6 +20,7 @@ Both the left and right subtrees must also be binary search trees.
 #         self.left = left
 #         self.right = right
 class Solution:
+    # Time: O(N)
     def isValidBST(self, root: TreeNode) -> bool:  # time O(n)
         def helper(node, lower=float('-inf'), upper=float('inf')):
             if not node:
