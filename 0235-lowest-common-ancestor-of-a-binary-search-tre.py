@@ -44,19 +44,15 @@ class Solution:
             return root.val
     
     # iterative
-    def lowestCommonAncestor1(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        node = root
-        p_val = p.val
-        q_val = q.val
-        while node:
-            parent_node = node.val
-            if p_val < parent_node and q_val < parent_node:
-                # they are both in left subtree
-                node = node.left
-            elif p_val > parent_node and q_val > parent_node:
-                node = node.right
-            else:   # when p, q are in both sides, then root is the lowest common ancestor
-                return node.val              
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        cur = root
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.right
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            else: # p and q are in both sides or p/q is the root
+                return cur             
             
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if p.val > q.val: p, q = q, p
