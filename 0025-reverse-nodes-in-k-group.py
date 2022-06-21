@@ -35,8 +35,8 @@ class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         if not head:
             return 
-        prev = head
-        count = 0 
+        prev = head  # remember the next start position to be reversed
+        count = 0    # count numbers
         # see if ther are at least k nodes left in the linked list
         while count < k and prev:
             prev = prev.next
@@ -45,6 +45,7 @@ class Solution:
             # reverse from head to prev previous node
             reversedHead = self.reverseLinkedList(head, k)
             # connect reversed parts
+            # The end of the reverseLinkedList is head!
             # assuming that nodes after prev are already reversed
             head.next = self.reverseKGroup(prev, k)
             return reversedHead
