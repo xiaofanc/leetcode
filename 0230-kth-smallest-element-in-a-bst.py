@@ -69,3 +69,9 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.kthSmallest([3,1,4,null,2], 1) == 1)
+    print(s.kthSmallest([3,0,4,null,2], 1) == 0)
+
+
+    
+
+
