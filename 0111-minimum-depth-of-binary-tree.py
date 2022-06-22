@@ -58,6 +58,21 @@ class Solution:
                 level.append((node.right, depth+1))
         return 0
 
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        min_depth = float("inf")
+        def dfs(node, depth):
+            nonlocal min_depth
+            if not node.left and not node.right:
+                min_depth = min(min_depth, depth)
+            if node.left:
+                dfs(node.left, depth+1)
+            if node.right:
+                dfs(node.right, depth+1)
+        dfs(root, 1)
+        return min_depth
+        
     #BFS
     def minDepth(self, root: TreeNode) -> int:
         if not root:          # root is None, return 0

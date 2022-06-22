@@ -9,6 +9,7 @@ class TreeNode:
 
 class Solution:
 	# recursion
+    # Time: O(n), space: O(h), h = logn for balanced tree, h = n for unbalanced tree
     def hasPathSum(self, root: TreeNode, sum: int) :
         if not root:
             return
