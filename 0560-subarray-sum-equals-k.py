@@ -41,20 +41,18 @@ class Solution:
     # if the cumulative sum up to two indices i, j is at a difference of k, i.e. if sum[j] - sum[i] = k, the sum of elements lying between i and j is k.
     # using a hashmap, the count of (sum-k) in map is the count of subarrays that equals to k
     # Time - O(n); Space - O(n)
-    # 有多少sum of subarray = sum-k 就有多少sum of subarray = k
-    def subarraySum(self, nums: List[int], k: int):
-        count, _sum = 0, 0
-        mapp = {}
-        mapp[0] = 1
-        for i in range(len(nums)):
-            _sum += nums[i]
-            if _sum-k in mapp:
-                count += mapp[_sum-k]
-            if _sum in mapp:
-                mapp[_sum] += 1
-            else:
-                mapp[_sum] = 1
-        return count
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        # record the prefix sum that starts in the beginning s[:j]
+        # calculate how many s[:i] - s[:j] = k
+        prefixSum = {0:1}
+        s = 0
+        res = 0
+        for num in nums:
+            s += num
+            if s-k in prefixSum:
+                res += prefixSum[s-k]
+            prefixSum[s] = prefixSum.get(s, 0) + 1
+        return res
 
 
     def subarraySum(self, nums: List[int], k: int):
