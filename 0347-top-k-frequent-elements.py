@@ -3,7 +3,7 @@
 
 Time for heap:
 heappush/heappop: logn
-heapify: O(nlogn)
+heapify: O(n)
 """
 class Solution:
     # Time: O(n+k)
@@ -24,6 +24,7 @@ class Solution:
         
         # build a heap of size k using n elements - O(nlogk)
         # height of the binary heap: logk
+        # 先加进去再pop
         for key, value in count.items():
             heapq.heappush(heap, (value, key)) 
             if len(heap) > k: 
