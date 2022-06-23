@@ -36,6 +36,24 @@ class Solution:
             res[i] = heapq.heappop(heap)[1] # get the key
         return res
 
+    # bucket sort using freq as index, list of num as values
+    # Time: O(n)
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        countDict = collections.Counter(nums)
+        # index is frequency and value is list of nums that occur index time
+        bucket = [[] for i in range(len(nums)+1)]
+        
+        for key, freq in countDict.items():
+            bucket[freq].append(key)
+        
+        res = []
+        # start from the most freq
+        for i in range(len(nums), 0, -1):
+            for key in bucket[i]:
+                res.append(key)
+                if len(res) == k:
+                    return res
+
 if __name__ == '__main__':
     s = Solution()
     print(s.topKFrequent([1,1,1,2,2,3]), 2)
