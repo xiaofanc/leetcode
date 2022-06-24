@@ -24,6 +24,18 @@ class Solution:
         node.right = self.sortedArrayToBST(nums[mid+1:])
         return node
 
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        
+        def helper(arr, l, r):
+            if r < l :
+                return None
+            mid = (l+r) //2 
+            node = TreeNode(arr[mid])
+            node.left = helper(arr, l, mid-1)
+            node.right = helper(arr, mid+1, r)
+            return node
+        
+        return helper(nums, 0, len(nums)-1)
 
 if __name__ == '__main__':
 	s=s = Solution()
