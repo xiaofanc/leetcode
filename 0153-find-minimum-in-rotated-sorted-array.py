@@ -29,9 +29,9 @@ class Solution:
             elif nums[m] > nums[r]:
                 l = m + 1
             else:
-                r -= 1
+                r = m
         return nums[l]
-        
+
 if __name__ == '__main__':
     s = Solution()
     print(s.findMin([2,1])) # 1 why must l <= r and nums[m] >= nums[l]
