@@ -70,5 +70,17 @@ class Solution:
                     stack.append((i, d+1))
         return sum 
 
-
+    # DFS
+    def depthSum(self, nestedList: List[NestedInteger]) -> int:
+        
+        def dfs(lst, depth):
+            res = 0
+            for nested in lst:
+                if nested.isInteger():
+                    res += nested.getInteger() * depth
+                else:
+                    res += dfs(nested.getList(), depth+1)
+            return res
+        
+        return dfs(nestedList, 1)
         
