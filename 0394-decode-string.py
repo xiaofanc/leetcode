@@ -15,8 +15,9 @@ class Solution: # Time: O(n)
                 nums = 0
                 curstr = ''
             elif c == ']':
+                # stack ['', 3, 'a', 2]
                 num = stack.pop()
-                prevstr = stack.pop()
+                prevstr = stack.pop()         # prevstr can be empty string
                 curstr = prevstr + num*curstr # aaa + 2*bc
             elif c.isdigit():
                 nums = nums*10 + int(c) # for numbers > 9

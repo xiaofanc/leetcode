@@ -1,3 +1,6 @@
+"""
+find the position of the first number >= target
+"""
 from typing import List
 from bisect import bisect_left
 
