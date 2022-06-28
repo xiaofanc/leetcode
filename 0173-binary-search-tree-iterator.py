@@ -27,7 +27,7 @@ class BSTIterator:
             while node:
                 # 把右子树加进去
                 self.stack.append(node)
-                #把右子树的左children都进去
+                # 把右子树的左children都进去
                 node = node.left
             return cur.val
 
