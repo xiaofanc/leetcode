@@ -22,7 +22,11 @@ def maxPathSum(root):
 
 	def helper(node):
 		nonlocal res
-		if not node:   # a leaf node can be the path !!!!
+		# does not work when leaf node is the max path sum
+		# a leaf node can be the path !!!!
+		# if not node.left and not node.right:   
+			# return node.val
+		if not node:
 			return 0
 		# need the path sum from left subtree and right subtree
 		# do not want to add negative num in the path
