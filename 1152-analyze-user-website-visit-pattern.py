@@ -1,4 +1,6 @@
 """
+https://leetcode.com/problems/analyze-user-website-visit-pattern/discuss/899805/DETAILED-Easy-to-Follow-Python-Solution-%2B-Clearly-Explained
+
 - order of visiting the websites matters!
 - combinations(values, 3) will keep the order
 - each user can only count once for each pattern!
@@ -41,4 +43,3 @@ if __name__ == '__main__':
     print(s.mostVisitedPattern(["joe","joe","joe","james","james","james","james","mary","mary","mary"], [1,2,3,4,5,6,7,8,9,10], ["home","about","career","home","cart","maps","home","home","about","career"])) # ["home","about","career"]
 
 
-    
