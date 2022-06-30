@@ -35,11 +35,11 @@ class Solution:
     def sumSubarrayMins(self, arr: List[int]) -> int:
         # res[i] store the minsum for subarrays ending with arr[i]
         # add 0 in the beginning to avoid empty stack
-        arr = [0] + arr
+        arr = [float("-inf")] + arr
         res = [0] * len(arr)
-        # non-decreasing stack to find the previous arr[j] that <= arr[i]
+        # non-decreasing stack to find the first previous arr[j] that <= arr[i]
         stack = [0]
-        for i in range(len(arr)):
+        for i in range(1, len(arr)):
             while arr[stack[-1]] > arr[i]:
                 stack.pop()
             # arr[j] is the first number <= arr[i]
@@ -54,4 +54,3 @@ if __name__ == '__main__':
 	print(s.sumSubarrayMins([3,1,2,5,4])) # res = [3,2,4,9,12]
 
 
-	
