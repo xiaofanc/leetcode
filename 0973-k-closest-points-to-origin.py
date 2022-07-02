@@ -33,21 +33,18 @@ class Solution:
         return [d[1] for d in dists[:k]]
 
     # time: O(nlogk), space: O(k)
-    def kClosest2(self, points, k):
+    def kClosest2(self, points: List[List[int]], k: int) -> List[List[int]]:
         if len(points) <= k:
             return points
-        maxheap = []
-        res = []
-        for x, y in points:
-            dist = x**2 + y**2
-            if len(maxheap) < k:
-                heapq.heappush(maxheap, (-dist, [x,y]))
-            else:
-                heapq.heappush(maxheap, (-dist, [x,y]))
-                heapq.heappop(maxheap)
-        while maxheap:
-            res.append(maxheap.pop()[1])
-        return res
+        maxHeap = []
+        for point in points:
+            dist = sqrt(point[0]**2 + point[1]**2)
+            heapq.heappush(maxHeap, (-dist, point))
+            if len(maxHeap) > k:
+                heapq.heappop(maxHeap)
+
+        # result order does not matter
+        return [value[1] for value in maxHeap]
 
 if __name__ == '__main__':
     s = Solution()
