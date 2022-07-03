@@ -9,7 +9,7 @@ The total number of paths is 4 + 3 + 1 = 8.
 """
 
 class Solution:
-    # TLE
+    # DFS - TLE
     def countPaths(self, grid: List[List[int]]) -> int:
         rows, cols = len(grid), len(grid[0])
         dirs = [(1,0),(-1,0),(0,1),(0,-1)]
@@ -30,4 +30,33 @@ class Solution:
             for j in range(cols):
                 dfs(i, j, 0)
         return paths % (10**9 + 7)
+
+    # DFS + memo
+    def countPaths(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        dirs = [(1,0),(-1,0),(0,1),(0,-1)]
+        paths = 0
+        visited = {}
+        
+        def dfs(i, j, prev):
+            if i < 0 or i == rows or j < 0 or j == cols or grid[i][j] <= prev:
+                return 0
+            if (i, j) in visited:
+                return visited[(i, j)]
+            ans = 1
+            for dx, dy in dirs:
+                ans += dfs(i+dx, j+dy, grid[i][j])
+            visited[(i, j)] = ans
+            return ans
+        
+        for i in range(rows):
+            for j in range(cols):
+                paths += dfs(i, j, 0)
+        return paths % (10**9 + 7)
+
+
+
+
+
+        
             
