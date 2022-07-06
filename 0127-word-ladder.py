@@ -48,6 +48,7 @@ class Solution:
 
 if __name__ == '__main__':
 	s = Solution()
-	print(s.ladderLength("hit", "cog", ["hot","dot","dog","lot","log","cog"]))
+	print(s.ladderLength("hit", "cog", ["hot","dot","dog","lot","log","cog"])) # 5
+    print(s.ladderLength("hit", "cog", ["hot","dot","dog","lot","log"]))  # 0
 
 
