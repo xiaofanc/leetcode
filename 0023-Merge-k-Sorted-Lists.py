@@ -92,5 +92,11 @@ if __name__ == '__main__':
     l1 = ListNode.from_list([1,4,5])
     l2 = ListNode.from_list([1,3,4])
     l3 = ListNode.from_list([2,6])
+    l4 = listNode.from_list([])
     print(s.mergeKLists([l1,l2,l3]))                
+    print(s.mergeKLists([l4]))  # []
+    print(s.mergeKLists([]))  # []
+
+
+
         
