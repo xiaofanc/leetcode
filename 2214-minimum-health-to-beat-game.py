@@ -6,6 +6,10 @@ You are also given an integer armor. You may use your armor ability at most once
 You must complete the levels in order and your health must be greater than 0 at all times to beat the game.
 
 Return the minimum health you need to start with to beat the game.
+
+sol:
+Based on this idea, we just sums up all damages, and remove the amount saved by the armor, then plus 1.
+
 """
 
 class Solution:
@@ -32,7 +36,7 @@ class Solution:
 
     def minimumHealth(self, damage: List[int], armor: int) -> int:
         return sum(damage) - min(armor, max(damage)) + 1
-        
+
 if __name__ == '__main__':
     s = Solution()
     print(s.minimumHealth([2,7,4,3], 4))
