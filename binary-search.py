@@ -14,7 +14,7 @@ def bs(l, target):
             return mid
     return right
 
-
+# 找到第一个比target大的数
 def bs_left(l, target):
     lo, hi = 0, len(l)
     #print(l, target)
@@ -26,6 +26,7 @@ def bs_left(l, target):
         else:
             hi = mid
     return lo
+
 
 def bs_right(l, target):
     lo, hi = 0, len(l)
