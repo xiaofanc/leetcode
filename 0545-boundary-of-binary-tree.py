@@ -11,7 +11,7 @@ class Solution: # Time: O(n) One complete traversal for leaves and two traversal
             return True
         return False
     
-    def addleaves(self, res, root):
+    def addleaves(self, res, root): # For this problem, the root is not a leaf
         if root and self.isleaf(root):
             res.append(root.val)
         else:
@@ -26,11 +26,11 @@ class Solution: # Time: O(n) One complete traversal for leaves and two traversal
         res = []
         if not root:
             return res
+
+        # add left boundary
         if (not self.isleaf(root)):
             res.append(root.val)
         left = root.left
-        
-        # add left boundary
         while left:
             if (not self.isleaf(left)):
                 res.append(left.val)
