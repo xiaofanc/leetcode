@@ -5,15 +5,14 @@ num of unique path = number of distinct island
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        
+        deltas = [(0,-1,'L'), (0,1,'R'), (-1,0,'U'), (1,0,'D')]
+
         def dfs(i, j, direction):
             if 0 <= i < m and 0<= j < n and grid[i][j] == 1:
                 grid[i][j] = 0
                 path.append(direction)
-                dfs(i+1, j, "D")
-                dfs(i-1, j, "U")
-                dfs(i, j-1, "L")
-                dfs(i, j+1, "R")
+                for dx, dy, d in deltas:
+                    dfs(x+dx, y+dy, d)
                 path.append("0")
         
         unique_path = set()
