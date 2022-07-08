@@ -13,7 +13,7 @@ class Solution:
                 path.append(direction)
                 for dx, dy, d in deltas:
                     dfs(x+dx, y+dy, d)
-                path.append("0")
+                path.append("0")  # mark return is needed! ["0RRR0U", "0RR0RU"]
         
         unique_path = set()
         for i in range(m):
