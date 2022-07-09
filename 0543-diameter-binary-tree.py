@@ -24,6 +24,8 @@ class Solution:
 
 
     def diameterOfBinaryTree1(self, root: TreeNode) -> int:
+        # return max(l, r)+1 to the parent
+        # calculate the diameter for each node
         self.ans = 0
         def depth(node):
             if not node:
