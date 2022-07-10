@@ -27,16 +27,24 @@ class Solution:
         return self.ans
                 
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        res = root.val
-        def dfs(root):
+        res = float("-inf")
+        
+        def helper(node):
             nonlocal res
-            if not root:
+            # if not root, return 0
+            if not node:
                 return 0
-            l, r = max(dfs(root.left), 0), max(dfs(root.right),0)
-            # if spliting
-            res = max(res, root.val + l + r)
-            return root.val + max(l, r)
-        dfs(root)
+            # get the max path sum from left subtree
+            l = max(0, helper(node.left))
+            # get the max path sum from right subtree
+            r = max(0, helper(node.right))
+            # for the current node, compare the max sum with left+right+node.val
+            res = max(res, l+r+node.val)
+            
+            # return max(left, right) + node.val to the parent and do not return neg value
+            return max(l, r) + node.val
+            
+        helper(root)
         return res
         
 if __name__ == '__main__':
