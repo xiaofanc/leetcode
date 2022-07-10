@@ -40,8 +40,11 @@ class Solution:
 
 if __name__ == '__main__':
   	s = Solution()
-  	print(s.myAtoi("-2147483647")) # -2147483647  
+  	print(s.myAtoi("2147483648")) # 2147483647  
+    print(s.myAtoi("-2147483647")) # -2147483647  
+    print(s.myAtoi("-2147483648")) # -2147483648
   	print(s.myAtoi("-2147483649")) # -2147483648 - int_min
+    print(s.myAtoi("   -0042uuun4")) # -42
 
 
 
