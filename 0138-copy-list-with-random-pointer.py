@@ -31,24 +31,26 @@ class Solution:
         return prehead1.next
 
 
-class Solution:
-    def __init__(self):
-        self.visited = {}
-        
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return head
+        # hashmap to map the origin node to the new node
+        nodeMap = {}
         
-        if head in self.visited:
-            return self.visited[head]
-        
-        node = Node(head.val, None, None)
-        self.visited[head] = node
-        
-        node.next = self.copyRandomList(head.next)
-        node.random = self.copyRandomList(head.random)
-        
-        return node
+        # use dfs to copy the list
+        def dfs(node):
+            if not node:
+                return
+            # if node in map, return the newNode
+            if node in nodeMap:
+                return nodeMap[node]
+            # create a copy, store it to the map
+            newNode = Node(node.val)
+            nodeMap[node] = newNode
+            # use dfs to copy node.next and node.random
+            newNode.next = dfs(node.next)
+            newNode.random = dfs(node.random)
+            
+            return newNode
+        return dfs(head)
         
 if __name__ == '__main__':
     s = Solution()
