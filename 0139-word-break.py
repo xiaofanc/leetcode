@@ -94,6 +94,17 @@ class Solution:
                     break
         return dp[0]
 
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        # dp[i] = True represents s[i:] is in the wordDict
+        # dp[i] = True when there exists a j such that s[i:j] in the wordDict and dp[j] = True
+        DP = [False] * (len(s)+1)
+        DP[-1] = True
+        for i in range(len(s)-1,-1,-1):
+            for j in range(i, len(s)+1):
+                if s[i:j] in wordDict and DP[j]:
+                    DP[i] = True
+        return DP[0]
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.wordBreak("leetcode", ["leet", "code"]) == True)
