@@ -1,3 +1,8 @@
+"""
+peak-valley approach:
+The key point is we need to consider every peak immediately following a valley to maximize the profit. In case we skip one of the peaks (trying to obtain more profit), we will end up losing the profit over one of the transactions leading to an overall lesser profit.
+"""
+
 from typing import List
 class Solution:
     def maxProfit0(self, prices: List[int]) -> int:

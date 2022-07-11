@@ -67,31 +67,31 @@ class Solution:
 
 class Solution:
     def calculate(self, s: str) -> int:
-        stack = []
-        operand = 0
-        res = 0
-        sign = 1 # 1 mean positive
+        stack = []    # store previous res and sign before (
+        operand = 0   # store num
+        res = 0       # store intermediate res
+        sign = 1      # 1 mean positive
         for ch in s:
             print("ch: %s, sign: %s, operand: %s, res: %s, stack: %s" % (ch, sign, operand, res, stack))
             if ch.isdigit():
                 operand = operand*10 + int(ch) # more than one digit
             elif ch == "+":
-                res += sign*operand
+                res += sign*operand # res before +
                 sign = 1
                 operand = 0  # reset operand
             elif ch == "-":
-                res += sign*operand # previous sign
+                res += sign*operand # res before -
                 sign = -1
                 operand = 0
             elif ch == '(':
-                stack.append(res)
-                stack.append(sign)
+                stack.append(res)   # previous res
+                stack.append(sign)  # sign before (
                 sign = 1
                 res = 0
             elif ch == ')':
-                res += sign*operand
-                res *= stack.pop()   # pop out sign
-                res += stack.pop()   # pop out prev res
+                res += sign*operand  # res before )
+                res *= stack.pop()   # pop out sign before (
+                res += stack.pop()   # pop out prev res before (
                 operand = 0
         return res + sign*operand    # any numbers left
                              
