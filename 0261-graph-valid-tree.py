@@ -50,11 +50,11 @@ class Solution:
             
             visited.add(n)
             for nei in adj_list[n]:
-                if nei == prev:  # [0,1,0] - avoid visit previous node
+                if nei == prev:  # [0,1,0] - avoid visit previous node, not a cycle
                     continue
                 if not dfs(nei, n):
                     return False
-            return True
+            return True   # no cycle
             
         return dfs(0, -1) and n == len(visited)  # check all nodes are connected          
 

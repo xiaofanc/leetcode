@@ -33,6 +33,38 @@ class Solution:
                 dfs(i, -1)
         return res
 
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: int
+        """
+        if not edges:
+            return n
+        if not n:
+            return 0
+        adj = defaultdict(set)
+        for a, b in edges:
+            adj[a].add(b)
+            adj[b].add(a)
+
+        visited = set()
+        res = 0
+        def dfs(n):  # no need to track prev
+            if n in visited:
+                return
+            visited.add(n)
+            for nei in adj[n]:
+                dfs(nei)
+
+        for i in range(n):
+            if i in visited:
+                continue
+            else:
+                res += 1
+                dfs(i)
+        return res
+
     # union - find
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         # every node is its own parant
