@@ -12,12 +12,14 @@ def countComponents(self, n: int, edges: List[List[int]]) -> int:
     par = [i for i in range(n)]
     rank = [1 for i in range(n)]
     def find(n):
+        # find the parent of n
         if n == par[n]:
             return n
         while n != par[n]:
             par[n] = par[par[n]] # optimize
             n = par[n] # grandparant
         return n
+        
     def union(p1, p2):
     	# find the base root of nodes
         r1, r2 = find(p1), find(p2)
