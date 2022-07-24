@@ -67,6 +67,13 @@ if __name__ == '__main__':
     s = Solution()
     print(s.depthSumInverse([[1,1],2,[1,1]])) # 1*1 + 1*1 + 2*2 + 1*1 + 1*1 = 8
     print(s.depthSumInverse([1,[4,[6]]])) # 1*3 + 4*2 + 6*1 = 17
+    print(s.depthSumInverse([[1,1],2,[1,1],[[[[]]]]])) # 20 ?
+    # maxDepth = 5
+    # depth = 2 2 1 2 2 
+    # weights = 4 4 5 4 4 
+    # res = 4 + 4 + 10 + 4 + 4 = 26
+
+
 
     
 
