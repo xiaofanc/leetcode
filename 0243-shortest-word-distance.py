@@ -50,7 +50,10 @@ class Solution:
 
 if __name__ == '__main__':
     s=s = Solution()
-    print(s.shortestDistance0(["practice", "makes", "perfect", "coding", "makes"],"coding","practice"))
-    print(s.shortestDistance1(["practice", "makes", "perfect", "coding", "makes"],"coding","practice"))
+    print(s.shortestDistance0(["practice", "makes", "perfect", "coding", "makes"],"coding","practice")) # 3
+    print(s.shortestDistance1(["practice", "makes", "perfect", "coding", "makes"],"coding","practice")) # 3
     print(s.shortestDistance2(["practice", "makes", "perfect", "coding", "makes"],"coding","practice"))
     print(s.shortestDistance3(["practice", "makes", "perfect", "coding", "makes"],"coding","practice"))
+
+
+    
