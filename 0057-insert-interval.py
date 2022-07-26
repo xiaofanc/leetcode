@@ -42,7 +42,22 @@ class Solution:
                 new = [min(interval[0], new[0]), max(interval[1], new[1])]
         res.append(new)
         return res
-              
+
+    def add_interval(intervals, new_interval):
+        result = []
+        interval_to_merge = new_interval
+        for i in range(len(intervals)):
+            curr_interval = intervals[i]
+            if curr_interval[1] < interval_to_merge[0]:
+                result.append(curr_interval)
+            elif interval_to_merge[1] < curr_interval[0]:
+                result.append(interval_to_merge)
+                interval_to_merge = curr_interval
+            else:
+                interval_to_merge = [min(curr_interval[0], interval_to_merge[0]), max(curr_interval[1], interval_to_merge[1])]
+        result.append(interval_to_merge)
+        return result
+                  
 if __name__ == '__main__':
 	s = Solution()
 	print(s.insert([[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8]))  #[[1,2],[3,10],[12,16]]
