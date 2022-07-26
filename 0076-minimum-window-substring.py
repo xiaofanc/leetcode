@@ -56,6 +56,35 @@ class Solution:
             r += 1
         return "" if ans[0] == float("inf") else s[ans[1]:ans[2]+1]
                 
+
+
+    def minWindow(s, t):
+        target = collections.Counter(t)
+        conditions = 0
+        window = {}
+        length = len(s)
+        res = ""
+        l, r = 0, 0
+        while r < len(s):
+            # when the window is not found, move right pointer + 1
+            window[s[r]] = window.get(s[r], 0) + 1
+            if s[r] in target and window[s[r]] == target[s[r]]:
+                conditions += 1
+            # move the left pointer until condition does not meet, get the min length
+            while conditions == len(target):
+                if r-l+1 < length:
+                    res = s[l:r+1]
+                    length = r-l+1
+                window[s[l]] -= 1
+                if s[l] in target and window[s[l]] < target[s[l]]:
+                    conditions -= 1
+                if window[s[l]] == 0:
+                    del window[s[l]]
+                l += 1
+            else:
+                r += 1
+            
+        return res
                 
 if __name__ == '__main__':
 	s = Solution()
