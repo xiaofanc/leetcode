@@ -27,21 +27,21 @@ class Solution:
         return dp(0, len(s)-1)
 
 
-def longestPalindromeSubseq(self, s: str) -> int:
-        n = len(s)
-        
-        cache = {}
-        def helper(l, r):
-            if (l,r) in cache: return cache[(l,r)]
-            if l > r: return 0
-            if l == r: return 1
-            if s[l] == s[r]:
-                cache[(l,r)] = helper(l + 1, r - 1) + 2
+    def longestPalindromeSubseq(self, s: str) -> int:
+            n = len(s)
+            
+            cache = {}
+            def helper(l, r):
+                if (l,r) in cache: return cache[(l,r)]
+                if l > r: return 0
+                if l == r: return 1
+                if s[l] == s[r]:
+                    cache[(l,r)] = helper(l + 1, r - 1) + 2
+                    return cache[(l, r)]
+                cache[(l,r)] = max(helper(l, r - 1), helper(l + 1, r))
                 return cache[(l, r)]
-            cache[(l,r)] = max(helper(l, r - 1), helper(l + 1, r))
-            return cache[(l, r)]
 
-        return helper(0, n - 1) 
+            return helper(0, n - 1) 
         
 if __name__ == '__main__':
 	s = Solution()
