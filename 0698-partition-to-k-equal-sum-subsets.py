@@ -47,6 +47,7 @@ class Solution:
         used = [False] * len(nums)
 
         def backtrack(i, cursum, count):
+            print("start, ", i, cursum, count)
             if count == k-1:
                 return True
             if cursum == target:
