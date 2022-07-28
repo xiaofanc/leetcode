@@ -7,7 +7,7 @@
 
 class Solution:
     def findSecondMinimumValue(self, root: Optional[TreeNode]) -> int:
-        # find the next value > root
+        # find the next value > root, could be in the deep 
         small = root.val
         res = [float('inf')]
         def preorder(node):
@@ -15,6 +15,7 @@ class Solution:
                 return
             if small < node.val < res[0]:
                 res[0] = node.val
+                return              # 在左子树中找到值后return，继续查找右子树
             preorder(node.left)
             preorder(node.right)
         preorder(root)
@@ -23,3 +24,4 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.findSecondMinimumValue([2,2,5,null,null,5,7]))   # 5
+    print(s.findSecondMinimumValue([1,1,3,1,1,3,4,3,1,1,1,3,8,4,8,3,3,1,6,2,1]))   # 2
