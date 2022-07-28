@@ -1,3 +1,14 @@
+"""
+["0:start:0","1:start:2","0:end:5"] will not happen since 2 tasks cannot run at the same time
+The total exclusive time of all tasks should add up to end(last)-start(first)+1
+
+["0:start:0","1:start:2","2:start:4","2:end:4","1:end:5","0:end:6"]
+remove the overlapping time:
+execution time of task 2: 1
+remove the execution time of task 2 (total time: 1) from task 1 (4): 4-1=3
+remove the execution time of task 1 (total time: 4) from task 0 (7): 7-4=3
+"""
+
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
         f = [0]*(n)
@@ -15,7 +26,7 @@ class Solution:
             else:                
                 prID, prtime = stack.pop()                
                 timespent = time-prtime+1
-                f[ID]+= timespent
+                f[ID]+= timespent  # same as prID
                 print(f)
                 #remove the overlapping time 
                 
