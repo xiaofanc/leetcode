@@ -82,9 +82,27 @@ class Solution:
                 maxstr = opt2
                 #print(opt2)
         return maxstr
+
+    # DP
+    def longestPalindrome(self, s: str) -> str:
+        if s is "":
+            return s
+        res = ""
+        dp = [[0]*len(s) for i in range(len(s))]
+        for j in range(len(s)):
+            for i in range(j+1):
+                if i == j:
+                    dp[i][j] = True
+                elif j == i+1:
+                    dp[i][j] = (s[i] == s[j])
+                else:
+                    dp[i][j] = (s[i] == s[j] and dp[i+1][j-1])
                 
-            
+                if dp[i][j] and j - i + 1 > len(res):
+                    res = s[i:j+1]
+        return res                
                 
 if __name__ == '__main__':
     s = Solution()
-    print(s.longestPalindrome("babad"))
+    print(s.longestPalindrome("babad")) # "bab" or "aba"
+
