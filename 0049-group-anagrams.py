@@ -10,7 +10,8 @@ Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 """
 
 class Solution:
-    # Time: O(mxnlogn)
+    # Time: O(mxnlogn), where n is the maximum length of a string
+    # Space: O(mn)
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         ans = collections.defaultdict(list) # key is the tuple
         for s in strs:
@@ -18,6 +19,7 @@ class Solution:
         return ans.values()
 
     # Time(mxnx26) -> Time(mxn)
+    # Space: O(mn)
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         anagrams = defaultdict(list)
         for s in strs:
@@ -32,3 +34,7 @@ if __name__ == '__main__':
 	s = Solution()
 	print(s.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))  # [["bat"],["nat","tan"],["ate","eat","tea"]]
     print(s.groupAnagrams(["",""]))  # [["",""]]
+
+
+
+    
