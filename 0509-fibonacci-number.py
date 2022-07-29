@@ -19,7 +19,7 @@ def memo(func):
             return v
     return new_func
 
-@memo    # Time: O(2^n), space: O(n)
+@memo    # Time: O(2^n) if no memo, O(n) if memo, space: O(n)
 def fibonacci(n):
     if n == 0:
         return 0
@@ -27,6 +27,15 @@ def fibonacci(n):
         return 1
     return fibonacci(n-1) + fibonacci(n-2)
 
+def fibonacci(n, memo={}):
+    if n in memo:
+        return memo[n]
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    memo[n] = fibonacci(n-1) + fibonacci(n-2)
+    return memo[n]
 
 def fibonacci(n):
     current = 0
