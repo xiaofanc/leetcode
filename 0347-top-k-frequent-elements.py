@@ -1,4 +1,7 @@
 """
+It is guaranteed that the answer is unique.
+k is in the range [1, the number of unique elements in the array].
+
 我们要用小顶堆，因为要统计最大前k个元素，只有小顶堆每次将最小的元素弹出，最后小顶堆里积累的才是前k个最大元素。
 
 Time for heap:
