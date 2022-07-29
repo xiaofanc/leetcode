@@ -46,11 +46,26 @@ class Solution:
             return f(n) // (f(r)*f(n-r))
         return fcr(m+n-2, m-1)
 
+    # Time: O(2^(m+n)), space: O(m+n)
     def uniquePaths(self, m: int, n: int) -> int:
         if m == 1 or n == 1:
             return 1
         return self.uniquePaths(m-1, n) + self.uniquePaths(m, n-1)
 
+    # Time: O(m*n) - every cell will be calculated once, space: O(m+n) - call stack
+    def uniquePaths(self, m: int, n: int, memo={}) -> int:
+        if (m,n) in memo:
+            return memo[(m,n)]
+        if (n,m) in memo:
+            return memo[(n,m)]
+        if m == 1 or n == 1:
+            return 1
+        memo[(m,n)] = self.uniquePaths(m-1, n, memo) + self.uniquePaths(m, n-1, memo)
+        return memo[(m,n)]
+
 if __name__ == '__main__':
     s = Solution()
     print(s.uniquePaths(7, 3) == 28)
+
+
+    
