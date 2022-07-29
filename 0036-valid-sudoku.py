@@ -16,7 +16,9 @@ class Solution:
                         else:
                             return False
                         # print("checking", visited)
-    
+    	
+
+    	# check each row and col
         dirs = [(1,0),(-1,0),(0,1),(0,-1)]
         row = [set() for i in range(rows)]
         col = [set() for i in range(cols)]
@@ -46,3 +48,6 @@ class Solution:
                     if not dfs(i, j):
                         return False
         return True
+
+
+
