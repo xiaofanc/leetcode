@@ -104,7 +104,23 @@ class Solution:
                 if s[i:j] in wordDict and DP[j]:
                     DP[i] = True
         return DP[0]
-        
+
+    # Time: O(n * m^2), space: O(m^2)
+    # no memo: Time: O(n^m * m)
+    def wordBreak(self, s: str, wordDict: List[str], memo = {}) -> bool:
+        if s in memo:
+            return memo[s]
+        if s == "":
+            return True
+        for word in wordDict:
+            if s.find(word) == 0:          # find the word in s, return 0
+                substring = s[len(word):]  # O(m)
+                if self.wordBreak(substring, wordDict, memo):
+                    memo[s] = True
+                    return True
+        memo[s] = False
+        return False
+
 if __name__ == '__main__':
     s = Solution()
     print(s.wordBreak("leetcode", ["leet", "code"]) == True)
