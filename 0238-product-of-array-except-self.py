@@ -1,4 +1,3 @@
-
 from functools import reduce
 from operator import mul
 from itertools import accumulate
@@ -10,10 +9,10 @@ class Solution:
         for i in range(len(nums)):
             res[i] = prefix
             prefix *= nums[i]
-        postfix = 1
+        suffix = 1
         for i in range(len(nums)-1,-1,-1):
-            res[i] *= postfix
-            postfix *= nums[i]
+            res[i] *= suffix
+            suffix *= nums[i]
         return res
         
     def productExceptSelf(self, nums: List[int]) -> List[int]:
@@ -39,20 +38,31 @@ class Solution:
         return ans
 
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        #[1, 2, 3, 4]
-        #[1, 1, 2, 6, 24]
-        #why add 1? 因为第一位数1左边没有数字
-        #forward returns for each point, the production of all left numbers
+        # [1, 2, 3, 4]
+        # [1, 1, 2, 6, 24]
+        # why add 1? 因为第一位数1左边没有数字
+        # forward returns for each point, the production of all left numbers
         forward = [1] + list(accumulate(nums, mul))
-        #[4, 3, 2, 1]
-        #[4, 12, 24, 24] -> [24, 12, 4, 1]
-        #backward 为什么从-2开始？得到排除第一个数后的乘积。
-        #为什么要加1？ 因为最后一个数4的右边没有数字
+        # [4, 3, 2, 1]
+        # [4, 12, 24, 24] -> [24, 12, 4, 1]
+        # backward 为什么从-2开始？得到排除第一个数后的乘积。
+        # 为什么要加1？ 因为最后一个数4的右边没有数字
         backward = list(accumulate(reversed(nums), mul))[-2::-1] + [1]
-        #[24, 12, 8, 6]
-        #左边乘积*右边乘积 [1, 1, 2, 6, 24]*[24, 12, 4, 1]
+        # [24, 12, 8, 6]
+        # 左边乘积*右边乘积 [1, 1, 2, 6, 24]*[24, 12, 4, 1]
+        # zip会自动取最小相同长度 
         return [f*b for f, b in zip(forward, backward)]
                   
 if __name__ == '__main__':
     s = Solution()
-    print(s.productExceptSelf([1,2,3,4]))
+    print(s.productExceptSelf([1,2,3,4])) # [24,12,8,6]
+    print(s.productExceptSelf([0,2,3,4])) # [24,0,0,0]
+    print(s.productExceptSelf([0,2,0,4])) # [0,0,0,0]
+
+
+
+
+    
+
+
+
