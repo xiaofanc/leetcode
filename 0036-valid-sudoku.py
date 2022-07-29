@@ -33,7 +33,13 @@ class Solution:
                     continue
                 if not dfs(i+dx, j+dy):
                     return False
-            return True
+            # why return true here?
+            # 当这层没有办法再走下去的时候, for example: 6 surrounded by visited cell and '.'
+            # 返回上一层 5 and go right to 3..
+            return True   
+
+        # why loop here?
+        # 没有办法走下去时返回到最顶层，但是还没有走完其他的cell
         for i in range(rows):
             for j in range(cols):
                 if (i, j) not in cells and board[i][j] != '.':
