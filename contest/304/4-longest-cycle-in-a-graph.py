@@ -64,4 +64,35 @@ class Solution:
             dfs(node, [], 0)
         return maxl
             
-                        
+
+    def longestCycle(self, edges: List[int]) -> int:
+        # Time: O(N)
+        # cycle will be visited once
+        # each node will be visited once
+        def dfs(node, idx, path, l):
+            nonlocal maxl
+            if node == -1: # no cycle
+                return
+            if node in visited:
+                # get the index of node if it is in the path
+                i = idx.get(node, -1)
+                # node is not in the path, but visited in previous path
+                # no need to continue
+                if i == -1:
+                    return
+                else:
+                    maxl = max(maxl, l-i)
+                    return
+            idx[node] = l
+            visited.add(node)
+            path.append(node)
+            dfs(edges[node], idx, path, l+1)
+                
+        maxl = -1
+        visited = set()           # global
+        for node in range(len(edges)):
+            idx = defaultdict()   # local
+            dfs(node, idx, [], 0)
+        return maxl
+            
+
