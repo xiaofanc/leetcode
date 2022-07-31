@@ -1,12 +1,31 @@
+
 class Solution:
     def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
-        adjList = defaultdict(list)
-        for i, n in enumerate(edges):
-            if n != -1:
-                adjList[i].append(n)
-        n1 = adjList[node1][0]
-        n2 = adjList[node2][0]
-        if node1 == node2:
-            return 0
-        while n1 != n2:
-            
+        # m1[i] = the min distance from node1 to each node i
+        # m2[i] = the min distance from node2 to each node i
+        m1 = [-1] * len(edges)
+        m2 = [-1] * len(edges)
+        # populate m1 and m2
+        def dfs(node, dist, memo):
+            # when node is not reached
+            while node != -1 and memo[node] == -1: 
+                memo[node] = dist
+                dist += 1
+                # move to the next node
+                node = edges[node] 
+        
+        dfs(node1, 0, m1)
+        dfs(node2, 0, m2)
+        minDist = float('inf')
+        res = -1   # common node
+        for i in range(len(edges)):
+            # if node1 and node2 can both reach i
+            if m1[i] != -1 and m2[i] != -1:
+                if max(m1[i], m2[i]) < minDist:
+                    minDist = max(m1[i], m2[i])
+                    res = i
+        return res
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.closestMeetingNode([2,2,3,-1], 0, 1)) # 2

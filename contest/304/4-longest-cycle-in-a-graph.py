@@ -1,6 +1,7 @@
 
 
 class Solution:
+	# TLE
     def longestCycle(self, edges: List[int]) -> int:
         adjList = defaultdict(list)
         for i, n in enumerate(edges):
@@ -32,5 +33,35 @@ class Solution:
             visited = set()
             dfs(node, [], 0)
         return cnt
+
+class Solution:
+    def longestCycle(self, edges: List[int]) -> int:
+        
+        def dfs(node, path, l):
+            nonlocal maxl
+            # print("path", node, path, l)
+            if node == -1:
+                return
+            if node in visited:
+                # check if node in the path
+                idx = -1
+                for i, n in enumerate(path):
+                    if n == node:
+                        idx = i
+                if idx == -1:
+                    return
+                else:
+                    maxl = max(maxl, l-idx)
+                    # print("l, idx, maxl", l, idx, maxl)
+                    return
+            visited.add(node)
+            path.append(node)
+            dfs(edges[node], path, l+1)
+                
+        maxl = -1
+        visited = set()
+        for node in range(len(edges)):
+            dfs(node, [], 0)
+        return maxl
             
-            
+                        
