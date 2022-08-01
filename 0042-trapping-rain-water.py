@@ -6,7 +6,7 @@ class Solution:
     def trap(self, height: List[int]) -> int:
         forward, fmax = [], 0
         for h in height:
-            fmax = max(fmax,h)
+            fmax = max(fmax,h) # why? min(b,f)-h could be neg if no max
             forward.append(fmax)
 
         backward, bmax = [], 0
@@ -17,6 +17,7 @@ class Solution:
         
         return sum(min(b,f)-h for b,f,h in zip(forward,backward,height))
     
+    # monotonic stack
     def trap(self, height: List[int]) -> int:
         ans, cur = 0, 0
         stack = []
@@ -26,7 +27,7 @@ class Solution:
                 if stack == []:
                     break
                 distance = cur - stack[-1] - 1
-                #find minimum of left and right, 
+                # find minimum of left and right
                 bounded_height = min(cur_height, height[stack[-1]]) - height[top]
                 ans += distance * bounded_height
             stack.append(cur)
@@ -35,3 +36,4 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.trap([0,1,0,2,1,0,1,3,2,1,2,1]))
+    print(s.trap([4,2,0,3,2,5]))  # 9 = 2+2+1+4
