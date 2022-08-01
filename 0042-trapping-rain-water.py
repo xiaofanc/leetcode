@@ -20,14 +20,16 @@ class Solution:
     # monotonic stack
     def trap(self, height: List[int]) -> int:
         ans, cur = 0, 0
-        stack = []
+        stack = [] # store index
         for cur, cur_height in enumerate(height):
             while stack != [] and cur_height > height[stack[-1]]:
                 top = stack.pop()
                 if stack == []:
                     break
+                # calculate width between left and right block
+                # left and right are all higher than top since it is a monotonic stack
                 distance = cur - stack[-1] - 1
-                # find minimum of left and right
+                # height difference between min(left, right) and top
                 bounded_height = min(cur_height, height[stack[-1]]) - height[top]
                 ans += distance * bounded_height
             stack.append(cur)
