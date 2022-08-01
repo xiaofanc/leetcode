@@ -26,6 +26,11 @@ This can satify ith group < i+1th group for both size and sum.
 
 So we need to find out the maximum result k that
 1 + 2 + ... + k <= n
+
+solution 2:
+use binary search to solve 1 + 2 + ... + k <= n
+k(k+1)/2 <= n
+The maximum groups formed can be 446 because (446 *(446+1)) / 2 is approximately 10^5. (Check constraints for n)
 """
 
 class Solution:
