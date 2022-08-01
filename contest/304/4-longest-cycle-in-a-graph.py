@@ -63,7 +63,7 @@ class Solution:
     def longestCycle(self, edges: List[int]) -> int:
         # Time: O(N)
         # cycle will be visited once
-        # each node will be visited once
+        # only start node will be visited
         def dfs(node, idx, l):
             nonlocal maxl
             # if no cycle or node is visited in the previous path
@@ -80,6 +80,7 @@ class Solution:
                 maxl = max(maxl, l-i)
                 return
             dfs(node, idx, l)
+            # no need for backtracking since each node has only one edge
             
         maxl = -1
         visited = set()           # global
