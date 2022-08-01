@@ -30,9 +30,11 @@ class Solution:
                     r -= 1
                 else:
                     return False
-            while not s[l].isalnum():
+            # if s[l] is not alnum, move to the right and do not move outbound
+            while not s[l].isalnum() and l < len(s)-1:
                 l += 1
-            while not s[r].isalnum():
+            # if s[r] is not alnum, move to the left and do not move outbound
+            while not s[r].isalnum() and r > 0:
                 r -= 1
         return True
 
@@ -40,3 +42,7 @@ if __name__ == '__main__':
     s = Solution()
     assert s.isPalindrome("A man, a plan, a canal: Panama") == True
     assert s.isPalindrome("0P") == False
+    assert s.isPalindrome(";.") == True
+    assert s.isPalindrome(".;;a......a'") == True
+
+
