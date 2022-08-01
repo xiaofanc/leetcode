@@ -18,6 +18,24 @@ Then we slide the index j to the right
 """
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        # use dictionary to keep track of the number of unique chars in the sliding window
+        # when right pointer meets duplicate char c
+        # left pointer needs to move to the previous c + 1 position
+        # so that the sliding window [l, r] only include unique chars
+        count = {}
+        l, r = 0, 0
+        res = 0
+        while r < len(s):
+            count[s[r]] = count.get(s[r], 0) + 1
+            while count[s[r]] > 1:
+                # move the left pointer
+                count[s[l]] -= 1
+                l += 1
+            res = max(res, r-l+1)
+            r += 1
+        return res
+        
+    def lengthOfLongestSubstring(self, s: str) -> int:
         visited = set()
         l = res = 0
         for r in range(len(s)):

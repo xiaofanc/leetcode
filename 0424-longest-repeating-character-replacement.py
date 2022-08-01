@@ -11,6 +11,20 @@ solution:
 """
 
 class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l, r = 0, 0
+        res = 0
+        count = {} # count of chars in the window
+        while r < len(s):
+            count[s[r]] = count.get(s[r], 0) + 1
+            while r-l+1 -max(count.values()) > k:
+                count[s[l]] -= 1
+                l += 1
+            winLen = r-l+1
+            res = max(res, winLen)
+            r += 1
+        return res
+
 	# Time: O(26n)
     def characterReplacement(self, s: str, k: int) -> int:
         res = l = 0
