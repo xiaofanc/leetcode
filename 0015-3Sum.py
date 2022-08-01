@@ -29,6 +29,7 @@ class Solution:
                     # remove the duplicates and keep l in range
                     # another pointer will be taken care of before
                     l += 1
+                    # l < r matters! make sure l is not out of bound
                     while l < r and nums[l-1] == nums[l]:
                         l += 1
         return res
@@ -112,6 +113,7 @@ class Solution:
             #print(res)
             lo += 1
             hi -= 1
+            # lo < hi matters!
             while lo < hi and nums[lo] == nums[lo-1]:
                 lo += 1
                 #print(lo)
