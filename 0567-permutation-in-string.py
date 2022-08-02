@@ -1,5 +1,23 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
+        target = [0]*26
+        window = [0]*26
+        for char in s1:
+            target[ord(char)-ord('a')] += 1
+        l, r = 0, 0
+        while r < len(s2):
+            # print("l, r->", l,r, window)
+            window[ord(s2[r])-ord('a')] += 1
+            # if window size is not == len(s1), move left pointer
+            if r-l+1 > len(s1):
+                window[ord(s2[l])-ord('a')] -= 1
+                l += 1
+            if window == target:
+                return True
+            r += 1
+        return False
+        
+    def checkInclusion(self, s1: str, s2: str) -> bool:
         A = [ord(x)-ord('a') for x in s1]
         B = [ord(y)-ord('a') for y in s2]
         
@@ -37,3 +55,5 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     print(s.checkInclusion("ab", "eidbaooo")) #True
+    print(s.checkInclusion("ab", "eidboaooo")) #False
+
