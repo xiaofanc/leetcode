@@ -1,21 +1,8 @@
-# O(n) using stack
+# O(n) using stack, pop out the prev idx if meeting a warmer temp and calculate the diff
 
 from typing import List
 
 class Solution:
-    def dailyTemperatures(self, T: List[int]) -> List[int]:
-        if not T:
-            return 
-        day_warmer = [0] * len(T)
-        stack = [0]
-        for i in range(1, len(T)):
-            while stack and T[i] > T[stack[-1]]:
-                prev = stack.pop()
-                day_warmer[prev] = i-prev
-            stack.append(i)
-            #print(stack)
-        return day_warmer
-
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         stack = []
         res = [0] * len(temperatures) 
