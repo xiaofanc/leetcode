@@ -81,7 +81,7 @@ class Solution:
             # if the current number is larger than the number in the queue, then pop
             while q and n > nums[q[-1]]:
                 q.pop()
-            q.append(i)
+            q.append(i) # [3,-1,-3]
             # check if the index of the max num is out of current window
             if q[0] == i-k:
                 q.popleft()
