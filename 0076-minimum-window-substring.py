@@ -76,14 +76,14 @@ class Solution:
                     res = s[l:r+1]
                     length = r-l+1
                 window[s[l]] -= 1
+                # window[s[l]] != target[s[l]] does not work 
+                # window[s[l]] can be > target[s[l]], but it still meet the condition
                 if s[l] in target and window[s[l]] < target[s[l]]:
                     conditions -= 1
                 if window[s[l]] == 0:
                     del window[s[l]]
                 l += 1
-            else:
-                r += 1
-            
+            r += 1
         return res
                 
 if __name__ == '__main__':
