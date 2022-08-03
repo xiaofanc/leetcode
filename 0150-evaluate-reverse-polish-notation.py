@@ -4,6 +4,7 @@ class Solution:
         for token in tokens:
             # if token is digit, save to stack
             # else if token is operator, pop out two numbers from stack and append the res
+            # isnumeric() does not work for negative int
             if token in '+-*/':
                 num2 = stack.pop()
                 num1 = stack.pop()
