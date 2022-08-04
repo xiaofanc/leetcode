@@ -7,6 +7,24 @@ The largest rectangle confined to the right of the shortest bar(subproblem).
 
 solution 2: using stack
 In this approach, we maintain a stack. Initially, we push a -1 onto the stack to mark the end. We start with the leftmost bar and keep pushing the current bar's index onto the stack until we get two successive numbers in descending order, i.e. until we get heights[i] < heights[i-1]. Now, we start popping the numbers from the stack until we hit a number stack[j] on the stack such that heights[stack[j]] <= heights[i].
+
+[1,2,3,4,2]
+stack = [-1,0,1,2,3] -> store index
+when i = 4, 
+    heights[4] = 2 < heights[3] = 4, pop out index 3
+    calculate the maxarea using heights[3] = 4 as height and 
+    width = i-stack[-1]-1 = 4-2-1 = 1
+    maxarea for using heights[3] = 4 as height is 4*1 = 4
+
+    heights[4] = 2 < heights[2] = 3, pop out index 2
+    calculate the max area of rectangle using 3 as height
+    the width = 4-1-1 = 2 
+    Intuition is how much that height can extend from left to right
+Finally,
+stack = [-1,0,4], which means that height in index 0 and index 4 can extend to the end!
+    pop out the index to get height = heights[i]
+    width = len(heights)-stack[-1]-1
+    for index = 0, width = 5-(-1)-1 = 5
 """
 class Solution:
 	# average time: O(nlogn), worse time: O(n^2), space: O(n)	
