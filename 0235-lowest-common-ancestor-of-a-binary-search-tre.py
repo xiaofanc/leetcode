@@ -73,3 +73,8 @@ if __name__ == '__main__':
     print(s.lowestCommonAncestor(root, T(2),T(8))) #6
     print(s.lowestCommonAncestor(root, T(2),T(4))) #2
     print(s.lowestCommonAncestor(root, T(0),T(5))) #2
+
+
+
+
+    
