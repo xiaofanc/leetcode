@@ -28,6 +28,7 @@ class Solution:
         return convert(t) in convert(s)
 
     # Time: O(|s| * |t|)
+    # Space: O(h)
     def isSubtree2(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
         # for each node of s, let's check if its subtree equals t
         def compare(node1, node2):
@@ -66,8 +67,10 @@ if __name__ == '__main__':
     t = T(2,T(4),T(3))
     print(t, s)
     s = T(12)  # ^12#$$
-    t = T(2)   # ^2#$$
-s = Solution()
+    t = T(2)   # ^2#$$   without^, return True is wrong
+    s = Solution()
 
-print(s.isSubtree0(s, t))
-print(s.isSubtree1(s, t))
+    print(s.isSubtree0(s, t))
+    print(s.isSubtree1(s, t))
+
+
