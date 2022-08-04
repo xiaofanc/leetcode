@@ -40,25 +40,28 @@ class Solution:
         
         return calculatearea(heights, 0, len(heights)-1)
     
-    # Time: O(n)               
+    # Time: O(n)   
+class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         stack = [-1]
         max_area = 0
         for i in range(len(heights)):
+            # deal with height that can extend to i (not including)
             while stack[-1] != -1 and heights[i] <= heights[stack[-1]]:
                 current_height = heights[stack.pop()]
+                # stack[-1] is the left boundary
                 current_width = i - stack[-1] - 1
                 max_area = max(max_area, current_height * current_width)
             stack.append(i)
         
-        # deal with the last height
+        # deal with the height that can extend to the end
         while stack[-1] != -1:
             current_height = heights[stack.pop()]
             current_width = len(heights) - stack[-1] - 1
             max_area = max(max_area, current_height * current_width)
         return max_area
 
-class Solution:
+
     def largestRectangleArea(self, heights: List[int]) -> int:
         # keep the stack in non-decreasing order
         # add -1 to the stack in order to calculate the width for the last element
