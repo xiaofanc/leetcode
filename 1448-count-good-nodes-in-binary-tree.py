@@ -1,4 +1,6 @@
 # Definition for a binary tree node.
+# Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -81,4 +83,3 @@ if __name__ == '__main__':
     s = Solution()
     print(s.goodNodes(root))  # 4
 
-    
