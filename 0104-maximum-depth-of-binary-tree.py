@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+# Time: O(N)
 class Solution:
     # DFS
     def maxDepth(self, root: TreeNode) -> int:
