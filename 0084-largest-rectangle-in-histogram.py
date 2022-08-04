@@ -58,6 +58,39 @@ class Solution:
             max_area = max(max_area, current_height * current_width)
         return max_area
 
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        # keep the stack in non-decreasing order
+        # add -1 to the stack in order to calculate the width for the last element
+        stack = []
+        maxarea = float('-inf')
+        for i, height in enumerate(heights):
+            # print("i, height ->", i, height, maxarea)
+            # when meet a shorter height (cur height <= heights[stack[-1]]), it means that heights[stack[-1]] cannot extend any more
+            while stack and height <= heights[stack[-1]]:
+                # pop out the element to calculate the max area using heights[stack[-1]] as height, extend to cur until element's height < cur height
+                h = heights[stack.pop()]
+                # left boundary - stack[-1] limits the extension of heights[stack[-1]] to the left
+                # right boundary - i limits the extension of heights[stack[-1]] to the right
+                if len(stack) == 0:  # does not have left boundary
+                    w = i
+                else:
+                    w = i-stack[-1]-1
+                # 计算以heights[stack[-1]]为高时可以extend的最大面积
+                maxarea = max(maxarea, w * h)
+            stack.append(i)
+            
+        # finally, calculate the max area that can extend to the end
+        while stack:
+            h = heights[stack.pop()]
+            # stack[-1] limits the extension of heights[stack[-1]] to the left
+            if len(stack) == 0: # the minimum height
+                w = len(heights)
+            else:
+                w = len(heights)-stack[-1]-1
+            maxarea = max(maxarea, w * h)
+        return maxarea
+        
 if __name__ == '__main__':
 	s = Solution()
 	print(s.largestRectangleArea([2,1,5,6,2,3])) #10
