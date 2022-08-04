@@ -45,8 +45,40 @@ class Solution:
         tranverse(root, self.maxnode)
         return self.ans
 
+    # top-down DFS
+    def goodNodes(self, root: TreeNode) -> int:
+        cnt = 0
+        def dfs(node, maxVal):
+            nonlocal cnt
+            if not node:
+                return 0
+            if node.val >= maxVal:
+                cnt += 1
+                maxVal = max(maxVal, node.val)
+            dfs(node.left, maxVal)
+            dfs(node.right, maxVal)
+        dfs(root, float('-inf'))
+        return cnt
+
+    # top-down DFS
+    def goodNodes(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        stack = [(root, root.val)]
+        res = 0
+        while stack:
+            node, maxVal = stack.pop()
+            if node.val >= maxVal:
+                res += 1
+                maxVal = node.val
+            if node.left: stack.append((node.left, maxVal))
+            if node.right: stack.append((node.right, maxVal))
+        return res
+
 if __name__ == '__main__':
     T = TreeNode
     root = T(3, T(1, T(3)), T(4,T(1), T(5)))
     s = Solution()
     print(s.goodNodes(root))  # 4
+
+    

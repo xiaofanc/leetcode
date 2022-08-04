@@ -20,6 +20,10 @@
 #         self.left = None
 #         self.right = None
 
+"""
+For the time complexity, I agree it should be O(n) considering the worst case when all node only has one child and p,q are near the bottom. For a balanced BST, the time complexity may be O(log(n)) since we reduce the nodes to check by half after each step.
+"""
+
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if root in (None, p, q): return root
