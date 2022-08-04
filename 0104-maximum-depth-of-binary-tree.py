@@ -5,9 +5,10 @@
 #         self.left = None
 #         self.right = None
 
-# Time: O(N)
 class Solution:
     # DFS
+    # Time: O(N)
+    # Space: O(N) for unbalanced tree, O(logN) for balanced tree
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0

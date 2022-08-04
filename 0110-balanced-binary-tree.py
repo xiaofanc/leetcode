@@ -8,6 +8,11 @@ class TreeNode:
         return 'N(%s, %s, %s)' % (self.val, self.left or '', self.right or '')
 
 class Solution(object):
+    # Top-down recursion
+    # each node will call height depth times
+    # A node at depth d is part of d subtrees of the entire tree (one for each ancestor).
+    # Therfore, Time: O(nlogn)
+    # Space: O(h)
     def isBalanced(self, root):
         """
         :type root: TreeNode
@@ -22,7 +27,9 @@ class Solution(object):
             return True
         return abs(height(root.left)-height(root.right)) < 2 and self.isBalanced(root.left) and self.isBalanced(root.right)
             
-        
+    # Bottom-up recursion: check subtree first
+    # Time: O(n) each node will be calculated once
+    # Space: O(h)
     def isBalanced(self, root):
         """
         :type root: TreeNode

@@ -8,6 +8,8 @@
 # Time: O(N)
 class Solution:
     # DFS
+    # Time: O(N)
+    # Space: O(N) for unbalanced tree, O(logN) for balanced tree
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return 
