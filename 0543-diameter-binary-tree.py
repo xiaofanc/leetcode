@@ -26,17 +26,18 @@ class Solution:
     def diameterOfBinaryTree1(self, root: TreeNode) -> int:
         # return max(l, r)+1 to the parent
         # calculate the diameter for each node
-        self.ans = 0
+        ans = 0
         def depth(node):
+            nonlocal ans
             if not node:
                 return 0
             left = depth(node.left)
             right = depth(node.right)
-            self.ans = max(self.ans, left + right)
+            ans = max(ans, left + right)
             return max(left, right) + 1
         
         depth(root)
-        return self.ans 
+        return ans 
 
 
 if __name__ == '__main__':
