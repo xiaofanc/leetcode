@@ -28,7 +28,7 @@ class Solution:
         helper(root)
         return root
 
-    # BFS 广度优先搜索
+    # DFS
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return
