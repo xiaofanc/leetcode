@@ -7,7 +7,7 @@ class TreeNode:
     def __repr__(self):
         return 'N(%s, %s, %s)' % (self.val, self.left or '', self.right or '')
 
-
+# Time: O(N)
 class Solution:
     def diameterOfBinaryTree0(self, root: TreeNode) -> int:
         self.ans = 1 # for root == None; ans = 0
