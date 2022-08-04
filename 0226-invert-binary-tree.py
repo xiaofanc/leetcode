@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+# Time: O(N)
 class Solution:
     # DFS
     def invertTree(self, root: TreeNode) -> TreeNode:
