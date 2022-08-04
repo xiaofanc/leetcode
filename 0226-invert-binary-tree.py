@@ -6,6 +6,7 @@
 #         self.right = None
 
 class Solution:
+    # DFS
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return 
@@ -13,7 +14,7 @@ class Solution:
             root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
         return root
 
-    # preorder traversal
+    # preorder traversal - DFS
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return 
@@ -27,7 +28,7 @@ class Solution:
         helper(root)
         return root
 
-    # DFS 深度优先搜索 - preorder traversal
+    # BFS 广度优先搜索
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return
