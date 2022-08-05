@@ -83,7 +83,26 @@ class Solution:
                 if not k:
                     return node.val
                 cur = node.right
-                
+
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        if not root:
+            return
+        stack = [root]
+        while stack:
+            top = stack[-1]
+            if top:
+                node = stack.pop()
+                if node.right: stack.append(node.right)
+                stack.append(node)
+                stack.append(None)
+                if node.left: stack.append(node.left)
+            else:
+                stack.pop()
+                r = stack.pop()
+                k -= 1
+                if not k:
+                    return r.val
+                                    
 if __name__ == '__main__':
     s = Solution()
     print(s.kthSmallest([3,1,4,null,2], 1) == 1)
