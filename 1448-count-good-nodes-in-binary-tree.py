@@ -48,6 +48,7 @@ class Solution:
         return self.ans
 
     # top-down DFS
+    # 记录从根节点到当前节点路径中的最大值，通过比较 root.val 和 pathMax 比较就可判断 root 节点是不是good
     def goodNodes(self, root: TreeNode) -> int:
         cnt = 0
         def dfs(node, maxVal):
