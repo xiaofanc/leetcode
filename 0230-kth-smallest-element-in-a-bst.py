@@ -42,14 +42,15 @@ class Solution:
         # use inorder traversal to traverse the tree
         def inorder(node):
             nonlocal k
-            if not node: # if node condition fails if node is 0
+            # why return 0? since 0 or None = None, so we need to return 0 for Null node
+            if not node: 
                 return 0
             left = inorder(node.left)
             k -= 1
             if not k:
                 return node.val
             right = inorder(node.right)
-            return left or right
+            return left or right  # 0 or None = None
         return inorder(root)
 
     # return None !!!
@@ -66,6 +67,23 @@ class Solution:
             inorder(node.right)
         return inorder(root)
 
+    # inorder iteration
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        if not root:
+            return
+        cur = root
+        stack = []
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur = cur.left
+            else:
+                node = stack.pop() # pop out the left most node
+                k -= 1
+                if not k:
+                    return node.val
+                cur = node.right
+                
 if __name__ == '__main__':
     s = Solution()
     print(s.kthSmallest([3,1,4,null,2], 1) == 1)
