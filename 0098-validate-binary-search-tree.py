@@ -41,7 +41,7 @@ class Solution:
         def helper(node, lower, upper):
             if not node:
                 return True
-            if node.val > lower and node.val < upper:
+            if lower < node.val < upper:
                 return helper(node.left, lower, node.val) and helper(node.right, node.val, upper)
             return False
         return helper(root, lower, upper)
@@ -67,16 +67,16 @@ class Solution:
         return helper(root)
 
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        prev = TreeNode(None)
+        prevMax = TreeNode(None)
         def traversal(node):
-            nonlocal prev
+            nonlocal prevMax
             if not node:
                 return True
             left = traversal(node.left)
-            if prev.val != None and node.val <= prev.val:
+            if prevMax.val != None and node.val <= prevMax.val:
                 return False
             else:
-                prev = node
+                prevMax = node
             right = traversal(node.right)
             return left and right
         return traversal(root)
@@ -114,6 +114,29 @@ class Solution:
                     return False
                 prev = cur
                 cur = cur.right
+        return True
+
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        # in-order iteration
+        if not root:
+            return True
+        stack = [root]
+        prevMax = float('-inf')
+        while stack:
+            top = stack[-1]
+            if top:
+                node = stack.pop()
+                if node.right: stack.append(node.right)
+                stack.append(node)
+                stack.append(None) # mark
+                if node.left: stack.append(node.left)
+            else:
+                stack.pop()
+                r = stack.pop()
+                if r.val <= prevMax:
+                    return False
+                else:
+                    prevMax = r.val
         return True
 
 if __name__ == '__main__':
