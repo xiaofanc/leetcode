@@ -49,9 +49,9 @@ class Codec:
         # DFS preorder transversal
         def preorder(root, string):
             if not root:
-                string += 'None,'
+                string += 'None,'   # when to return when rebuilding the tree
             else:
-                string += str(root.val) + ","
+                string += str(root.val) + ","   # in case of negative val
                 string = preorder(root.left, string)
                 string = preorder(root.right, string)
             return string
@@ -65,7 +65,7 @@ class Codec:
         """
         def rdeserialize(data):
             if data[0] == 'None':
-                data.pop(0)
+                data.pop(0)        # move to the next !!!!
                 return None
             
             root = TreeNode(data[0])
