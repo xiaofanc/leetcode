@@ -11,9 +11,24 @@ class Solution:
     # Space: O(N) for unbalanced tree, O(logN) for balanced tree
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
-            return 0
+            return 0 # this is height
         else:
             return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        depth = 0  # this is depth
+        res = 0
+        def dfs(node):
+            nonlocal depth, res
+            if not node:
+                return
+            depth += 1
+            res = max(res, depth)
+            dfs(node.left)
+            dfs(node.right)
+            depth -= 1
+        dfs(root)
+        return res
 
     # iterative DFS
     def maxDepth(self, root: Optional[TreeNode]) -> int:
@@ -51,6 +66,7 @@ class Solution:
             if node.left: level.append((node.left, depth+1))
             if node.right: level.append((node.right, depth+1))
         return depth
+
 
 
         

@@ -18,33 +18,6 @@ class Solution:
             return sum == 0
         return self.hasPathSum(root.left, sum) or self.hasPathSum(root.right, sum)
         
-        
-    # iteration
-    def hasPathSum(self, root: TreeNode, sum: int) :
-    	if not root:
-    		return False
-    	cur = [(root, sum - root.val),]
-    	while cur:
-    		node, curr_sum = cur.pop()
-    		if not node.left and not node.right and curr_sum == 0:
-    			return True
-    		if node.left:
-    			cur.append((node.left, curr_sum - node.left.val))
-    		if node.right:
-    			cur.append((node.right, curr_sum - node.right.val))
-    	return False
-
-
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
-        if not root:
-            return False
-        if root.left == None and root.right == None:
-            return root.val == sum
-        if root.left != None and self.hasPathSum(root.left, sum-root.val): return True
-        if root.right != None and self.hasPathSum(root.right, sum-root.val): return True
-        else: return False
-
-
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         if not root:
             return False
@@ -68,6 +41,21 @@ class Solution:
             return True
         return False
 
+    # iteration
+    def hasPathSum(self, root: TreeNode, sum: int) :
+        if not root:
+            return False
+        cur = [(root, sum - root.val),]
+        while cur:
+            node, curr_sum = cur.pop()
+            if not node.left and not node.right and curr_sum == 0:
+                return True
+            if node.left:
+                cur.append((node.left, curr_sum - node.left.val))
+            if node.right:
+                cur.append((node.right, curr_sum - node.right.val))
+        return False
+        
     # does not work in cases! path must from root to leaf node!
     #   1
     #  2
