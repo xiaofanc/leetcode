@@ -68,6 +68,17 @@ class Solution:
             return True
         return False
 
+    # does not work in cases! path must from root to leaf node!
+    #   1
+    #  2
+    # 3
+    #  4
+    # target = 6 will return True in this case since 3 does not have left child
+    def hasPathSum(self, root: Optional[TreeNode], target: int) -> bool:
+        if not root:
+            return target == 0
+        return self.hasPathSum(root.left, target-root.val) or self.hasPathSum(root.right, target-root.val)
+
 if __name__ == '__main__':
 	T = TreeNode
 	root = T(5, T(4, T(11, T(7), T(2)), None), T(8,T(13),T(4, None, T(1))))
@@ -75,6 +86,7 @@ if __name__ == '__main__':
 
 	s = Solution()
 	print(s.hasPathSum(root, 22))
+    print(s.hasPathSum(T(None), 0))  # False
 
 
     
