@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+# DFS 
 class Codec:
 
     def serialize(self, root):
@@ -63,19 +64,18 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        def rdeserialize(data):
-            if data[0] == 'None':
-                data.pop(0)        # move to the next !!!!
+        def helper(lst, x):
+            if lst[0] == "N":
+                lst.pop(0)               # lst is changed in the recursion and changed when passing in right subtree recursion
+                print(" "*x, lst)        # lst pop works like a global variable
+                print(" "*x, "return")   # lst = lst[1:] does not work since slicing lists does not generate copies of the objects in the list; it just copies the references to it
                 return None
-            
-            root = TreeNode(data[0])
-            data.pop(0)
-            root.left = rdeserialize(data)
-            root.right = rdeserialize(data)
+            root = TreeNode(int(lst.pop(0)))
+            print(" "*x, lst)
+            root.left = helper(lst, x+1)  # x is a local variable, only change in the recursion
+            root.right = helper(lst, x+1) # x passed in = previous x passed in
             return root
-        data_list = data.split(',')
-        root = rdeserialize(data_list)
-        return root
+        return helper(data.split(","), 0)
 
 class Codec:
     def serialize(self, root):
@@ -123,6 +123,57 @@ class Codec:
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
 # codec.deserialize(codec.serialize(root))
+
+# BFS - level order
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        res = []
+        queue = deque()
+        queue.append(root)
+        while queue:
+            node = queue.popleft()
+            if not node:
+                res.append("N")
+            else:
+                res.append(str(node.val))
+                queue.append(node.left)
+                queue.append(node.right)
+        return ",".join(res)
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        # print("data->", data)
+        lst = data.split(",")
+        queue = deque()
+        if lst[0] != "N":
+            root = TreeNode(int(lst[0]))
+            queue.append(root)
+        else:
+            return None
+        i = 1
+        while queue and i < len(lst):
+            node = queue.popleft()
+            if lst[i] != "N":
+                left =  TreeNode(lst[i])
+                node.left = left
+                queue.append(left)
+            i += 1                  # move to the next node
+            if lst[i] != "N":
+                right = TreeNode(lst[i])
+                node.right = right
+                queue.append(right)
+            i += 1
+        return root
 
 
 
