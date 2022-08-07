@@ -80,6 +80,34 @@ class Solution:
                 dp[i] = True
         return dp[-1]
 
+    def validPartition(self, nums: List[int]) -> bool:
+        # dp[i] = if nums[:i+1] can be partitioned into valid subarrays
+        n = len(nums)
+        dp = [False] * 3
+        if n <= 1:
+            return False
+        
+        if nums[0] == nums[1]:
+            dp[1] = True
+        if n == 2: return dp[1]
+        
+        if nums[0] == nums[1] == nums[2]:
+            dp[2] = True
+        if nums[1]-nums[0] == 1 and nums[2]-nums[1] == 1:
+            dp[2] = True
+        if n == 3: return dp[2]
+        
+        for i in range(3, n):
+            cur = False
+            if nums[i] == nums[i-1] and dp[1]:
+                cur = True
+            if nums[i] == nums[i-1] == nums[i-2] and dp[0]:
+                cur = True
+            if nums[i] - nums[i-1] == 1 and nums[i-1] - nums[i-2] == 1 and dp[0]:
+                cur = True
+            dp[0], dp[1], dp[2] = dp[1], dp[2], cur
+        return dp[2]
+        
 if __name__ == '__main__':
      s = Solution()
      print(s.validPartition([1,2])) 
