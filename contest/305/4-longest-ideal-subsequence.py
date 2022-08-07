@@ -9,6 +9,16 @@ Return the length of the longest ideal string.
 A subsequence is a string that can be derived from another string by deleting some or no characters without changing the order of the remaining characters.
 
 Note that the alphabet order is not cyclic. For example, the absolute difference in the alphabet order of 'a' and 'z' is 25, not 1.
+
+Explanation
+dp[c] means the length of the longest ideal subsequence
+ending with character c.
+
+Iterate the character i in string s,
+c can be the next character for string ending from i - k to i + k.
+So that dp[i] = max(dp[i-k], dp[i-k+1] ... , dp[i+k]) + 1.
+
+return the max(dp) as result.
 """
 
 class Solution:
@@ -45,5 +55,5 @@ if __name__ == '__main__':
 	print(s.longestIdealString("acfgbd", 2)) # 4 -> "acbd"
 
 
-	
+
 
