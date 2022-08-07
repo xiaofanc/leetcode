@@ -10,3 +10,32 @@ The subarray consists of exactly 3 consecutive increasing elements, that is, the
 Return true if the array has at least one valid partition. Otherwise, return false.
 """
 
+class Solution:
+    def validPartition(self, nums: List[int]) -> bool:
+        dp = [-1] * len(nums)
+        def solve(i):
+            if i == len(nums):
+                return True
+            if i > len(nums):
+                return False
+            if dp[i] != -1:
+                return dp[i]
+            # condition-1
+            if i+1 < len(nums) and nums[i] == nums[i+1]:
+                if solve(i+2): 
+                    return True
+                # condition-2
+                if i+2 < len(nums) and nums[i] == nums[i+2]:
+                    if solve(i+3): 
+                        return True
+            # condition-3
+            if i+2 < len(nums) and nums[i+1] - nums[i] == 1 and nums[i+2] - nums[i+1] == 1:
+                if solve(i+3): 
+                    return True
+            dp[i] = False
+            return dp[i]
+        
+        return solve(0)
+        
+            
+                
