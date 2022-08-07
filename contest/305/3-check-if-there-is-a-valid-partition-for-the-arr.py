@@ -107,7 +107,20 @@ class Solution:
                 cur = True
             dp[0], dp[1], dp[2] = dp[1], dp[2], cur
         return dp[2]
-        
+
+    def validPartition(self, A):
+        n = len(A)
+        dp = [False, False, False, True]
+        for i in range(n):
+            dp[i % 4] = False
+            if i - 1 >= 0 and A[i] == A[i-1]:
+                dp[i % 4] |= dp[(i - 2) % 4]
+            if i - 2 >= 0 and A[i] == A[i-1] == A[i-2]:
+                dp[i % 4] |= dp[(i - 3) % 4]
+            if i - 2 >= 0 and A[i] == A[i-1] + 1 == A[i-2] + 2:
+                dp[i % 4] |= dp[(i - 3) % 4]
+        return dp[(n - 1) % 4]
+                
 if __name__ == '__main__':
      s = Solution()
      print(s.validPartition([1,2])) 
