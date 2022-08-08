@@ -56,7 +56,29 @@ class Solution:
                 prev = node.val
                 cur = node.left # push the left subtree of the node
         return root
-        
+
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        # iterative
+        if not root: # root = []
+            return None
+        stack = [root]
+        prev = None
+        while stack:
+            top = stack[-1]
+            if top:                  # push the right subtree
+                node = stack.pop()
+                if node.left: stack.append(node.left)
+                stack.append(node)
+                stack.append(None)
+                if node.right: stack.append(node.right)
+            else:
+                stack.pop()
+                node = stack.pop()
+                if prev:
+                    node.val += prev
+                prev = node.val
+        return root        
+
 if __name__ == '__main__':
     s = Solution()
     print(s.convertBST([5,2,13]) == [18,20,13]) 
