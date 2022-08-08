@@ -9,7 +9,7 @@ M =
 There are 2 groups ([0,1], [2]) in M
 """
 class Solution:
-    def countGroups(related):
+    def countGroups(self, related):
         # Write your code here
         rows, cols = len(related), len(related[0])
         adj = {i:set() for i in range(rows)}
@@ -40,6 +40,7 @@ class Solution:
         
                 
 if __name__ == '__main__':
-    arr = ["1100", "1110", "0110", "0001"]
+    arr = ["1100", "1110", "0110", "0001"] # 2 -> [[0,1,2],[3]]
+    # arr = ["1000", "0100", "0010", "0001"] # 4
     s = Solution()
-    print(s.countGroups(arr))  # 2 -> [[0,1,2],[3]]
+    print(s.countGroups(arr))  
