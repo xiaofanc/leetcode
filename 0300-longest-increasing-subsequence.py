@@ -46,6 +46,26 @@ class Solution: # time: O(n^2)
                     LIS[i] = max(LIS[i], 1+LIS[j])
         return max(LIS)
 
+    # Time: O(nlogm)
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums: return 0
+        n = len(nums)
+        ans = []
+        i = 0
+        for num in nums:
+            # find where to insert num in ans
+            idx = bisect.bisect_left(ans, num)
+            # print("ans, num, idx", ans, num, idx)
+            # if the pos >= the index to be added: then add to the ans
+            # i also represents the current length of the increasing subsequence
+            if idx >= i:
+                ans.append(num)
+                i += 1
+            else:    
+                ans[idx] = num  # replace it with the smaller num
+            # print("ans->", ans, i)
+        return i
+
     # TLE
     def lengthOfLIS(self, nums: List[int]) -> int:
         res = 1
