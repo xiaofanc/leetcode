@@ -42,21 +42,19 @@ class Solution:
         return root
 
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if not root:
-            return root
+        # iterative 反中序遍历
+        prev, cur = None, root
         stack = []
-        cur = root
-        prev = None
         while cur or stack:
-            if cur:
+            if cur:  # push right node to the stack
                 stack.append(cur)
-                cur = cur.right # 反中序遍历
+                cur = cur.right
             else:
-                cur = stack.pop()
+                node = stack.pop()
                 if prev:
-                    cur.val += prev.val
-                prev = cur
-                cur = cur.left
+                    node.val += prev
+                prev = node.val
+                cur = node.left # push the left subtree of the node
         return root
         
 if __name__ == '__main__':
