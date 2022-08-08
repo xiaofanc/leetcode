@@ -48,15 +48,25 @@ class Solution:
 
 
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        # if delete a leaf node: return None to the parent
+        # if delete a node without left subtree: return right subtree to the parent
+        # if delete a node without right subtree: return left subtree to the parent
+        # if delete a node with left and right subtree:
+        # find the first node > key from the right subtree, swap them and delete
+        # if node not found, return root
         if not root:
             return root
-        if root.val == key:
+        elif root.val < key:
+            root.right = self.deleteNode(root.right, key)
+        elif root.val > key:
+            root.left = self.deleteNode(root.left, key)
+        else:
             if not root.left and not root.right:
-                return None
-            elif root.left and not root.right:
-                return root.left
-            elif root.right and not root.left:
-                return root.right
+                return None       # delete the treenode, return None to the parent
+            elif not root.left:
+                return root.right # return right subtree to the parent
+            elif not root.right:
+                return root.left  # return left subtree to the parent
             else:
                 cur = root.right
                 while cur.left:
@@ -65,9 +75,8 @@ class Solution:
                 root.val = cur.val
                 root.right = self.deleteNode(root.right, root.val)
                 return root
-        if root.val > key: root.left = self.deleteNode(root.left, key)
-        if root.val < key: root.right = self.deleteNode(root.right, key)
         return root
+
 
     # 普通二叉树的删除方式
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:

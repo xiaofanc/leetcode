@@ -16,9 +16,9 @@ class TreeNode:
 
 class Solution:
     def insertIntoBST(self, root, val):
-        if not root: # 找到遍历的节点为None
+        if not root:      # 找到遍历的节点为None
             node = TreeNode(val)
-            return node
+            return node   # return back to the parents
         if root.val < val:
             root.right = self.insertIntoBST(root.right, val)
         if root.val > val:
@@ -31,14 +31,14 @@ class Solution:
             return node
         cur, parent = root, root
         # find the None position to insert
-        # keep track of the parent
+        # keep track of the parent to append
         while cur:
             parent = cur
             if cur.val > val:
                 cur = cur.left
             else:
                 cur = cur.right
-        if parent.val > val:
+        if parent.val > val:    # need to check which side to append
             parent.left = node
         else:
             parent.right = node
