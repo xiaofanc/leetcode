@@ -57,12 +57,39 @@ class Solution:
                 stack.append(cur)
                 cur = cur.left
             else:
-                cur = stack.pop()
+                cur = stack.pop()  # the smallest element
                 if prev:
                     mindiff = min(mindiff, cur.val-prev.val)
                 prev = cur
                 cur = cur.right
         return mindiff
+
+
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return
+        stack = [root]
+        prev = None
+        minDiff = float("inf")
+        while stack:
+            top = stack[-1]
+            if top:
+                node = stack.pop()
+                if node.right: stack.append(node.right)
+                stack.append(node)
+                stack.append(None)
+                if node.left: stack.append(node.left)
+            else:
+                stack.pop()
+                r = stack.pop()
+                if prev != None:  # if prev does not work when prev == 0
+                    minDiff = min(minDiff, abs(r.val-prev))
+                prev = r.val
+        return minDiff
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.getMinimumDifference([0,null,2236,1277,2776,519])) # 0 as prev
 
 
 
