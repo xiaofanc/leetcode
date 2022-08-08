@@ -21,7 +21,7 @@ class TreeNode:
 
 
 class Solution:
-    # 普通二叉树求公共祖先
+    # 普通二叉树求公共祖先: O(N)
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if root in (None, p, q):
             return root
@@ -29,7 +29,7 @@ class Solution:
         right = self.lowestCommonAncestor(root.right, p, q)
         return root if left and right else left or right
 
-    # recursion
+    # optimized dfs: O(logN)
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         parent_node = root.val
         p_val = p.val
