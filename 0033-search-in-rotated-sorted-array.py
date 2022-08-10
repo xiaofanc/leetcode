@@ -21,6 +21,7 @@ class Solution:
 
             # find the sorted window
             # if the left portion is sorted
+            # left could be = mid
             if nums[m] >= nums[l]:
                 if nums[l] <= target < nums[m]:
                     r = m - 1
