@@ -49,13 +49,14 @@ class Solution:
             while stack[-1] != -1 and heights[i] <= heights[stack[-1]]:
                 current_height = heights[stack.pop()]
                 # stack[-1] is the left boundary
-                current_width = i - stack[-1] - 1
+                current_width = i - stack[-1] - 1  # not include stack[-1] and i
                 max_area = max(max_area, current_height * current_width)
             stack.append(i)
         
         # deal with the height that can extend to the end
         while stack[-1] != -1:
             current_height = heights[stack.pop()]
+            # stack[-1] is the left boundary
             current_width = len(heights) - stack[-1] - 1
             max_area = max(max_area, current_height * current_width)
         return max_area
