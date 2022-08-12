@@ -1,26 +1,29 @@
 """
 Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
 
-[["1","0","1","0","0"],
- ["1","0","1","1","1"],
- ["1","1","1","1","1"],
- ["1","0","0","1","0"]]
+# matrix:
+#[["1","0","1","0","0"],
+# ["1","0","1","1","1"],
+# ["1","1","1","1","1"],
+# ["1","0","0","1","0"]]
 
-final dp: calculate cumulative squares
-[["1","0","1","0","0"],
- ["1","0","1","2","3"],
- ["1","2","3","4","5"],
- ["1","0","0","1","0"]]
+# width: dp table: extend the rectangle horizontally
+# [["1","0","1","0","0"],
+#  ["1","0","1","2","3"],
+#  ["1","2","3","4","5"],
+#  ["1","0","0","1","0"]]
 
-k-loop: calculate the largest rectangle in histogram
-maxarea at each point: min(width, dp[k][j])*(i-k+1)
-when i = 1, j = 0-4, k = 1-0
-[["2","0","2","0","0"],
- ["1","0","1","2","3"], 
-when i = 2, j = 0-4, k = 2-0
-[["1*3","0*3","1*3","0*3","0*3"],  i-k+1 = 3
- ["1*2","0*2","1*2","2*2","3*2"],  i-k+1 = 2
- ["1*1","2*1","3*1","4*1","5*1"],  i-k+1 = 1
+# area: extend the rectangle vertically 
+# from k=i->0 using [i][j] as bottom right corner
+# get the width = min(width, dp[k][j])
+# get the height = i-k+1
+
+# [["1","0","1","0","0"],
+#  ["2","0","2","2","3"],
+#  ["3","2","3","4","6"],  max(5*1, 3*2)
+#  ["4","0","0","3","0"]]
+
+# Output: 6
 
 
 """

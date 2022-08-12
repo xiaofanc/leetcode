@@ -56,7 +56,42 @@ class Solution:
                 return self.get_kth(nums1, start1, m1-1, nums2, start2, end2, k)
             else:
                 return self.get_kth(nums1, start1, end1, nums2, start2, m2-1, k)
-        
+
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # binary search the shortest array
+        # get half numbers from nums1 and nums2
+        # half numbers: A[:m+1], B[:j+1]
+        # compare A[m] vs B[j], A[m+1] vs B[j+1] to see if we should include more or less nums from A
+        A, B = nums1, nums2
+        if len(A) > len(B):
+            A, B = B, A
+        # A is the shorter array
+        l, r = 0, len(A)-1
+        total = len(A)+len(B)
+        half = (total)//2
+        # we need to find the correct half number
+        # l = 0, r = -1 is fine since it is possible we do not include any number from A
+        # so we cannot use while l <= r here
+        while True:  
+            m = l + (r-l)//2  
+            j = half-m-2     # why -2 here? since index starts from 0, we need half numbers
+            leftA = A[m] if m >= 0 else float('-inf')
+            rightA = A[m+1] if m < len(A)-1 else float('inf')
+            leftB = B[j] if j >= 0 else float('-inf')
+            rightB = B[j+1] if j < len(B)-1 else float('inf')
+            
+            # we found the correct half numbers
+            if leftA <= rightB and leftB <= rightA:
+                if total % 2: # odd total number
+                    return min(rightA, rightB)
+                else:
+                    return (max(leftA, leftB) + min(rightA, rightB)) / 2
+            elif leftA > rightB:
+                # maker A smaller
+                r = m - 1
+            else:
+                l = m + 1
+
 if __name__ == '__main__':
     s = Solution()
     print(s.findMedianSortedArrays([1,3],[2]))
