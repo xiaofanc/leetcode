@@ -28,12 +28,12 @@ class Solution:
         l = binarySearch(0, len(arr)-1)  # -1
         r = l + 1                        # 0
         
-        # l, r 都取不到
+        # l, r 都取不到!!
         while r - l - 1 < k:
-            if l == -1:
+            if l == -1:  # edge case: when there is no more nums in the left
                 r += 1
                 continue
-            if r == len(arr):
+            if r == len(arr):  # edge case: when there is no more nums in the right
                 l -= 1
                 continue
             # if r is closer
