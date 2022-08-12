@@ -57,6 +57,7 @@ class Solution:
             else:
                 return self.get_kth(nums1, start1, end1, nums2, start2, m2-1, k)
 
+    # neetcode
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         # binary search the shortest array
         # get half numbers from nums1 and nums2
