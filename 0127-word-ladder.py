@@ -25,7 +25,7 @@ class Solution:
     # Time: O(n^2 * m), go over every edges for all possible patterns. Since the edges are pre-calculated, it will save some time.
     def ladderLength(self, source: str, target: str, wordList: List[str]) -> int:
         queue = deque([(source, 1)])
-        seen = set(source)
+        seen = set([source])
         
         # get all patterns for wordList
         adj = defaultdict(set)
