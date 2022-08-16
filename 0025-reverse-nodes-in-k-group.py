@@ -47,6 +47,7 @@ class Solution:
             # connect reversed parts
             # The end of the reverseLinkedList is head!
             # assuming that nodes after prev are already reversed
+            # prev is the head for the next k groups
             head.next = self.reverseKGroup(prev, k)
             return reversedHead
         # if count < k
