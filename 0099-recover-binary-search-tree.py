@@ -25,6 +25,28 @@ class Solution:
         nx, ny = findnode(root, x), findnode(root, y)
         nx.val, ny.val = ny.val, nx.val
 
+class Solution:
+    def recoverTree(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        prev = x = y = None
+        def inorder(node):
+            nonlocal prev, x, y
+            if not node:
+                return
+            inorder(node.left)
+            if prev and node.val < prev.val:
+                y = node     # find the last small number 
+                if x is None:
+                    x = prev # find the first large number
+                else:
+                    return
+            prev = node
+            inorder(node.right)
+        inorder(root)
+        x.val, y.val = y.val, x.val
+
 if __name__ == '__main__':
     s = Solution()
     print(s.recoverTree([1,3,null,null,2]))
