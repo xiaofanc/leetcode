@@ -38,7 +38,62 @@ class Solution:
             return max(res, backtrack(i+1))
         
         return backtrack(0)
+
+    def maxLength(self, arr: List[str]) -> int:
+        
+        def check(set1, lst):
+            set2 = set(lst)
+            if len(set2) != len(lst):
+                return False
+            for char in set1:
+                if char in set2:
+                    return False
+            return True
+        
+        charSet = set()
+        maxL = 0
+        def backtrack(i):
+            nonlocal maxL
+            if len(charSet) > maxL:
+                maxL = len(charSet)
+            if i == len(arr):
+                return
+            if check(charSet, arr[i]):
+                for char in arr[i]:
+                    charSet.add(char)
+                backtrack(i+1)
+                for char in arr[i]:
+                    charSet.remove(char)
             
+            backtrack(i+1)
+        backtrack(0)
+        return maxL
+        
+    def maxLength(self, arr: List[str]) -> int:
+        
+        def check(comb):
+            seen = set()
+            for char in comb:
+                if char in seen:
+                    return False
+                seen.add(char)
+            return True
+        
+        maxL = 0
+        def backtrack(i, comb):
+            nonlocal maxL
+            # print("comb->", comb)
+            string = "".join(comb)
+            if check(string) and len(string) > maxL:
+                maxL = len(string)
+            for j in range(i, len(arr)):
+                comb.append(arr[j])
+                backtrack(j+1, comb)
+                comb.pop()
+        
+        backtrack(0, [])
+        return maxL
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.maxLength(["un","iq","ues", "aple"])) # 8 ["un","iq","aple"]           
