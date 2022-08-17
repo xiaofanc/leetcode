@@ -47,6 +47,33 @@ class Solution:
         inorder(root)
         x.val, y.val = y.val, x.val
 
+class Solution:
+    def recoverTree(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        stack = []
+        cur = root
+        prev = None
+        large = small = None
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            else:
+                node = stack.pop()
+                if prev and node.val < prev.val:
+                    # it is possible that small and large is not connected
+                    # find the smallest node - which could be current root or
+                    # a smaller number from right subtree
+                    small = node
+                    # find the first large number
+                    if not large:
+                        large = prev
+                prev = node
+                cur = node.right
+        small.val, large.val = large.val, small.val
+
 if __name__ == '__main__':
     s = Solution()
     print(s.recoverTree([1,3,null,null,2]))
