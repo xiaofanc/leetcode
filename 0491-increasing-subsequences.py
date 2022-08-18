@@ -1,4 +1,5 @@
 
+# Time: O(Mx2^N)
 class Solution:
     def findSubsequences(self, nums: List[int]) -> List[List[int]]:
         res = set()
@@ -30,7 +31,7 @@ class Solution:
                     # does not work when same elements are not consecutive
                     # if j > i and nums[j] == nums[j-1]:
                         # continue
-                        
+
                     # skip j when same element has been used on the same level
                     # [1,2,1,1,1]
                     # when start = 0, j = 0 to 5, [1,2],[1,1],[1,1,1],[1,1,1,1]
