@@ -27,7 +27,7 @@ class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         res = []
         n = len(nums)
-        nums.sort()
+        nums.sort() # in order to remove dup
         
         def backtrack(start, comb):
             res.append(comb[:])
