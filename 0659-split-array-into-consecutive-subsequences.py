@@ -60,10 +60,12 @@ class Solution:
                 return False
         return True
 
-
+    # greedy using map: O(N)
     def isPossible(self, nums: List[int]) -> bool:
         """
-        Initialize two maps - one to store the frequency of each element present in nums array (frequency), the other to store the frequency of subsequences ending with the key.
+        Initialize two maps - 
+        one to store the frequency of each element present in nums array (freq)
+        the other to store the frequency of subsequences ending with the key (subseq)
         loop over the num and update the frequency map
         loop over the num
             - if freq[num] == 0: it is already considered to be part of a valid subseq
@@ -87,11 +89,70 @@ class Solution:
                     freq[num+1] -= 1
                     freq[num+2] -= 1
                     subseq[num+2] += 1
-                else:
+                else: # if we cannot create a new subseq using num as start
                     return False
             freq[num] -= 1
         return True
 
-
+    # DP: O(N)
+    def isPossible(self, nums: List[int]) -> bool:
+        """
+        loop over nums
+        start = starting index of the current segment
+        if nums[i] - nums[i-1] > 1, a new segment needs to be created
+        check if valid seubsequences are possible with the current segment (between start and i) using isSegmentValid function
+        isSegmentValid function:
+        noOfUniqueNumbers = nums[end] - nums[start] + 1, number of unique numbers in the current segment
+        freq map: store freq of each number in terms of difference with the first number of the segment, then each element is considered as a series starting from 0 to nums[end]-nums[start]
+        iterate over each unique element in the segment
+        if freq[i] < sum of lengthOneSubsequences[i - 1] and lengthTwoSubsequences[i - 1], return False
+        update lengthOneSubsequences, lengthTwoSubsequences, totalNoOfSubsequences
+        before exit, check if there are remaining lengthOneSubsequences, lengthTwoSubsequences. If not, return True
+        """
+        
+        def isSegmentValid(nums, start, end):
+            noOfUniqueNumbers = nums[end] - nums[start] + 1
+            
+            freq = defaultdict(lambda: 0)
+            for i in range(start, end+1):
+                freq[nums[i]-nums[start]] += 1
+                
+            lengthOneSubsequences = [0] * noOfUniqueNumbers
+            lengthTwoSubsequences = [0] * noOfUniqueNumbers
+            totalNoOfSubsequences = [0] * noOfUniqueNumbers
+            
+            # subseq ends with start
+            lengthOneSubsequences[0] = totalNoOfSubsequences[0] = freq[0]
+            
+            for i in range(1, noOfUniqueNumbers):
+                # not enough freq[i] to append
+                if freq[i] < lengthOneSubsequences[i-1] + lengthTwoSubsequences[i-1]:
+                    return False
+                
+                lengthTwoSubsequences[i] = lengthOneSubsequences[i-1]
+                lengthOneSubsequences[i] = max(0, freq[i] - totalNoOfSubsequences[i - 1])
+                totalNoOfSubsequences[i] = freq[i]
+            
+            return lengthOneSubsequences[noOfUniqueNumbers - 1] == 0 and lengthTwoSubsequences[noOfUniqueNumbers - 1] == 0
+        
+        n = len(nums)
+        start = 0
+        for i in range(n):
+            if nums[i] - nums[i-1] > 1:
+                # check current segment
+                if not isSegmentValid(nums, start, i-1):
+                    return False
+                # update the starting index of the next segment
+                start = i
+        return isSegmentValid(nums, start, n-1)
 
         
+if __name__ == '__main__':
+	s = Solution()
+	print(s.isPossible([1,2,3,3,4,4,5,5])) # True
+
+
+
+
+
+
