@@ -74,7 +74,7 @@ class Solution:
         return True
         """
         freq = collections.Counter(nums)
-        subseq = defaultdict(lambda: 0) # count the last element of subsequences
+        subseq = defaultdict(int) # count the last element of subsequences
         for num in nums:
             # condition-1: num is already in the subseq
             if freq[num] == 0:
@@ -113,7 +113,7 @@ class Solution:
         def isSegmentValid(nums, start, end):
             noOfUniqueNumbers = nums[end] - nums[start] + 1
             
-            freq = defaultdict(lambda: 0)
+            freq = defaultdict(int)
             for i in range(start, end+1):
                 freq[nums[i]-nums[start]] += 1
                 
