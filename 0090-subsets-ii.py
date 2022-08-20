@@ -32,6 +32,7 @@ class Solution:
         def backtrack(start, comb):
             res.append(comb[:])
             for i in range(start, n):
+                # only works after sorting
                 if i > start and nums[i] == nums[i-1]: # remove duplicates
                     continue
                 comb.append(nums[i])
@@ -48,7 +49,8 @@ class Solution:
         def dfs(start, comb):
             res.append(comb)
             for i in range(start, n):
-                if i > start and nums[i] == nums[i-1]:
+                # only works after sorting
+                if i > start and nums[i] == nums[i-1]: 
                     continue
                 dfs(i+1, comb+[nums[i]])
         

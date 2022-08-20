@@ -43,13 +43,13 @@ class Solution:
         def backtrack(start):
             if start == n:
                 res.append(nums[:])
-            lookup = set()
+            lookup = set()  # do not swap for the same element on the same level
             for i in range(start, n):
                 if nums[i] not in lookup:
+                    lookup.add(nums[i])
                     nums[start], nums[i] = nums[i], nums[start]
                     backtrack(start+1)
                     nums[start], nums[i] = nums[i], nums[start]
-                    lookup.add(nums[i])
         backtrack(0)
         return res
 
@@ -61,7 +61,9 @@ class Solution:
             if not nums:
                 res.append(path)
             for i in range(len(nums)):
-                if i > 0 and nums[i] == nums[i-1]:
+                # when swapping, same element not necessary consecutive
+                # this works since it is appending instead of swapping and same element will not be appended at the same level
+                if i > 0 and nums[i] == nums[i-1]: 
                     continue
                 dfs(nums[:i]+nums[i+1:], path+[nums[i]])
         
