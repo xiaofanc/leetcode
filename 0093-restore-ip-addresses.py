@@ -73,6 +73,7 @@ class Solution:
         
         def backtrack(i, comb):
             # i is the start position of substring
+            # in the end, there are must 4 parts
             if i == len(s) and len(comb) == 4:
                 res.append(".".join(comb[:]))
                 return
