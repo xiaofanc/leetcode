@@ -68,7 +68,29 @@ class Solution:
         backtrack(0, 0, "")
         return res                        
 
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        res = []
+        
+        def backtrack(i, comb):
+            # i is the start position of substring
+            if i == len(s) and len(comb) == 4:
+                res.append(".".join(comb[:]))
+                return
+            if len(comb) > 4:
+                return
+            # j is the end position of the substring - dot position
+            for j in range(i, min(i+3,len(s))):
+                substring = s[i:j+1]                
+                if substring == '0' or (0 < int(substring) <= 255 and substring[0] != '0'):
+                    comb.append(substring)
+                    backtrack(j+1, comb)
+                    comb.pop()
+        backtrack(0, [])
+        return res
+
 if __name__ == '__main__':
     s = Solution()
     print(s.restoreIpAddresses("25525511135")) # ["255.255.11.135","255.255.111.35"]
+    print(s.restoreIpAddresses("0000")) # ["0.0.0.0"]
+    print(s.restoreIpAddresses("101023")) # ["1.0.10.23","1.0.102.3","10.1.0.23","10.10.2.3","101.0.2.3"]
 
