@@ -61,7 +61,7 @@ class Solution:
                 res.append(comb[:])
                 return
             for i in range(start, n):
-                # if the number of the subset is checked before, then skip
+                # if the number of the subset is checked on the same level, skip
                 if i > start and candidates[i] == candidates[i-1]:
                     continue
                 comb.append(candidates[i])
@@ -101,7 +101,7 @@ class Solution:
                 res.append(comb[:])
             if index >= n or remain < 0:
                 return
-            prev = -1
+            prev = -1 # on the same level
             for i in range(index, n):
                 if candidates[i] == prev:
                     continue

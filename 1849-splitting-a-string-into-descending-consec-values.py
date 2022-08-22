@@ -31,6 +31,20 @@ class Solution:
                 return True
         return False 
 
+    def splitString(self, s: str) -> bool:
+        
+        def backtrack(i, comb):
+            if i == len(s) and len(comb) > 1:
+                return True
+            for j in range(i, len(s)):
+                if not comb or comb[-1] - int(s[i:j+1]) == 1:
+                    comb.append(int(s[i:j+1]))
+                    if backtrack(j+1, comb):
+                        return True
+                    comb.pop()
+            return False
+        return backtrack(0, [])
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.splitString("050043"))
