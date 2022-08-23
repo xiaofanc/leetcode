@@ -38,7 +38,7 @@ class Solution:
             # print(board)
             return ret
         
-        # why for-loop outside? 
+        # why for-loop outside? all four directions return False, search next position
         for row in range(height):
             for col in range(width):
                 if backtrack(row, col, word):
