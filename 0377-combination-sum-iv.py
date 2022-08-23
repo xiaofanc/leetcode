@@ -58,9 +58,12 @@ class Solution:
             
         return dfs(target)
 
+    # bottom-up DP
     def combinationSum4(self, nums: List[int], target: int) -> int:
         dp = [0]*(target+1)
+        # the value is set artificially to facilitate the calculation later 
         dp[0] = 1
+
         for i in range(target+1):
             for n in nums:
                 if i >= n:
@@ -68,4 +71,18 @@ class Solution:
                     # print("dp->", dp)
         return dp[target]
 
+if __name__ == '__main__':
+	s = Solution()
+	print(s.combinationSum4([1,2,3], 4)) # 7
 
+	"""
+	The possible combination ways are:
+	(1, 1, 1, 1)
+	(1, 1, 2)
+	(1, 2, 1)
+	(1, 3)
+	(2, 1, 1)
+	(2, 2)
+	(3, 1)
+	Note that different sequences are counted as different combinations.
+	"""
