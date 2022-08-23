@@ -40,6 +40,15 @@ class Solution(object):
             f1, f2 = f2, min(f1, f2) + cost[i]
         return min(f1, f2)
 
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        if len(cost) <= 2:
+            return min(cost)
+        cost = cost + [0]  # why add 0? the cost of top floor
+        f1, f2 = cost[0], cost[1]
+        for i in range(2, len(cost)):
+            f1, f2 = f2, min(f1, f2) + cost[i]
+        return f2
+
 if __name__ == '__main__':
     s = Solution()
     print(s.minCostClimbingStairs([10, 15, 20]) == 15)
