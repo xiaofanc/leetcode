@@ -24,6 +24,25 @@ class Solution:
         # edge case: [1]
         return max(nums[0], helper(nums[1:]), helper(nums[:-1]))
 
+    def rob(self, nums: List[int]) -> int:
+        maxMoney = 0
+        if len(nums) <= 2:
+            return max(nums)
+        # do not rob the last house
+        f1, f2 = nums[0], max(nums[0], nums[1])
+        for i in range(2, len(nums)-1):
+            f1, f2 = f2, max(f1+nums[i], f2)
+        maxMoney = f2
+        # do not rob the first house
+        f1, f2 = nums[1], max(nums[1], nums[2])
+        for i in range(3, len(nums)):
+            f1, f2 = f2, max(f1+nums[i], f2)
+        maxMoney = max(maxMoney, f2)
+        return maxMoney
+
 if __name__ == '__main__':
     s = Solution()
     print(s.rob([1])) # [1]
+
+
+    
