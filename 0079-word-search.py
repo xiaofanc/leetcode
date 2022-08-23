@@ -38,6 +38,7 @@ class Solution:
             # print(board)
             return ret
         
+        # why for-loop outside? 
         for row in range(height):
             for col in range(width):
                 if backtrack(row, col, word):

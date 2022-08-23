@@ -15,6 +15,8 @@ Now if we apply the above steps to each of the candidate numbers in the input ar
 
 We could also prove that the combinations built with the above process are complete and non-redundant.
 
+322. coin change: minimum number of coins that you need to make up target.
+518. coin change: The number of combinations that make up that amount. [1,2] and [2,1] are the same, order does not matter.
 """
 
 class Solution:
@@ -64,6 +66,7 @@ class Solution:
         # the value is set artificially to facilitate the calculation later 
         dp[0] = 1
 
+        # how many ways to create i using all coins
         for i in range(target+1):
             for n in nums:
                 if i >= n:
