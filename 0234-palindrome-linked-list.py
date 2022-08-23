@@ -19,6 +19,7 @@ class ListNode:
 
 class Solution:
     def isPalindrome1(self, head: ListNode) -> bool:
+        # reverse the first part
         rev = None
         slow = fast = head
         while fast and fast.next:
