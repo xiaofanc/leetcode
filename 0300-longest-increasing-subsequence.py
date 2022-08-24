@@ -46,25 +46,22 @@ class Solution: # time: O(n^2)
                     LIS[i] = max(LIS[i], 1+LIS[j])
         return max(LIS)
 
+    """
+    It appears the best way to build an increasing subsequence is: for each element num, if num is greater than the largest element in our subsequence, then add it to the subsequence. Otherwise, perform a linear scan through the subsequence starting from the smallest element and replace the first element that is greater than or equal to num with num. This opens the door for elements that are greater than num but less than the element replaced to be included in the sequence.
+    """
     # Time: O(nlogm)
     def lengthOfLIS(self, nums: List[int]) -> int:
         if not nums: return 0
-        n = len(nums)
-        ans = []
-        i = 0
+        seq = []
         for num in nums:
-            # find where to insert num in ans
-            idx = bisect.bisect_left(ans, num)
-            # print("ans, num, idx", ans, num, idx)
-            # if the pos >= the index to be added: then add to the ans
-            # i also represents the current length of the increasing subsequence
-            if idx >= i:
-                ans.append(num)
-                i += 1
-            else:    
-                ans[idx] = num  # replace it with the smaller num
-            # print("ans->", ans, i)
-        return i
+            i = bisect_left(seq, num)
+            # if num is greater than the largest element in our subsequence
+            if i == len(seq):
+                seq.append(num)
+            # replace the first element that is greater than or equal to num
+            else:
+                seq[i] = num
+        return len(seq)
 
     # TLE
     def lengthOfLIS(self, nums: List[int]) -> int:
