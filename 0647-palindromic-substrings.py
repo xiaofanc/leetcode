@@ -19,6 +19,27 @@ class Solution:
             helper(i, i+1)
         return res
 
+    # Time: O(n^2)
+    def countSubstrings(self, s: str) -> int:
+        dp = [[False]*len(s) for _ in range(len(s))]
+        res = 0
+        for j in range(len(s)):
+            for i in range(j+1):
+                # single letter
+                if i == j:
+                    dp[i][j] = True
+                    res += 1
+                # double letter
+                elif i + 1 == j:
+                    if s[i] == s[j]:
+                        dp[i][j] = True
+                        res += 1
+                else:
+                    dp[i][j] = dp[i+1][j-1] and s[i] == s[j]
+                    res += dp[i][j]
+
+        return res
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.countSubstrings("aaa")) # 6 -> "a", "a", "a", "aa", "aa", "aaa"

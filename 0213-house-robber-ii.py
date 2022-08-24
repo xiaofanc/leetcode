@@ -40,9 +40,25 @@ class Solution:
         maxMoney = max(maxMoney, f2)
         return maxMoney
 
+    def rob(self, nums: List[int]) -> int:
+        memo = {}
+        def helper(nums):
+            if len(nums) == 0:
+                return 0
+            if len(nums) == 1:
+                return nums[0]
+            if len(nums) == 2:
+                return max(nums[0], nums[1])
+            if tuple(nums) in memo:
+                return memo[tuple(nums)]
+            res = max(helper(nums[:-2]) + nums[-1], helper(nums[:-1]))
+            memo[tuple(nums)] = res
+            return res
+        
+        return max(nums[0], helper(nums[1:]), helper(nums[:-1]))
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.rob([1])) # [1]
 
 
-    

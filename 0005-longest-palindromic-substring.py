@@ -9,7 +9,7 @@ Also, there are two ways to expand, we can expand from center or expand from
 
 """
 class Solution:
-    # Time: O(n^2)
+    # Time: O(n^2), Space: O(1)
     def longestnPalindrome(self, s: str) -> str:
         if s == None or len(s) == 0: return ''
         start, end, maxlen = 0, 0, 0
@@ -84,10 +84,12 @@ class Solution:
         return maxstr
 
     # DP
+    # Time: O(n^2), Space: O(n^2)
     def longestPalindrome(self, s: str) -> str:
         if s is "":
             return s
         res = ""
+        # dp[i][j] = whether s[i:j+1] is palindrome
         dp = [[0]*len(s) for i in range(len(s))]
         for j in range(len(s)):
             for i in range(j+1):
