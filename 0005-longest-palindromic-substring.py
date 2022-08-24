@@ -10,7 +10,7 @@ Also, there are two ways to expand, we can expand from center or expand from
 """
 class Solution:
     # Time: O(n^2), Space: O(1)
-    def longestnPalindrome(self, s: str) -> str:
+    def longestPalindrome(self, s: str) -> str:
         if s == None or len(s) == 0: return ''
         start, end, maxlen = 0, 0, 0
         def expand(l, r):         # start from mid
