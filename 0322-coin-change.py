@@ -19,7 +19,7 @@ dp(i)可以无解
 class Solution:  # time O(n*k) k=# of coins  n=0-amount
     def coinChange(self, coins: List[int], amount: int) -> int:
         dp = [amount+1] * (amount+1) # dp[i] = amount+1 不可能取到
-        dp[0] = 0
+        dp[0] = 0 # in order to make the math work
         
         for i in range(1, amount+1):
             for c in coins:

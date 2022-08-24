@@ -42,7 +42,7 @@ class Solution:
     def longestIdealString(self, s: str, k: int) -> int:
         if not s:
             return 0
-        # dp[i] = the longest ideal substring ends with i
+        # dp[i] = the longest ideal substring ends with char
         
         dp = [0] * 26
         for c in s:
