@@ -132,6 +132,35 @@ class Solution: # Time: O(n), space: O(n)
     def numDecodings(self, s: str) -> int:
         return self.recursiveWithMemo(0, s)
 
+    def numDecodings(self, s: str) -> int:
+        
+        memo = defaultdict(int)
+        def dfs(s):
+            if s == "":
+                return 1
+            if s[0] == "0":
+                return 0
+            if s in memo:
+                return memo[s]
+            
+            if len(s) == 1:
+                return 1
+            else:
+                if s[1] == "0" and (s[0] == "1" or s[0] == "2"):  # "3045" return 0
+                    memo[s] = dfs(s[2:])
+                else:
+                    if s[0] == "1":
+                        memo[s] = dfs(s[1:]) + dfs(s[2:])
+                    elif s[0] == "2":
+                        if 0< int(s[1]) <= 6:
+                            memo[s] = dfs(s[1:]) + dfs(s[2:])
+                        else:
+                            memo[s] = dfs(s[1:])
+                    else:
+                        memo[s] = dfs(s[1:])
+            return memo[s]
+        return dfs(s)
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.numDecodings("226"))  # 3
