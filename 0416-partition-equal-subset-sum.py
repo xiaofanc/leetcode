@@ -6,6 +6,7 @@ solution: check if exists sum(subset) == target
 """
 
 class Solution:
+    # TLE
     def canPartition(self, nums: List[int]) -> bool:
         if sum(nums) % 2:
             return False
@@ -41,6 +42,30 @@ class Solution:
                     return True
             dp = nextDP
         return False
+
+    # Time: O(mxn), where n be the number of array elements and m be the target
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2:
+            return False
+        target = sum(nums)/2
+        nums.sort(reverse = True)
+        memo = {}
+        def backtrack(i, s):
+            # if there is subsets from nums[i:] to make up to s
+            if s == 0:
+                return True
+            if s < 0 or i == len(nums):
+                return False
+            if (i, s) in memo:
+                return memo[(i, s)]
+            # if no memoization: Time is O(2^n)
+            res = backtrack(i+1, s-nums[i]) or backtrack(i+1, s)
+            memo[(i, s)] = res
+            return res
+
+        return backtrack(0, target)
+
+
 
 if __name__ == '__main__':
 	s = Solution()
