@@ -1,18 +1,33 @@
 from typing import List
 class Solution:
-    def rotate0(self, nums: List[int], k: int) -> None:
+    # TLE 34/38 passed
+    # Time: O(n * k)
+    def rotate(self, nums: List[int], k: int) -> None:
         """
         Do not return anything, modify nums in-place instead.
         """
-        
-        nums[:] = nums[len(nums)-k:] + nums[:len(nums)-k]
+        n = len(nums)
+        if k > n:
+            k = k % n
+        for i in range(k):
+            r = n-1
+            while r > 0:
+                nums[r], nums[r-1] = nums[r-1], nums[r]
+                r -= 1
         return nums
-        
-    def rotate1(self, nums, k):
-            k = k % len(nums)
-            nums[:] = nums[-k:] + nums[:-k] 
-            return nums
-    
+
+    # TLE: Time: O(n * k)
+    def rotate4(self, nums, k):
+        # brute force
+        n = len(nums)
+        k = k % n
+        for i in range(k):
+            previous = nums[-1]
+            # for each k, rotate the whole nums
+            for j in range(n):
+                nums[j], previous = previous, nums[j]
+        return nums
+
     # Time: O(n)
     def rotate2(self, nums: List[int], k: int) -> None:
         def numsreverse(start,end):
@@ -38,18 +53,26 @@ class Solution:
         nums[:] = a
         return nums
 
-    # Time: O(n * k)
-    def rotate4(self, nums, k):
-        # brute force
+    # Time: O(n)
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        # cyclic replacement
+        start = count = 0
         n = len(nums)
-        k = k % n
-        for i in range(k):
-            previous = nums[-1]
-            # for each k, rotate the whole nums
-            for j in range(n):
-                nums[j], previous = previous, nums[j]
-        return nums
-
+        while count < n:
+            prev = nums[start]
+            current = start
+            while True:
+                next_idx = (current + k) % n
+                nums[next_idx], prev = prev, nums[next_idx]
+                current = next_idx
+                count += 1
+                
+                if start == current:
+                    break
+            start += 1
         
 s=Solution()
 print(s.rotate0([1,2,3,4,5,6,7],3))

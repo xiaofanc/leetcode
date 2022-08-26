@@ -44,13 +44,14 @@ class Solution:
         return False
 
     # Time: O(mxn), where n be the number of array elements and m be the target
+    # Top-down DP
     def canPartition(self, nums: List[int]) -> bool:
         if sum(nums) % 2:
             return False
         target = sum(nums)/2
         nums.sort(reverse = True)
         memo = {}
-        def backtrack(i, s):
+        def dfs(i, s):
             # if there is subsets from nums[i:] to make up to s
             if s == 0:
                 return True
@@ -59,13 +60,50 @@ class Solution:
             if (i, s) in memo:
                 return memo[(i, s)]
             # if no memoization: Time is O(2^n)
-            res = backtrack(i+1, s-nums[i]) or backtrack(i+1, s)
+            res = dfs(i+1, s-nums[i]) or dfs(i+1, s)
             memo[(i, s)] = res
             return res
 
-        return backtrack(0, target)
+        return dfs(0, target)
 
 
+    # Time: O(mxn), where n be the number of array elements and m be the target
+    # Bottom-up DP
+    def canPartition(self, nums: List[int]) -> bool:
+    # dp[i][j] = if the sum j can be formed by elements in nums[:i]
+    # dp[i][j] = True if dp[i-1][j] == True (no need to use nums[i]) or dp[i-1][j-nums[i]] == True
+        if sum(nums) % 2:
+            return False
+        target = sum(nums) // 2
+        n = len(nums)
+        
+        dp = [[False] * (target+1) for i in range(n+1)]
+
+        dp[0][0] = True
+        for i in range(1, n+1):
+            curr = nums[i-1]
+            for j in range(target+1):
+                if j >= curr:
+                    dp[i][j] = dp[i-1][j-curr] or dp[i-1][j]
+                else:
+                    dp[i][j] = dp[i-1][j]
+        return dp[n][target]
+
+    # Time: O(mxn), where n be the number of array elements and m be the target
+    def canPartition(self, nums: List[int]) -> bool:
+    # dp[j] = if the sum j can be formed by elements
+        if sum(nums) % 2:
+            return False
+        target = sum(nums) // 2
+        n = len(nums)
+        
+        dp = [False] * (target+1)
+        dp[0] = True
+
+        for curr in nums:
+            for j in range(target, curr-1, -1): # why start from backwards?
+                dp[j] = dp[j] or dp[j-curr]
+        return dp[target]
 
 if __name__ == '__main__':
 	s = Solution()
