@@ -23,7 +23,7 @@ class Solution:
                     count += 1
         return count
             
-
+    # brute force
     # we can directly find the sum on the go while considering different end points
     # Time - O(n^2); Space - O(1)
     def subarraySum(self, nums: List[int], k: int) -> int:
