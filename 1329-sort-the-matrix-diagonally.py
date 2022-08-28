@@ -51,4 +51,44 @@ class Solution:
         return mat
 
 
+    # sort diag one by one using counting sort
+    # Time: mxn
+    # Space: min(m,n) only store one diagonal
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        m, n = len(mat), len(mat[0])
+        
+        def helper(i, j):
+            # sort the entire diagonal using counting sort - O(n)
+            counts = [0] * 100  # 1 <= mat[i][j] <= 100
+            for offset in range(min(m-i, n-j)):
+                counts[mat[i+offset][j+offset]-1] += 1
+            
+            # each diagonal can have min(m,n) numbers
+            sortedNum = []
+            for idx in range(len(counts)):
+                while counts[idx]:
+                    sortedNum.append(idx+1)
+                    counts[idx] -= 1
+                if len(sortedNum) == min(m,n): # early stop
+                    break
+            
+            # populate the current diagonal
+            for offset in range(min(m-i, n-j)):
+                mat[i+offset][j+offset] = sortedNum.pop(0) # constant since length = 100
+                
+        for i in range(n):
+            helper(0, i)
+        
+        for i in range(1, m):
+            helper(i, 0)
+        
+        return mat
 
+if __name__ == '__main__':
+    s = Solution()
+    print(s.diagonalSort([[3,3,1,1],[2,2,1,2],[1,1,1,2]])) # [[1,1,1,1],[1,2,2,2],[1,2,3,3]]
+
+
+
+
+    
