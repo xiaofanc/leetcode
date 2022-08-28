@@ -1,3 +1,10 @@
+"""
+If k == 0, then search for any consecutive pair of 0s.
+if k == 0: return any(nums[i] == 0 and nums[i + 1] == 0 for i in xrange(len(nums) - 1))
+else:
+    we will keep track of indices of the cumulative sum (or prefix sum) mod by k in a dictionary. We will return True if we've seen a cumulative sum % k at least 2 indices before.
+"""
+
 class Solution:
     # brute force: O(n^2)-TLE
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
