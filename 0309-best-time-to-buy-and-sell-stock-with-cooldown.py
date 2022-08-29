@@ -41,11 +41,14 @@ class Solution:
             if (i, buying) in dp:
                 return dp[(i, buying)]
             if buying:
-                buy = dfs(i+1, not buying) - nums[i] # if buy, the next day cannot buy
-                cooldown = dfs(i+1, buying)  # if cooldown, the second day can still buy
+                # if buy, the next day cannot buy
+                buy = dfs(i+1, not buying) - nums[i] 
+                # if cooldown, the second day can still buy
+                cooldown = dfs(i+1, buying)  
                 dp[(i, buying)] = max(buy, cooldown)
             else:
-                sell = dfs(i+2, not buying) + nums[i] # if sell, we must skip next day
+                # if sell, we must skip next day
+                sell = dfs(i+2, not buying) + nums[i] 
                 cooldown = dfs(i+1, buying)
                 dp[(i, buying)] = max(sell, cooldown)
             return dp[(i, buying)]
