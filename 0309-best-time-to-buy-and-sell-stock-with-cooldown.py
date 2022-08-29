@@ -22,8 +22,11 @@ class Solution:
         sell, buy, rest = [0]*n, [0]*n, [0]*n
         buy[0] = -prices[0]
         for i in range(1, n):
+            # max profit when buy price[i]
             buy [i] = max(rest[i-1]-prices[i], buy[i-1])
+            # max profit when sell price[i]
             sell[i] = max( buy[i-1]+prices[i], sell[i-1])
+            # max profit when colling down
             rest[i] = max(sell[i-1], buy[i-1], rest[i-1])
         return sell[-1]
 
@@ -48,6 +51,17 @@ class Solution:
             return dp[(i, buying)]
         return dfs(0, True)
 
+    def maxProfit(self, prices: List[int]) -> int:
+        # initial state is reset
+        # selling stock first is impossible
+        # state machine
+        sold, held, reset = float('-inf'), float('-inf'), 0
+        for price in prices:
+            prev_sold = sold
+            sold = held + price
+            held = max(held, reset-price)
+            reset = max(reset, prev_sold)
+        return max(sold, reset) # final state must be sold or reset
         
 if __name__ == '__main__':
     s = Solution()

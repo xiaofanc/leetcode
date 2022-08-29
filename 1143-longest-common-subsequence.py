@@ -59,6 +59,24 @@ class Solution:
                     dp[i][j] = max(dp[i][j+1], dp[i+1][j])
         return dp[0][0]
 
+    # Time: O(m*n), Space: min(m, n)
+    def longestCommonSubsequence(self, s1: str, s2: str) -> int:
+        if len(s2) < len(s1):
+            s1, s2 = s2, s1
+        
+        prev = [0]*(len(s1)+1)
+        cur  = [0]*(len(s1)+1)
+        
+        for row in range(len(s2)-1,-1,-1):
+            for col in range(len(s1)-1,-1,-1):
+                if s2[row] == s1[col]:
+                    cur[col] = 1 + prev[col+1]
+                else:
+                    cur[col] = max(prev[col], cur[col+1])
+            # reuse cur since only the last [0] matters and cur will be recalculated 
+            prev, cur = cur, prev
+        return prev[0]
+
 if __name__ == '__main__':
     s = Solution()
     print(s.longestCommonSubsequence("abcde", "ace")) # 3
