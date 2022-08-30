@@ -46,22 +46,18 @@ class Solution:
             res = max(res, r-l+1)
         return res
 
+    # hashmap to store the index to save the time for moving the left pointer
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if len(s) <= 1:
-            return len(s)
-        # hashmap to store the index of char
-        hashMap = {}
-        res = l = 0
+        l, r = 0, 0
+        maxL = 0
+        window = {}
         for r in range(len(s)):
-            char = s[r]
-            if char not in hashMap:
-                hashMap[char] = r
-            else:
-                l = max(l, hashMap[char] + 1)
-                hashMap[char] = r
-            # print("l,r", l, r)
-            res = max(res, r-l+1)
-        return res
+            if s[r] in window:
+                # move to the next position of most recent char, left pointer should not move back
+                l = max(l, window[s[r]]) 
+            window[s[r]] = r+1
+            maxL = max(maxL, r-l+1)
+        return maxL  
 
     def lengthOfLongestSubstring(self, s: str) -> int:
         chars = [0] * 128
