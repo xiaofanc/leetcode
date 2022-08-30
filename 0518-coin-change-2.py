@@ -15,6 +15,31 @@ class Solution:
                 # print("dp", coin, dp)                
         return dp[amount]
 
+    def change(self, amount: int, coins: List[int]) -> int:
+        res = 0
+        memo = {}
+        def dfs(i, curAmt):
+            if (i, curAmt) in memo:
+                return memo[(i, curAmt)]
+            if curAmt == amount:
+                return 1
+            if i == len(coins):
+                return 0
+            if curAmt > amount:
+                return 0
+            # res = 0
+            # for j in range(i, len(coins)):
+                # res += dfs(j, curAmt+coins[j])
+            # memo[(i, curAmt)] = res
+            memo[(i, curAmt)] = dfs(i, curAmt+coins[i]) + dfs(i+1, curAmt)
+            return memo[(i, curAmt)]
+        return dfs(0, 0)
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.change(5, [1,2,5])) # 4: [1,1,1,1,1],[2,1,1,1],[2,2,1],[5,0]
+
+
+
+
+    
