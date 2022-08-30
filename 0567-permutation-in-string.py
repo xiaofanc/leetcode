@@ -56,4 +56,5 @@ if __name__ == '__main__':
     s = Solution()
     print(s.checkInclusion("ab", "eidbaooo")) #True
     print(s.checkInclusion("ab", "eidboaooo")) #False
+    print(s.checkInclusion("adc", "dcda")) #True
 
