@@ -30,7 +30,7 @@ class Solution:
         elif r2 == None and r1 != None:
             return r1
         else:
-            r1.val = r1.val + r2.val
+            r1.val += r2.val
             r1.left = self.mergeTrees(r1.left, r2.left)
             r1.right = self.mergeTrees(r1.right, r2.right)
             return r1
