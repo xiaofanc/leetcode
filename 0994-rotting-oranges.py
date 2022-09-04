@@ -47,7 +47,6 @@ class Solution:
         dirs = [(1,0),(-1,0),(0,1),(0,-1)]
         queue = deque()
         # initialize a set to keep track of visited cell
-        visited = set()
         fresh = 0
         # add the rotten orange to the deque, initialize min to 0
         for i in range(rows):
@@ -66,9 +65,9 @@ class Solution:
             # mark neighbors as rotten is neighbor is a fresh orange
             for dx, dy in dirs:
                 x, y = i+dx, j+dy
-                if 0 <= x < rows and 0 <= y < cols and (x,y) not in visited and grid[x][y] == 1:
+                if 0 <= x < rows and 0 <= y < cols and grid[x][y] == 1:
                     queue.append((x, y, mins+1))
-                    visited.add((x, y))
+                    grid[x][y] = 2
                     fresh -= 1
         # when the queue is empty, check if there are any fresh oranges left
         if fresh == 0:
