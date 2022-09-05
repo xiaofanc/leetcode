@@ -17,7 +17,7 @@ class Solution:
                     break
         return res
                     
-    # sliding window            
+    # sliding window: O(N)
     def longestNiceSubarray(self, nums: List[int]) -> int:
         l = 0
         n = 0
