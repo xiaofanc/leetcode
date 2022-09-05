@@ -1,5 +1,6 @@
 
 class Solution:
+	# Time: O(2^NxN)
     def letterCasePermutation(self, s: str) -> List[str]:
         # 'a1b2'
         # 'A1b2', 'a1B2'
