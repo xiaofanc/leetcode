@@ -36,29 +36,28 @@ class Solution:
 
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         row, col = len(matrix), len(matrix[0])
-        if row == 0 and col == 0:
-            return matrix[0][0] == target
-        rows = [matrix[i][0] for i in range(row)]
-        # search for row
-        # i is the place that target can be inserted, matrix[i][0] >= target
-        i = bisect.bisect_left(rows, target)
+        def search(row, l, r):
+            while l <= r:
+                m = l + (r-l)//2
+                if matrix[row][m] == target:
+                    return True
+                elif matrix[row][m] > target:
+                    r = m-1
+                else:
+                    l = m+1
+            return False
         
-        if i == 0:
+        # find the correct row
+        idx = bisect.bisect_left([matrix[i][0] for i in range(row)], target)
+        # print("idx->", idx)
+        if idx == 0:
             return matrix[0][0] == target
-        elif i == row:
-            i -= 1
+        if idx == row:
+            # search the last row
+            return search(idx-1, 0, col-1)
         else:
-            if matrix[i][0] != target:
-                i -= 1
-            else:
-                return True
-        
-        # search for col        
-        cols = [matrix[i][j] for j in range(col)]
-        j = bisect.bisect_left(cols, target)
-        if j < col and matrix[i][j] == target:
-            return True
-        return False
+            # search row idx-1 and matrix[idx][0]
+            return search(idx-1, 0, col-1) or matrix[idx][0] == target
         
 if __name__ == '__main__':
 	s = Solution()
