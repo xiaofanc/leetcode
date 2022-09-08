@@ -61,12 +61,13 @@ class Solution:
                 l = m + 1
             else: # seach min in the left, possible m is the min num
                 r = m
-        return nums[r]
+        return nums[r] # does not matter
 
 
 if __name__ == '__main__':
     s = Solution()
     print(s.findMin([2,1])) # 1 why must l <= r and nums[m] >= nums[l]
+    print(s.findMin([3,1,2])) # 1
     print(s.findMin([3,4,5,1,2])) # 1
 
 
