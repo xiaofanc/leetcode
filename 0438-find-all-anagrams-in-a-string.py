@@ -28,8 +28,25 @@ class Solution:
                     scounter[s[i-np]] -= 1
             if pcounter == scounter:
                 ans.append(i-np+1)
-                
         return ans
+
+    # fixed size window
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        res = []
+        if len(s) < len(p):
+            return res
+        window = collections.Counter()
+        count = collections.Counter(p)
+        l = r = 0
+        while r < len(s):
+            window[s[r]] = window.get(s[r], 0) + 1
+            if r-l+1 > len(p):
+                window[s[l]] -= 1
+                l += 1
+            if window == count:
+                res.append(l)
+            r += 1
+        return res
 
 if __name__ == '__main__':
     s = Solution()
