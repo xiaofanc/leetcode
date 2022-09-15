@@ -58,6 +58,31 @@ def findJumpingNum2(n):
                     res.append(num2)
                 else:
                     return res
-            
+ 
+def findJumpingNum3(n):
+    digits = len(str(n))
+    res = []
+    def dfs(i, num, prev): # i = current position, num = current number
+        nonlocal res
+        if i == digits:
+            return
+        if num != "" and int(num) > n:
+            return
+        if num != "":
+            res.append(int(num))
+        for j in range(10):
+            if i == 0 and j == 0:
+                continue
+            if prev == None: 
+                dfs(i+1, num+str(j), j)
+            else:
+                if j == prev-1 or j == prev+1:
+                    dfs(i+1, num+str(j), j)
+    dfs(0, "", None)
+    return res
+
 print("finding jumping numbers", findJumpingNum1(1000)) 
 print("finding jumping numbers", findJumpingNum2(1000)) 
+print("finding jumping numbers", findJumpingNum3(1000)) 
+
+
