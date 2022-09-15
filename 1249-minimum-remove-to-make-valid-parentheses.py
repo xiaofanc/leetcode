@@ -82,7 +82,21 @@ class Solution:
         
         # print(remove, s)
         return "".join(s[i] for i in range(len(s)) if i not in remove) 
-                        
+
+    def minRemoveToMakeValid(self, s: str) -> str:
+        stack = []  # store remove index
+        s = [char for char in s]
+        for i, char in enumerate(s):
+                if char == ")" and stack and s[stack[-1]] == "(":
+                    stack.pop()
+                elif char in ('(', ')'):
+                    stack.append(i)
+                else:
+                    continue
+        while stack:
+            s.pop(stack.pop())
+        return "".join(s)
+
 if __name__ == '__main__':
     s = Solution()
     print(s.minRemoveToMakeValid("lee(t(c)o)de)"))       # "lee(t(c)o)de"  
