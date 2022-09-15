@@ -45,22 +45,19 @@ def findJumpingNum2(n):
                     return res
         # use the digits in the res
         for m in res:
-            temp = []
+            # print("m", m)
             if m%10 >= 1:
                 num1 = m*10 + (m%10-1)
                 if num1 <= n: 
-                    temp.append(num1)
+                    res.append(num1)
                 else:
-                    res.extend(temp)
                     return res
             if m%10 < 9: 
                 num2 = m*10 + (m%10+1)
                 if num2 <= n:
-                    temp.append(num2)
+                    res.append(num2)
                 else:
-                    res.extend(temp)
                     return res
-            res.extend(temp)
             
-print("finding jumping numbers", findJumpingNum1(500)) 
-print("finding jumping numbers", findJumpingNum2(500)) 
+print("finding jumping numbers", findJumpingNum1(1000)) 
+print("finding jumping numbers", findJumpingNum2(1000)) 
