@@ -25,7 +25,7 @@ class Solution:
         visited.append(r)
         for c in range(len(grid)):
             if grid[r][c] == 1 and c not in visited:
-                # the visit that c row
+                # then visit that c row
                 self.dfs(c, grid, visited)
 
 if __name__ == '__main__':
