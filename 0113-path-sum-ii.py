@@ -43,4 +43,19 @@ class Solution:
         traversal(root, targetSum)
         return paths
 
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        res = []
+        def dfs(node, s, path):
+            if not node:
+                return
+            path.append(node.val)
+            if node.val == s and not node.left and not node.right:
+                res.append(path[:])
+                return
+            dfs(node.left, s-node.val, path[:])
+            dfs(node.right, s-node.val, path[:])
+        dfs(root, targetSum, [])
+        return res
+
+
 
