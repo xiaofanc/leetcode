@@ -1,4 +1,5 @@
 class Solution:
+    # Time: O(Nx2^N)
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         n = len(graph)
         res = []
