@@ -35,7 +35,8 @@ class Solution:
                 if not dfs(k, v, visited):
                     return False
         return True
-            
+    
+    # Time: O(N)
     def equationsPossible(self, equations: List[str]) -> bool:
         graph = [[] for i in range(26)]
         for equa in equations:
@@ -65,6 +66,7 @@ class Solution:
                     return False
         return True
 
+    # Union-find time: O(Nlog26)
     def equationsPossible(self, equations: List[str]) -> bool:
         root = [i for i in range(26)]
         
@@ -91,6 +93,12 @@ class Solution:
         return True
 
 
-        
+if __name__ == '__main__':
+    s = Solution()
+    print(s.equationsPossible(["b==b","b==e","e==c","d!=e"])) # True
+    print(s.equationsPossible(["a==b","b==e","e==c","a!=c"])) # False
+
+
+
             
                 
