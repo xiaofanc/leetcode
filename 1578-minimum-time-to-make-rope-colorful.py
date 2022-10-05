@@ -45,7 +45,26 @@ we need cost = sum_cost(group) - max_cost(group)
                 local_sum, local_max = cur_cost, cur_cost
                 prev = cur
         return fee + local_sum - local_max
-        
+
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+        stack = []
+        cost = 0
+        for i, c in enumerate(colors):
+            if not stack:
+                stack.append((i, c))
+            else:
+                idx, color = stack.pop()
+                if color == c:
+                    if neededTime[idx] > neededTime[i]:
+                        cost += neededTime[i]
+                        stack.append((idx, color))
+                    else:
+                        cost += neededTime[idx]
+                        stack.append((i, c))
+                else:
+                    stack.append((i, c))
+        return cost
+                
 if __name__ == '__main__':
     s = Solution()
     print(s.minCost("abaac", [1,2,3,4,5])) # 3
