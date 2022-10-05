@@ -5,6 +5,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    # BFS
     def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
         if depth == 1:
             node = TreeNode(val)
@@ -22,5 +23,27 @@ class Solution:
             if node.left: q.append((node.left, d+1))
             if node.right: q.append((node.right, d+1))
         return root
-                
+
+    # DFS
+    def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
+        if depth == 1:
+            node = TreeNode(val)
+            node.left = root
+            return node
+        
+        def dfs(node, d):
+            if not node:
+                return
+            if d == depth-1:
+                left, right = node.left, node.right
+                node.left, node.right = TreeNode(val), TreeNode(val)
+                node.left.left = left
+                node.right.right = right
+            dfs(node.left, d+1)
+            dfs(node.right, d+1)
+        
+        dfs(root, 1)
+        return root
+
+
             
