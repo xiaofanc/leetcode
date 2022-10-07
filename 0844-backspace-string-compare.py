@@ -29,3 +29,7 @@ if __name__ == '__main__':
     s = Solution()
     print(s.backspaceCompare("y#fo##f", "y#f#o##f")) # True
     print(s.backspaceCompare("a#cd", "b")) # False
+    print(s.backspaceCompare("ab##", "c#d#")) # True
+    print(s.backspaceCompare("a##c", "#a#c")) # False
+
+
