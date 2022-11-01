@@ -71,7 +71,23 @@ class Solution:  # time O(n*k) k=# of coins  n=0-amount
         if dp[amount] != float('inf'):
             return dp[amount]
         return -1
+
+    # no cache: O(kxn^k), cache: O(nxk)
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        @cache
+        def dp(n):
+            if n == 0: return 0
+            if n < 0: return -1
+            res = float('inf')
+            for coin in coins:
+                subproblem = dp(n-coin)
+                if subproblem == -1:
+                    continue
+                res = min(res, 1+subproblem)
+            return res if res != float('inf') else -1
         
+        return dp(amount)
+
 if __name__ == '__main__':
     s = Solution()
     print(s.coinChange([1, 2, 5]), 11)  #3
