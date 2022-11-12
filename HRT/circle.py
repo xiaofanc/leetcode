@@ -1,5 +1,6 @@
 """
-find all non-negative integer points that in the circle
+find all non-negative integer points that in/on the circle
+(i-x)**2 + (j-y)**2 <= r**2
 """
 def solution(x, y, r):
     left, right, up, bottom = x-r, x+r, y+r, y-r

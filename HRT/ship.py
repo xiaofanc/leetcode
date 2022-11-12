@@ -1,3 +1,11 @@
+"""
+ships with different length on the grid
+if hit . then return Missed
+if hit a cell that was attacked before then return Already attacked
+if hit the last cell of the ship then return Ship <x> sunk
+if hit a cell that not the last cell then return Attacked ship <x>
+"""
+
 import collections
 def solution(grid, shots):
     rows, cols = len(grid), len(grid[0])
