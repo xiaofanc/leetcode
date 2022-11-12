@@ -2,9 +2,8 @@ from bisect import bisect_left, bisect_right, bisect
 
 def bs(l, target):
     left, right = 0, len(l)-1
-    print(l, target)
     while left <= right:
-        mid = (left + right) // 2
+        mid = left + (right - left) // 2
         #print(left, right, mid)
         if target < l[mid]:
             right = mid-1
@@ -12,9 +11,41 @@ def bs(l, target):
             left = mid+1
         else:
             return mid
+    return -1
+
+# 寻找左侧边界
+def left_bound(l target):
+    left, right = 0, len(l)-1
+    while left <= right:
+        mid = left + (right - left) // 2
+        #print(left, right, mid)
+        if target < l[mid]:
+            right = mid-1
+        elif target > l[mid]:
+            left = mid+1
+        elif target == l[mid]:
+            right = mid-1
+    if l[left] != target or left >= len(l):
+        return -1
+    return left
+
+# 寻找右侧边界 [1,2,2,2,3]
+def right_bound(l target):
+    left, right = 0, len(l)-1
+    while left <= right:
+        mid = left + (right - left) // 2
+        #print(left, right, mid)
+        if target < l[mid]:
+            right = mid-1
+        elif target > l[mid]:
+            left = mid+1
+        elif target == l[mid]:
+            left = mid+1
+    if l[right] != target or right < 0:
+        return -1
     return right
 
-# 找到第一个比target大的数
+# 找到第一个 >= target的数
 def bs_left(l, target):
     lo, hi = 0, len(l)
     #print(l, target)
@@ -27,7 +58,7 @@ def bs_left(l, target):
             hi = mid
     return lo
 
-
+# 找到第一个 > target的数
 def bs_right(l, target):
     lo, hi = 0, len(l)
     #print(l, target)
@@ -66,7 +97,7 @@ if __name__ == '__main__':
     print(bs_right([1, 1, 1, 1, 2, 2, 2, 3, 5, 10], 5) == 9)
     print(bs_right([1, 1, 1, 1, 2, 2, 2, 3, 5, 10], 6) == 9)
     print(bs_right([1, 1, 1, 1, 2, 2, 2, 3, 5, 10], 7) == 9)
-    print(bs_right([1, 1, 1, 1, 2, 2, 2, 3, 5, 10],10) ==10)
+    print(bs_right([1, 1, 1, 1, 2, 2, 2, 3, 5, 10],10) ==10) # out of bound
 
     print(bisect_left([1, 1, 1, 1, 2, 2, 2, 3, 5, 10], 1) == 0)
     print(bisect_left([1, 1, 1, 1, 2, 2, 2, 3, 5, 10], 2) == 4)
