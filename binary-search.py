@@ -45,7 +45,7 @@ def right_bound(l target):
         return -1
     return right
 
-# 找到第一个 >= target的数
+# 找到第一个 >= target的数, same as bisect_left
 def bs_left(l, target):
     lo, hi = 0, len(l)
     #print(l, target)
@@ -58,7 +58,7 @@ def bs_left(l, target):
             hi = mid
     return lo
 
-# 找到第一个 > target的数
+# 找到第一个 > target的数, same as bisect_right
 def bs_right(l, target):
     lo, hi = 0, len(l)
     #print(l, target)
