@@ -77,6 +77,38 @@ class Solution:
             prev, cur = cur, prev
         return prev[0]
 
+    def longestCommonSubsequence(self, s1: str, s2: str) -> int:
+        memo = {}
+        def dfs(i,j): # s1[i:], s2[j:]
+            if i == len(s1) or j == len(s2):
+                return 0
+            if (i, j) in memo:
+                return memo[(i, j)]
+            if s1[i] == s2[j]:
+                memo[(i, j)] = 1+dfs(i+1, j+1)
+                return memo[(i, j)]
+            else:
+                memo[(i, j)] = max(dfs(i+1, j), dfs(i, j+1))
+                return memo[(i, j)]
+        
+        return dfs(0,0)
+
+    def longestCommonSubsequence(self, s1: str, s2: str) -> int:
+        memo = {}
+        def dfs(i,j): # s1[:i], s2[:j]
+            if i == -1 or j == -1:
+                return 0
+            if (i, j) in memo:
+                return memo[(i, j)]
+            if s1[i] == s2[j]:
+                memo[(i, j)] = 1+dfs(i-1, j-1)
+                return memo[(i, j)]
+            else:
+                memo[(i, j)] = max(dfs(i-1, j), dfs(i, j-1))
+                return memo[(i, j)]
+        
+        return dfs(len(s1)-1,len(s2)-1)
+
 if __name__ == '__main__':
     s = Solution()
     print(s.longestCommonSubsequence("abcde", "ace")) # 3
