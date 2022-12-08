@@ -65,7 +65,7 @@ class Solution:
                 return True
             if j >= len(p):
                 return False
-            # i can be out of bound
+            # when i == len(s), check if p[j:] can represent empty string
             # compare the current position
             match = (i < len(s) and (s[i] == p[j] or p[j] == "."))
             # check the next position
@@ -95,6 +95,44 @@ class Solution:
                 else:
                     dp[si][pi] = first_match and dp[si+1][pi+1]
         return dp[0][0]
+
+    def isMatch(self, s: str, p: str) -> bool:
+        memo = {}
+        def dp(s, i, p, j):
+            # base case
+            if j == len(p):
+                return i == len(s)
+            if i == len(s):
+                # check if p[j:] can represent empty string
+                # p[j:] must be in the format of a*b*c*
+                if (len(p)-j) % 2 == 1:
+                    return False
+                for x in range(j+1, len(p), 2):
+                    if p[x] != "*":
+                        return False
+                return True
+            if (i, j) in memo:
+                return memo[(i, j)]
+            # first match
+            if s[i] == p[j] or p[j] == ".":
+                # check if p[j+1] == "*"
+                if j+1 < len(p) and p[j+1] == "*":
+                    # delete or use p[j]
+                    memo[(i, j)] = dp(s, i, p, j+2) or dp(s, i+1, p, j)
+                    return memo[(i, j)]
+                else:
+                    # check next positions
+                    memo[(i, j)] = dp(s, i+1, p, j+1)
+                    return memo[(i, j)]
+            else:
+                if j+1 < len(p) and p[j+1] == "*":
+                    # delete p[j]
+                    memo[(i, j)] = dp(s, i, p, j+2)
+                    return memo[(i, j)]
+                else:
+                    memo[(i, j)] = False
+                    return memo[(i, j)]
+        return dp(s, 0, p, 0)
 
 if __name__ == '__main__':
     print(match("abc","acb"))
