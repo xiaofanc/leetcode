@@ -79,7 +79,7 @@ class Solution:
         
         dp = [[False] * (target+1) for i in range(n+1)]
 
-        dp[0][0] = True
+        dp[0][0] = True  # dp[..][0] =True
         for i in range(1, n+1):
             curr = nums[i-1]
             for j in range(target+1):

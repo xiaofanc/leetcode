@@ -35,6 +35,36 @@ class Solution:
             return memo[(i, curAmt)]
         return dfs(0, 0)
 
+    def change(self, amount: int, coins: List[int]) -> int:
+        n = len(coins)
+        dp = [[0 for j in range(amount+1)] for i in range(n+1)]
+
+        # 只有1种方式使sum=0
+        for i in range(n+1):
+            dp[i][0] = 1 
+        
+        for i in range(1, n+1):
+            for j in range(1, amount+1):
+                if j < coins[i-1]:
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    # 用前i-1个数构成j + 用前i个数构成j(一定使用coins[i-1])
+                    dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]]
+        return dp[n][amount]
+
+    def change(self, amount: int, coins: List[int]) -> int:
+        n = len(coins)
+        dp = [0 for i in range(amount+1)]
+
+        # 只有1种方式使sum=0
+        dp[0] = 1 
+        
+        for i in range(n):
+            for j in range(1, amount+1):
+                if j >= coins[i-1]:
+                    dp[j] = dp[j] + dp[j-coins[i-1]]
+        return dp[amount]
+        
 if __name__ == '__main__':
 	s = Solution()
 	print(s.change(5, [1,2,5])) # 4: [1,1,1,1,1],[2,1,1,1],[2,2,1],[5,0]

@@ -88,6 +88,37 @@ class Solution:  # time O(n*k) k=# of coins  n=0-amount
         
         return dp(amount)
 
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        n = len(coins)
+        dp = [[amount+1 for j in range(amount+1)] for i in range(n+1)]
+
+        # dp[i][j] => 从前i个数之中取数取得sum=j的最少硬币数
+        for i in range(n+1):
+            dp[i][0] = 0
+        
+        for i in range(1, n+1):
+            for j in range(1, amount+1):
+                if j < coins[i-1]:
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    # min(用前i-1个数构成j， 用前i个数构成j)
+                    dp[i][j] = min(dp[i-1][j], 1+dp[i][j-coins[i-1]])
+        return dp[n][amount] if dp[n][amount] != amount+1 else -1
+
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        n = len(coins)
+        dp = [amount+1 for i in range(amount+1)]
+
+        # base case: sum = 0
+        dp[0] = 0
+        
+        for i in range(n):
+            for j in range(1, amount+1):
+                if j >= coins[i]:
+                    dp[j] = min(dp[j], 1+dp[j-coins[i]])
+                    
+        return dp[amount] if dp[amount] != amount+1 else -1
+
 if __name__ == '__main__':
     s = Solution()
     print(s.coinChange([1, 2, 5]), 11)  #3
