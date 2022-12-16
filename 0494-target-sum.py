@@ -44,7 +44,54 @@ class Solution:
             memo[(i, curSum)] = dfs(i+1, curSum+nums[i]) + dfs(i+1, curSum-nums[i])
             return memo[(i, curSum)]
         return dfs(0, 0)
+
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        # [100], -200
+        if sum(nums) < target or (sum(nums) + target) % 2 or -sum(nums) > target:
+            return 0
+
+        def subsetsum(s):
+            dp = [[0 for j in range(s+1)] for i in range(n+1)]
+
+            for i in range(n+1):
+                dp[i][0] = 1
+            
+            for i in range(1, n+1):
+                for j in range(s+1):
+                    # print("j->", i, j)
+                    if j < nums[i-1]:
+                        dp[i][j] = dp[i-1][j]
+                    else:
+                        dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]]
+            return dp[n][s]
         
+        s = (sum(nums)+target)//2 # s >= 0
+        return subsetsum(s)        
+
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        # [100], -200
+        if sum(nums) < target or (sum(nums) + target) % 2 or -sum(nums) > target:
+            return 0
+
+        def subsetsum(s):
+            dp = [0 for j in range(s+1)]
+
+            dp[0] = 1
+            
+            for i in range(1, n+1):
+                # start from backwards
+                for j in range(s,-1,-1):
+                    if j < nums[i-1]:
+                        dp[j] = dp[j]
+                    else:
+                        dp[j] = dp[j] + dp[j-nums[i-1]]
+            return dp[s]
+        
+        s = (sum(nums)+target)//2 # s >= 0
+        return subsetsum(s)
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.findTargetSumWays([1,1,1,1,1])) # 3
