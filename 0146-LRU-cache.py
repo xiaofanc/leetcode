@@ -39,7 +39,7 @@ class LRUCache:
         if len(self.cache) > self.capacity:
             self.cache.popitem(last = False)
 
-# doubly linkedlist
+# hashmap + doubly linkedlist
 class DLinkedNode(): 
     def __init__(self):
         self.key = 0

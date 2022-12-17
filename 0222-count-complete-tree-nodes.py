@@ -22,6 +22,7 @@ class Solution:
             level = [c for node in level for c in (node.left, node.right) if c]
         return cnt
 
+    # Time: O(logNlogN)
     def countNodes(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0

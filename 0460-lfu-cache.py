@@ -45,17 +45,17 @@ class LFUCache:
             freq=self.keyfreq[key]
             self.freqkeys[freq][key]=value
             self.get(key) # update frequency
-            return
 
-        if self.capacity==len(self.keyfreq):
-            # get the LRU key with minfreq
-            delkey, delval=self.freqkeys[self.minfreq].popitem(last=False)
-            del self.keyfreq[delkey]
+        else:
+            if self.capacity==len(self.keyfreq):
+                # get the LRU key with minfreq
+                delkey, delval=self.freqkeys[self.minfreq].popitem(last=False)
+                del self.keyfreq[delkey]
 
-        # insert the key-value pair
-        self.keyfreq[key]=1
-        self.freqkeys[1][key]=value
-        self.minfreq=1
+            # insert the key-value pair
+            self.keyfreq[key]=1
+            self.freqkeys[1][key]=value
+            self.minfreq=1
 
 
 # Your LFUCache object will be instantiated and called as such:
