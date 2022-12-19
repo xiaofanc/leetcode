@@ -52,7 +52,28 @@ class Solution:
             return reversedHead
         # if count < k
         return head
-            
+
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        def reverse(head, b):
+            # reverse listnodes in [head, b)
+            prev, cur = None, head
+            while cur != b:
+                nextNode = cur.next
+                cur.next = prev
+                prev, cur = cur, nextNode
+            return prev
+        
+        a = b = head
+        for i in range(k):
+            # base case: not enough nodes left
+            if not b:
+                return head
+            b = b.next
+        
+        newhead = reverse(a, b)
+        head.next = self.reverseKGroup(b, k)
+        return newhead
+                    
 if __name__ == '__main__':
     s = Solution()
     l1=ListNode.from_list([1,2,3,4,5])
