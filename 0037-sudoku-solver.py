@@ -63,8 +63,46 @@ class Solution:
         backtrack()
 
 
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m, n = 9, 9
 
+        def isValid(r, c, n):
+            for i in range(9):
+                if board[r][i] == n:
+                    return False
+                if board[i][c] == n:
+                    return False
+                if board[r//3*3+i//3][c//3*3+i%3] == n:
+                    return False
+            return True
 
+        def backtrack(i, j):
+            # if col is placed, place next row
+            if j == 9:
+                return backtrack(i+1, 0)
+            # if all rows are placed, then solved
+            if i == 9:
+                return True
+            # if cannot be placed, move to the next position
+            if board[i][j] != ".":
+                return backtrack(i, j+1)
+            
+            # select from all possible candidates
+            for n in range(1, 10):
+                if not isValid(i, j, str(n)):
+                    continue
+                board[i][j] = str(n)
+                if backtrack(i, j+1):
+                    return True
+                board[i][j] = "."
+            return False
+
+        return backtrack(0, 0)
+
+        
 
 
 
