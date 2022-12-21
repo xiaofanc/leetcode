@@ -54,6 +54,44 @@ class Solution:
             nums.append(num)
         return nums[-1]
 
+class Solution:
+    def calculate(self, s: str) -> int:
+
+        s = list(s)    
+
+        def helper(s):        
+            stack = []
+            sign = "+"
+            num = 0
+            while len(s) > 0:
+                c = s.pop(0)
+                if c.isdigit():
+                    num = num*10 + int(c)
+                    
+                # 如果是括号，使用递归先计算出括号里的
+                if c == "(":
+                    num = helper(s)
+                
+                if (not c.isdigit() and c != " ") or len(s) == 0:
+                    if sign == "+":
+                        stack.append(num)
+                    elif sign == "-":
+                        stack.append(-num)
+                    elif sign == "*":
+                        stack[-1] = stack[-1]*num
+                    elif sign == "/":
+                        stack[-1] = int(stack[-1]/float(num))
+                    print("stack ->", stack, c, sign)
+
+                    num = 0
+                    sign = c
+
+                # 遇到右括号，返回递归结果
+                if c == ")":
+                    break
+            return sum(stack)
+        return helper(s)
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.calculate("2*(5+5*2)/3+(6/2+8)")) # 21

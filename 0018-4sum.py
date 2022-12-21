@@ -123,7 +123,92 @@ class Solution:
         
         nums.sort()
         return ksum(nums, target, 4)
-                        
+
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+
+        def nsum(nums, n, start, target):
+            size = len(nums)
+            res = []
+            # at least two sum and have enough nums
+            if n < 2 or size < n:
+                return res
+            # base case: 2sum
+            if n == 2:
+                l, r = start, size-1
+                while l < r:
+                    s = nums[l] + nums[r]
+                    if s > target:
+                        r -= 1
+                    elif s < target:
+                        l += 1
+                    else:
+                        res.append([nums[l], nums[r]])
+                        while l < r and nums[l] == nums[l+1]:
+                            l += 1
+                        while l < r and nums[r] == nums[r-1]:
+                            r -= 1
+                        l += 1
+                        r -= 1
+            else:
+                # n > 2，递归计算(n-1)sum
+                for i in range(start, size):
+                    # 第一个数不能重复 -> i > start !!!!!!
+                    if i > start and nums[i] == nums[i-1]:
+                        continue
+                    sub = nsum(nums, n-1, i+1, target-nums[i])
+                    for s in sub:
+                        s.append(nums[i])
+                        res.append(s)
+            return res
+        return nsum(nums, 4, 0, target)
+
+
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+
+        def twosum(nums, target):
+            res = []
+            l, r = 0, len(nums)-1
+            while l < r:
+                s = nums[l] + nums[r]
+                if s > target:
+                    r -= 1
+                elif s < target:
+                    l += 1
+                else:
+                    res.append([nums[l], nums[r]])
+                    l += 1
+                    r -= 1
+                    while l < r and nums[l] == nums[l-1]:
+                        l += 1
+                    while l < r and nums[r] == nums[r+1]:
+                        r -= 1
+            return res
+
+        def nsum(nums, n, target):
+            res = []
+            # print("nums ", nums)
+            # at least two sum and have enough nums
+            if n < 2 or len(nums) < n:
+                return res
+            # base case: 2sum
+            if n == 2:
+                return twosum(nums, target)
+            else:
+                # n > 2，递归计算(n-1)sum
+                for i in range(len(nums)):
+                    # 第一个数不能重复
+                    if i > 0 and nums[i] == nums[i-1]:
+                        continue
+                    sub = nsum(nums[i+1:], n-1, target-nums[i])
+                    for s in sub:
+                        s.append(nums[i])
+                        res.append(s)
+            return res
+        return nsum(nums, 4, target)
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.fourSum([-2,-1,-1,1,1,2,2], 0)) # [[-2,-1,1,2],[-1,-1,1,1]]
