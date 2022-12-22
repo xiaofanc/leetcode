@@ -35,17 +35,21 @@ class Solution:
         return len_
         
     def removeDuplicates(self, nums: List[int]) -> int:
-        slow, fast = 0, 0
-        while fast < len(nums)-1:
-            if nums[fast] != nums[fast+1]:
-                nums[slow] = nums[fast]
+        # nums[0....slow]无重复
+        if len(nums) <= 1:
+            return len(nums)
+        slow, fast = 0, 1
+        while fast < len(nums):
+            if nums[slow] != nums[fast]:
                 slow += 1
+                nums[slow] = nums[fast]
             fast += 1
-        nums[slow] = nums[fast]
-        return slow+1        
+        return slow+1 # number of slots       
   
             
 s=Solution()
 print(s.removeDuplicates0([1,2,2,3,4,4,5,5,6]))
 print(s.removeDuplicates1([1,2,2,3,4,4,5,5,6]))
 print(s.removeDuplicates2([1,2,2,3,4,4,5,5,6]))
+
+

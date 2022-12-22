@@ -1,8 +1,8 @@
 from typing import List
 
 class Solution:
-    #solution2 DP;
-    #find the max from left and right 
+    # solution2 DP;
+    # find the max from left and right 
     def trap(self, height: List[int]) -> int:
         forward, fmax = [], 0
         for h in height:
@@ -35,6 +35,26 @@ class Solution:
             stack.append(cur)
         return ans
 
+    # two pointers
+    def trap(self, height: List[int]) -> int:
+        if not height:
+            return 0
+        left, right = 0, len(height)-1
+        l_max, r_max = height[left], height[right]
+        res = 0
+        while left <= right:
+            l_max = max(l_max, height[left])
+            r_max = max(r_max, height[right])
+
+            # 不用管r_max是不是height[left...]里最高的
+            if l_max < r_max:
+                res += l_max - height[left]
+                left += 1
+            else:
+                res += r_max - height[right]
+                right -= 1
+        return res
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.trap([0,1,0,2,1,0,1,3,2,1,2,1]))

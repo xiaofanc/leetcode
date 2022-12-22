@@ -31,7 +31,20 @@ class Solution:
             else:
                 prev, curr = prev.next, curr.next
         return head
-                
+
+    # 26. Remove Duplicates from Sorted Arra
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head:
+            return head
+        prev, curr = head, head.next
+        while curr:
+            if curr.val != prev.val:
+                prev.next = curr
+                prev = prev.next
+            curr = curr.next
+        prev.next = None
+        return head
+
 if __name__ == '__main__':
     s = Solution()
     l = ListNode.from_list([1,2,3,4,4,6,7])
