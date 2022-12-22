@@ -51,6 +51,17 @@ class Solution:
                     break # break the j loop, continue the i loop
         return dp[0]
 
+    # greedy
+    def canJump(self, nums: List[int]) -> bool:
+        farthest = 0
+        for i in range(len(nums)-1):
+            # calculate the farthest position that can reach
+            farthest = max(farthest, i+nums[i])
+            # nums[i] == 0
+            if farthest <= i:
+                return False
+        return farthest >= len(nums)-1
+
 if __name__ == '__main__':
     s = Solution()
     print(s.canJump([2,3,1,1,4])) # True

@@ -25,3 +25,17 @@ class Solution:
                 dp[i] = min(dp[i], 1+dp[j])
         return dp[0]
 
+    # greedy
+    # [3, 1, 4, 2, ....]; 为了得到最少step，肯定选择[1, 4, 2]中能够到达的最远距离
+    def jump(self, nums: List[int]) -> int:
+        # 记录i...end能够跳到的最远的地方
+        end = farthest = 0
+        jumps = 0
+        for i in range(len(nums)-1):
+            farthest = max(i+nums[i], farthest)
+            # checked all possible spots
+            if i == end:
+                jumps += 1
+                end = farthest # check next interval
+        return jumps
+
