@@ -72,6 +72,10 @@ class UnionFind:
             self.rank[r2] += self.rank[r1]
         self.count -= 1
 
+    def connected(self, p1, p2):
+        r1, r2 = self.find(p1), self.find(p2)
+        return r1 == r2
+
     def returnCC(self):
         # return number of connect components
         return self.count
