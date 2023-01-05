@@ -17,6 +17,11 @@ class Solution:
             heapq.heappush(maxHeap, (-dist, root.val))
             if len(maxHeap) > k:  # keep the size == k
                 heapq.heappop(maxHeap)
+
+            # early stop since values will be larger in BST inoder traversal
+            if dist > -heap[0][0]:
+                return
+                
             inorder(root.right)
         inorder(root)
         return [val[1] for val in maxHeap]

@@ -41,7 +41,14 @@ class Solution:
                     l += 1
                 start += 1
         return res
-        
+
+    def sortTransformedArray(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
+        res = []
+        for x in nums:
+            newn = a*x*x + b*x + c
+            bisect.insort(res, newn) # O(logn)
+        return res
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.sortTransformedArray([-4,-2,2,4], 1, 3, 5)) # [3,9,15,33]
