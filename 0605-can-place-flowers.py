@@ -22,8 +22,28 @@ class Solution:
             i += 1         # move to the next place
         return n == 0
 
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        flowerbed = [0] + flowerbed + [0]
+        if n == 0:  # cannot move to the end
+            return True
+            
+        for i in range(1, len(flowerbed)-1):
+            if flowerbed[i] == 0 and flowerbed[i-1] != 1 and flowerbed[i+1] != 1:
+                flowerbed[i] = 1
+                n -= 1
+                if n == 0:
+                    return True
+
 if __name__ == '__main__':
     s = Solution()
     print(s.canPlaceFlowers([1,0,0,0,1], 1)) # True
     print(s.canPlaceFlowers([0], 1)) # True
     print(s.canPlaceFlowers([1], 1)) # False
+
+    print(s.canPlaceFlowers([1,0,1,0,1,0,1], 0)) # True
+    print(s.canPlaceFlowers([0,0,1,0,1], 1)) # True
+    print(s.canPlaceFlowers([1,0,0,0,0,1], 2)) # False
+    print(s.canPlaceFlowers([0,0,0,0,0,1,0,0], 0)) # True
+
+
+

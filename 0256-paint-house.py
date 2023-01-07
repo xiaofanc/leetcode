@@ -11,7 +11,7 @@ class Solution:
     #    return min(reduce(lambda(A,B,C), (a,b,c): (a+min(B,C), b+min(A,C), c+min(A,B)),
     #                  costs, [0]*3))
 
-    # bottom-up: O(n)
+    # bottom-up: O(n); top-down is fine too.
     def minCost(self, costs: List[List[int]]) -> int:
         for i in range(len(costs)-2,-1,-1):
             for j in range(3):

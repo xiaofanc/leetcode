@@ -37,33 +37,23 @@ class Solution:
         return f
 
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
-        stack = [] # only store the start time
         res = [0]*n
+        stack = []
+        # start time of the current task on the CPU
+        prev_time = 0 
         for log in logs:
-            taskid, session, time = log.split(":")
-            taskid = int(taskid)
-            time = int(time)
-            if session == "start":
-                stack.append([taskid, time])
-                print('stack:', stack)
-            else: # session == "end"
-                # single-threaded, it looks like one task will be interrupted by other tasks
-                # therefore, prev_id = taskid
-                prev_id, prev_time = stack.pop()
-                res[taskid] += time - prev_time + 1
-                overlap = time - prev_time + 1 
-                print('stack:', stack)
-                print(res)
-                
-                # remove the overlapping time from the preivous ongoing task
-                # ["0:start:0","0:start:2","0:end:5","1:start:6","1:end:6","0:end:7"]
-                # In this case, time for "0:start:2","0:end:5" = 4
-                # remove 4 from previous -> same task, so it is cancelled
+            fid, p, t = int(log.split(":")[0]), log.split(":")[1], int(log.split(":")[2])
+            if p == "start":
                 if stack:
-                    # store the time that needs to be removed from the task due to overlapping
-                    # "0:start:2","0:end:5" does not remove any time for the task 0
-                    res[stack[-1][0]] -= overlap
-                    print("remove overlap", res)
+                    # add time for previous task
+                    res[stack[-1]] += t-prev_time
+                stack.append(fid)
+                prev_time = t
+            else:
+                # calculate time for the task which ended
+                res[stack.pop()] +=t-prev_time+1
+                # restart the previous task
+                prev_time = t+1
         return res
 
 if __name__ == '__main__':
