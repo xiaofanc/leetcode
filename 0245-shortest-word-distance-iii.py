@@ -1,6 +1,8 @@
 """
-word1 and word2 are in the list and they represent two individual words in the list (could be the same).
+word1 and word2 are in the list.
+special case: word1 == word2.
 """
+
 class Solution:
     def shortestWordDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
         iMap = defaultdict(list)
@@ -21,6 +23,19 @@ class Solution:
                     i += 1
         return dist
 
+    def shortestWordDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
+        prev = -1
+        res = len(wordsDict)
+        for i, w in enumerate(wordsDict):
+            if w == word1 or w == word2:
+                if prev != -1 and (word1 == word2 or wordsDict[prev] != w):
+                    res = min(res, i-prev)
+                prev = i
+        return res
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.shortestWordDistance(wordsDict = ["practice", "makes", "perfect", "coding", "makes"], word1 = "makes", word2 = "makes"))
+
+
+

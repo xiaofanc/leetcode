@@ -12,7 +12,9 @@ lo, hi, ans:
 if dp = max(nums[i], dp*nums[i]): final result is 3
 [-2, 3, 3]
 
+keep track of the max and min subarray product ends with current number.
 """
+
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         dpmax = [0]*len(nums)
