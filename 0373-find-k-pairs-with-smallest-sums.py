@@ -12,6 +12,11 @@ The problem can also be viewed as finding the kth smallest element from m sorted
 
 It starts off only with the very first pair at the top-left corner of the matrix, and expands from there as needed. Whenever a pair is chosen into the output result, the next pair in the row gets added to the priority queue of current options. Also, if the chosen pair is the first one in its row, then the first pair in the next row is added to the queue.
 
+- pop (i, j) from minheap
+- If j == 0, add next pair and the first pair in the next row to the heap.
+Why? These two pairs [i, 1], [i+1, 0] are the possible candidates for the next smallest pair.
+- If j != 0, add next pair [i, j+1] to the heap. No need to add the one pair below since the previous one [i+1, j-1] needs to pop first.
+
 The problem can also be viewed as finding the kth smallest element from m sorted arrays. The 'bubbling' down process in your solution 5 can also be seen as keeping track of the smallest element in each array. 
 
 The priority queue will take care of putting the pair with minimum sum to the first.
@@ -22,6 +27,7 @@ class Solution:
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
         return heapq.nsmallest(k, product(nums1, nums2), key=sum)
 
+    # Time: O(klogk)
     def kSmallestPairs(self, nums1, nums2, k):
         queue = []
         def push(i, j):
