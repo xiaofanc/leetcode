@@ -27,7 +27,11 @@ class Solution:
         
         memo = {}
         def canWin(choices, left):
-            # if left is in the choices ??
+            """
+            For a player(first or second) who wants to decide his next move, and given his possible options for the next move, find the option that definitely makes the other player(second or first) lose!
+            """
+            # if left <= 0: return False; - this can work as well
+            # the player who first causes the running total to reach or exceed left wins
             if choices[-1] >= left:
                 return True
 

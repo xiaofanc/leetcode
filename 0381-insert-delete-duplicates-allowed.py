@@ -1,63 +1,48 @@
-# try to use defaultdict(list) instead of defaultdict(set)
-# have issues for the remove method
-
-import random
 class RandomizedCollection:
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.list = []
-        self.d = defaultdict(list) # does not have the discard method
+        self.lst = []
+        self.v2i = defaultdict(list)
+        self.size = 0
 
     def insert(self, val: int) -> bool:
-        """
-        Inserts a value to the collection. Returns true if the collection did not already contain the specified element.
-        """
-        self.list.append(val)
-        if val not in self.list:
-            self.d[val] = [len(self.list)-1]
+        self.lst.append(val)
+        if val in self.v2i:
+            res = False
         else:
-            self.d[val].append(len(self.list)-1)
-        print(self.d[val])
-        return len(self.d[val]) == 1        
-        
+            res = True
+        self.v2i[val].append(self.size)
+        self.size += 1
+        return res
+
     def remove(self, val: int) -> bool:
-        """
-        Removes a value from the collection. Returns true if the collection contained the specified element.
-        """
-        if val in self.list:   
-            print("remove", val)
-            print(self.list)
-            print(self.d)
-            # remove by swapping with the last element
-            last_element, idx = self.list[-1], self.d[val].pop()
-            self.list[-1], self.list[idx] = val, last_element
-            # print(last_element, idx, self.list)
-            # update the index dictionary
-            self.d[last_element].sort()
-            if last_element != val and self.d[last_element]:                                   
-                self.d[last_element].pop()
-            
-            # pop the last element
-            self.list.pop()
-            print(self.list)
-            print(self.d)
-            
-            return True
-        return False
+        if val not in self.v2i:
+            return False
+        # remove the last occurrence of val
+        idx = self.v2i[val].pop()
+        if len(self.v2i[val]) == 0:
+            del self.v2i[val]
+        # if not removing the last element, swap
+        if idx != self.size-1:
+            lastv = self.lst[-1]
+            self.lst[-1], self.lst[idx] = val, lastv
+            # update the index of the last element
+            # update the largest index !
+            # self.v2i[lastv] is not sorted after replacing the index !
+            self.v2i[lastv].sort()
+            self.v2i[lastv][-1] = idx
+        # remove val
+        self.lst.pop()
+        self.size -= 1
+        return True
 
     def getRandom(self) -> int:
-        """
-        Get a random element from the collection.
-        """
-        return random.choice(self.list)
-        
-
+        return random.choice(self.lst)
 
 # Your RandomizedCollection object will be instantiated and called as such:
 # obj = RandomizedCollection()
 # param_1 = obj.insert(val)
 # param_2 = obj.remove(val)
 # param_3 = obj.getRandom()
+
+

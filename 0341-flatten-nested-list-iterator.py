@@ -59,12 +59,12 @@ class NestedIterator:
         self.stack = list(reversed(nestedList))       
     
     def next(self) -> int:
-        # self.makestacktopinteger()
+        # self.hasNext() will be called first
         return self.stack.pop().getInteger()
            
     def hasNext(self) -> bool:
-        self.makestacktopinteger()
-        return len(self.stack) > 0
+        self.makestacktopinteger() 
+        return len(self.stack) > 0 # len([[]]) > 0, so we need to flattenTop in this call.
      
     def makestacktopinteger(self):
         while self.stack and not self.stack[-1].isInteger():
