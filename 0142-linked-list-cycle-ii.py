@@ -1,4 +1,6 @@
 """
+# 0287.
+
 Consider the following linked list, where E is the cylce entry and X, the first crossing point of fast and slow.
 a: distance from head to cycle entry E
 c: distance from E to X
@@ -18,8 +20,6 @@ Thus if two pointers start from head and X,
 one reaches E, the other also reaches E
 
 """
-
-
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):

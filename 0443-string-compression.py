@@ -37,23 +37,19 @@ s=Solution()
 #method2:
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        anchor = write = 0
-        for read, c in enumerate(chars):
-            print()
-            print('line 43', chars, read, c)
-            if read + 1 == len(chars) or chars[read+1] != c:
-                chars[write] = chars[anchor]
-                print('line 46',write, chars[write], anchor, chars[anchor])
-                write += 1
-                print('line 48',write, read, anchor)
-                if read > anchor:
-                    for digit in str(read - anchor + 1):
-                        print('line 51', str(read - anchor + 1))
-                        chars[write] = digit
-                        write += 1
-                anchor = read + 1
-                print('line 55', write, read, anchor)
-        return write
+        # a is the start of group, k is the next position to be replaced
+        a = k = 0
+        for b, char in enumerate(chars):
+            if b + 1 == len(chars) or chars[b+1] != char:
+                chars[k] = chars[a]
+                k += 1
+                if b > a:
+                    for digit in str(b - a + 1):
+                        chars[k] = digit
+                        k += 1
+                # move to the next group
+                a = b + 1
+        return k
 
 s=Solution()
 print(s.compress(["a","a","b","b","c","c","c","c","c","c","c","c","c","c","c","c"]))

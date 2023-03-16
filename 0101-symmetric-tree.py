@@ -63,7 +63,24 @@ class Solution:
             
         return helper(root.left, root.right)
         
-
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        q = deque()
+        q.append(root)
+        q.append(root)
+        while q:
+            n1, n2 = q.popleft(), q.popleft()
+            if not n1 and not n2:
+                continue
+            if not n1 or not n2:
+                return False
+            if n1.val != n2.val:
+                return False
+            q.append(n1.left)
+            q.append(n2.right)
+            q.append(n1.right)
+            q.append(n2.left)
+        return True
+        
 if __name__ == '__main__':
     T = TreeNode
     t1 = T(1, T(2,T(3),T(4)), T(2,T(4),T(3)))

@@ -26,6 +26,7 @@ class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         heap = []
         for i, node in enumerate(lists):
+            # make sure node is not None !!
             if node != None:
                 # add the first node of lists, random() makes tuples comparable 
                 # If two elements have the same val, the next tuple items will be compared:

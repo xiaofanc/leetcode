@@ -54,7 +54,7 @@ class LRUCache:
             first = self.head.next
             self._move_from_list(first)
             self.size -= 1
-            # do not forget to pop from cache
+            # do not forget to pop from cache !!!!!!!!!!!!!!!!!!!!!
             self.cache.pop(first.key)
             
 # Your LRUCache object will be instantiated and called as such:
