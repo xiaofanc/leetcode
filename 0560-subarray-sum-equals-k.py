@@ -43,7 +43,8 @@ class Solution:
     # Time - O(n); Space - O(n)
     def subarraySum(self, nums: List[int], k: int) -> int:
         # record the prefix sum that starts in the beginning s[:j]
-        # calculate how many s[:i] - s[:j] = k
+        # calculate how many s[:j] - s[:i] = k, subarray ends with s[j]
+        # sum(s[i+1:j+1]) = k
         prefixSum = {0:1}
         s = 0
         res = 0

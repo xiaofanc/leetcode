@@ -110,8 +110,53 @@ class Solution:
                     backtracking(i, j, trie)
         return res
         
+    def findWords3(self, board: List[List[str]], words: List[str]) -> List[str]:
+        dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+        rows, cols = len(board), len(board[0])
+        # build a trie for words
+        self.trie = defaultdict(dict)
+        self.key = "$"
+        
+        for word in words:
+            node = self.trie
+            for char in word:
+                if char not in node:
+                    node[char] = {}
+                node = node[char]
+            node[self.key] = word
+        
+        res = []
+        def dfs(i, j, node):
+            nonlocal res
+            if i < 0 or i == rows or j < 0 or j == cols or board[i][j] == "#" or board[i][j] not in node:
+                return False
+                
+            char = board[i][j]
+            children = node[char]
+            if self.key in children:
+                res.append(children[self.key])
+
+                # optimization
+                children.pop(self.key)
+                if not children:
+                    node.pop(char)
             
+            board[i][j] = "#"
+            for dx, dy in dirs:
+                dfs(i+dx, j+dy, children)
+            board[i][j] = char
+        
+        for i in range(rows):
+            for j in range(cols):
+                dfs(i, j, self.trie)
+        return res
+
 if __name__ == '__main__':
     s = Solution()
     print(s.findWords([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], ["oath","pea","eat","rain"]))
+
+
+
+
+
             
