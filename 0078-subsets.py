@@ -44,6 +44,18 @@ class Solution:
         return res
 
     def subsets(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) == 0:
+            return [[]]
+        n = nums.pop()
+        res = self.subsets(nums)
+        size = len(res)
+        # [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+        for i in range(size):
+            new = res[i] + [n]
+            res.append(new)
+        return res
+        
+    def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
         n = len(nums)
         
@@ -59,7 +71,25 @@ class Solution:
             # [[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]
             backtrack(0, [])
         return res
+
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
         
+        def backtrack(i, comb):
+            if i >= len(nums):
+                res.append(comb[:])
+                return
+            # include i
+            comb.append(nums[i])
+            backtrack(i+1, comb)
+            comb.pop()
+
+            # not include i
+            backtrack(i+1, comb)
+        backtrack(0, [])
+        # [[1,2,3],[1,2],[1,3],[1],[2,3],[2],[3],[]]
+        return res        
+
 if __name__ == '__main__':
     s = Solution()
     print(s.subsets([1,2,3]))

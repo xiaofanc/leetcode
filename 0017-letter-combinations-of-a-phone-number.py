@@ -50,17 +50,15 @@ class Solution:
         res = []
         n = len(digits)
         if n == 0:
-            return res
-        def backtrack(index, comb):
-            if len(comb) == n:
+            return []
+        
+        def backtrack(i, comb):
+            if i == n:
                 res.append(comb[:])
                 return
-            d = digits[index]
-            for l in mapping[d]:
-                comb += l
-                backtrack(index+1, comb)
-                comb = comb[:-1]
-        backtrack(0,"")
+            for j in range(len(mapping[digits[i]])):
+                backtrack(i+1, comb + mapping[digits[i]][j])
+        backtrack(0, "")
         return res
 
 if __name__ == '__main__':

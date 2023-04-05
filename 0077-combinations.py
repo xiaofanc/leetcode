@@ -15,7 +15,7 @@ Output:
 """
 class Solution:
     # Time: O(k*(n!/(n-k)!k!))
-    # Space: O(n!/(n-k)!k!)
+    # Space: O(k) for recursion stack
     def combine(self, n: int, k: int) -> List[List[int]]:
         def backtrack(first = 1, curr = []):
             if len(curr) == k:

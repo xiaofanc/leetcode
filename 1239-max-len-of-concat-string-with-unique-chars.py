@@ -94,9 +94,27 @@ class Solution:
         backtrack(0, [])
         return maxL
 
+    def maxLength(self, arr: List[str]) -> int:
+        res = 0
+
+        def subsets(start, comb):
+            nonlocal res
+            res = max(res, len(comb))
+            if start == len(arr):
+                return
+            for i in range(start, len(arr)):
+                # check if arr[i] has duplicates and arr[i] has the duplicate char compared to comb
+                unique = (len(set(comb+arr[i])) == len(comb+arr[i]))
+                if not unique:
+                    continue
+                subsets(i+1, comb+arr[i])
+        subsets(0, "")
+        return res
+
 if __name__ == '__main__':
 	s = Solution()
 	print(s.maxLength(["un","iq","ues", "aple"])) # 8 ["un","iq","aple"]           
+    print(s.maxLength(["aa","bb"])) # 0
 
                 
         

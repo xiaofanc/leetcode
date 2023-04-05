@@ -9,7 +9,7 @@ Output:
 Time: O(N⋅N!)
 It takes N steps to generate a single permutation. Since there are in total N! possible permutations, at most it would take us N⋅N! steps to generate all permutations, simply assuming that there is no overlapping effort (which is not true).
 
-Space: O(N!)
+Space: O(N)
 """
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
@@ -43,10 +43,10 @@ class Solution:
         def backtrack(start):
             if start == n:
                 res.append(nums[:])
-            lookup = set()  # do not swap for the same element on the same level
+            level = set()  # do not swap for the same element on the same level
             for i in range(start, n):
-                if nums[i] not in lookup:
-                    lookup.add(nums[i])
+                if nums[i] not in level:
+                    level.add(nums[i])
                     nums[start], nums[i] = nums[i], nums[start]
                     backtrack(start+1)
                     nums[start], nums[i] = nums[i], nums[start]

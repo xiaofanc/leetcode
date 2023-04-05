@@ -7,6 +7,7 @@ Time: O(N⋅2^N)
 This is the worst-case time complexity when all the possible substrings are palindrome.
 Detailed explanation of runtime complexity:
 https://leetcode.com/problems/palindrome-partitioning/solution/
+In general a string of length N will have N-1C0 + N-1C1 + ... +N-1CN-1 = O(2^N) partitionings.
 
 Space: O(N)
 store recursion stack
@@ -15,49 +16,26 @@ store recursion stack
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
         res = []
-        n = len(s)
-        def isPalindrome(start, end):
-            while start <= end:
-                if s[start] != s[end]:
+        def ispalindrome(s):
+            l, r = 0, len(s)-1
+            while l <= r:
+                if s[l] == s[r]:
+                    l += 1
+                    r -= 1
+                else:
                     return False
-                start += 1
-                end -= 1
             return True
-        
-        def dfs(start, path, x):
-            # print("   "*x, start, path)
-            if start >= n:
-                res.append(path)
-                return
-            for i in range(start, n):
-                if isPalindrome(start, i):
-                	# check the remaining characters
-                    dfs(i+1, path + [s[start:i+1]], x+1)
-        dfs(0, [], 0)
-        return res                
 
-    def partition(self, s: str) -> List[List[str]]:
-        res = []
-        n = len(s)
-        def isPalindrome(start, end):
-            while start <= end:
-                if s[start] != s[end]:
-                    return False
-                start += 1
-                end -= 1
-            return True
-        
-        def backtrack(start, path, x):
-            # print("   "*x, start, path)
-            if start >= n:
-                res.append(path[:])
+        def backtrack(i, comb):
+            if i == len(s):
+                res.append(comb[:])
                 return
-            for i in range(start, n):
-                if isPalindrome(start, i):
-                    path.append(s[start:i+1])
-                    backtrack(i+1, path, x+1)
-                    path.pop()
-        backtrack(0, [], 0)
+            for j in range(i, len(s)):
+                if ispalindrome(s[i:j+1]):
+                    comb.append(s[i:j+1])
+                    backtrack(j+1, comb)
+                    comb.pop()
+        backtrack(0, [])
         return res
 
     # backtracking with DP
