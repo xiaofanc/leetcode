@@ -14,7 +14,8 @@ def isPrime(n):
     for i in range(2, int(sqrt(n))+1):
         if n % i == 0:
             return False 
-    return True
+    # 1 is not a prime number
+    return n >= 2
     
 # 204. Count Primes
 # Sieve of Eratosthenes - find primes in [2, n)

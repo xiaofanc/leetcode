@@ -14,7 +14,7 @@ class Solution:
         
         for i in range(m):
             for j in range(n):
-                if i == 0 or i == m-1 or j == 0 or j == n-1 and grid[i][j] == 0:
+                if (i == 0 or i == m-1 or j == 0 or j == n-1) and grid[i][j] == 0:
                     dfs(i, j)
         
         res = 0
