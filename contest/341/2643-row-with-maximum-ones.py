@@ -1,0 +1,16 @@
+"""
+Given a m x n binary matrix mat, find the 0-indexed position of the row that contains the maximum count of ones, and the number of ones in that row.
+In case there are multiple rows that have the maximum count of ones, the row with the smallest row number should be selected.
+Return an array containing the index of the row, and the number of ones in it.
+"""
+
+class Solution:
+    def rowAndMaximumOnes(self, mat: List[List[int]]) -> List[int]:
+        m, n = len(mat), len(mat[0])
+        maxr, maxc = 0, 0
+        for i in range(m):
+            c = sum(mat[i])
+            if c > maxc:
+                maxc = c
+                maxr = i
+        return maxr, maxc
