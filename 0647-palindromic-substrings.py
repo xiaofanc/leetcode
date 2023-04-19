@@ -20,24 +20,21 @@ class Solution:
         return res
 
     # Time: O(n^2)
-    def countSubstrings(self, s: str) -> int:
-        dp = [[False]*len(s) for _ in range(len(s))]
+    def countSubstrings(self, s: str) -> str:
         res = 0
+        # dp[i][j] = whether s[i:j+1] is palindrome
+        # dp[i][j] = s[i] == s[j] and dp[i+1][j-1]
+        dp = [[False]*len(s) for _ in range(len(s))]
         for j in range(len(s)):
-            for i in range(j+1):
-                # single letter
+            for i in range(j,-1,-1):
                 if i == j:
                     dp[i][j] = True
-                    res += 1
-                # double letter
-                elif i + 1 == j:
-                    if s[i] == s[j]:
-                        dp[i][j] = True
-                        res += 1
+                elif j == i+1:
+                    dp[i][j] = (s[i] == s[j])
                 else:
-                    dp[i][j] = dp[i+1][j-1] and s[i] == s[j]
-                    res += dp[i][j]
-
+                    dp[i][j] = (s[i] == s[j] and dp[i+1][j-1])
+                if dp[i][j]:
+                    res += 1
         return res
 
 if __name__ == '__main__':
