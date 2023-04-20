@@ -42,7 +42,24 @@ class Solution:
                 return cache[(l, r)]
 
             return helper(0, n - 1) 
-        
+
+    def longestPalindromeSubseq(self, s: str) -> int:
+        dp = [[1]*len(s) for _ in range(len(s))]
+        res = 1
+        for j in range(len(s)):
+            for i in range(j-1,-1,-1):
+                if i == j-1:
+                    if s[i] == s[j]:
+                        dp[i][j] = 2
+                else:
+                    if s[i] == s[j]:
+                        dp[i][j] = 2 + dp[i+1][j-1]
+                    else:
+                        dp[i][j] = max(dp[i][j-1] , dp[i+1][j])
+                
+                res = max(res, dp[i][j])
+        return res
+                
 if __name__ == '__main__':
 	s = Solution()
 	print(s.longestPalindromeSubseq("bbbab"))  #4
