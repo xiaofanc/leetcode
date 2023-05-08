@@ -35,7 +35,7 @@ class Solution:
             if s2[j] == s3[k]:
                 ans = ans or dfs(i, j+1, k+1)
             memo[(i,j)] = ans
-            return ans
+            return ans   
 
         if len(s1) + len(s2) != len(s3):
             return False

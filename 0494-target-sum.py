@@ -18,7 +18,7 @@ class Solution:
 	# recursion with caching
 	# Time = space = O(n x t), t = sum(nums), possible sum is [-sum(nums), sum(nums)]
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        # (i,total) -> # of ways
+        # (i,total) -> # of ways to reach target since i and total
         # start from i and total value, how many ways we can get to the target 
         dp = {}
         def backtracking(i, total):

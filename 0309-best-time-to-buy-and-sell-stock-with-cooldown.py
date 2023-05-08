@@ -66,7 +66,25 @@ class Solution:
             held = max(held, reset-price)
             reset = max(reset, prev_sold)
         return max(sold, reset) # final state must be sold or reset
-        
+
+    def maxProfit(self, prices: List[int]) -> int:
+        # dp[i][0] = 到当前i天为止手中无股票的最大profit
+        # dp[i][1] = 到当前i天为止手中有股票的最大profit
+        n = len(prices)
+        dp = [[0 for _ in range(2)] for _ in range(n)]
+        for i in range(n):
+            if i == 0:
+                dp[i][0] = 0
+                dp[i][1] = -prices[i]
+            elif i == 1:
+                dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
+                dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i])
+            else:
+                dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
+                # 第i天手中有股票的max profit = Max(第i-1天手中有股票的max profit, 第i-2天手中没股票的max profit+买第i天的股票)
+                dp[i][1] = max(dp[i-1][1], dp[i-2][0]-prices[i])
+        return dp[n-1][0]
+
 if __name__ == '__main__':
     s = Solution()
     print(s.maxProfit([1,2,3,0,2]) == 3)
