@@ -1,6 +1,11 @@
 """
 First part is to find enough number of words in each line but length of each line should be less then maxWidth(which is pretty straight forward).
 Second part is to format each line.(which is difficult)
+
+edge case:
+if last line, spaces are needed in the end of the line.
+if there is only one word in the line, is should be left-justified.
+in each line, be careful about the spaces after the last word.
 """
 
 class Solution:

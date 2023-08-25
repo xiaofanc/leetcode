@@ -42,44 +42,39 @@ class Solution:
 
     # dp[i][j]: min number of operations that convert word1[i:] to word2[j:]
     def minDistance(self, word1: str, word2: str) -> int:
-        w, h = len(word1)+1, len(word2)+1
-        dp = [[float("inf")] * w for _ in range(h)]
+        m, n = len(word1), len(word2)
+        dp = [[0]*(n+1) for _ in range(m+1)]
+        for i in range(m):
+            dp[i][n] = len(word1[i:]) # word2 = ""
+        for j in range(n):
+            dp[m][j] = len(word2[j:]) # word1 = ""
         
-        for j in range(w):
-            dp[h-1][j] = len(word1) - j
-        for i in range(h):
-            dp[i][w-1] = len(word2) - i
-
-        for i in range(h-2, -1, -1):
-            for j in range(w-2, -1, -1):
-                if word1[j] == word2[i]:
+        for i in range(m-1,-1,-1):
+            for j in range(n-1,-1,-1):
+                if word1[i] == word2[j]:
                     dp[i][j] = dp[i+1][j+1]
                 else:
-                    dp[i][j] = 1+min(dp[i+1][j+1], dp[i][j+1], dp[i+1][j])
+                    dp[i][j] = min(dp[i+1][j+1], dp[i][j+1], dp[i+1][j]) + 1
         return dp[0][0]
 
     # top down DP
     def minDistance(self, word1: str, word2: str) -> int:
-        dp = {}
-        m, n = len(word1), len(word2)
-        if m == 0: return n
-        if n == 0: return m
-        def dfs(i, j):
-            if i == m and j == n:
-                dp[(i,j)] = 0
-            elif i == m:
-                dp[(i,j)] = n-j
-            elif j == n:
-                dp[(i,j)] = m-i
-            elif (i,j) in dp:
-                return dp[(i,j)]
+        cache = {}
+
+        def dfs(i,j):
+            if (i,j) in cache:
+                return cache[(i,j)]
+            if j == len(word2):
+                return len(word1[i:])
+            if i == len(word1):
+                return len(word2[j:])
+            if word1[i] == word2[j]:
+                res = dfs(i+1, j+1)
             else:
-                if word1[i] == word2[j]:
-                    dp[(i, j)] = dfs(i+1, j+1)
-                else:
-                    dp[(i, j)] = 1 + min(dfs(i+1,j), dfs(i,j+1), dfs(i+1,j+1))
-            return dp[(i, j)]
-        return dfs(0, 0)
+                res = min(dfs(i,j+1), dfs(i+1,j), dfs(i+1, j+1)) + 1
+            cache[(i,j)] = res
+            return res
+        return dfs(0,0)
 
 if __name__ == '__main__':
     s = Solution()

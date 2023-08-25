@@ -5,6 +5,8 @@
 #         self.left = None
 #         self.right = None
 
+# pre order or level order
+
 # DFS 
 class Codec:
 
