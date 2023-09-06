@@ -34,7 +34,7 @@ class WordDictionary:
                     for x in node:
                         if x != self.word_key and self.searchInNode(word[i+1:], node[x]):
                             return True
-                # if char != '.':
+                # if char != '.' or not found in all possible x:
                 return False
             # if the char is found, go down to the next level
             else:
