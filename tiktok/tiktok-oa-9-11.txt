@@ -1,0 +1,108 @@
+Q1: A large scale e-commerce platform with components including a frontend server, backend server, database, cache, image server, payment gateway, load balancer and DNS. The system is experiencing intermittent service disruptions. The cause is difficult to trace due to its distributed nature. Which practice is more efficient to improve maintainability and system reliability in such a scenario?
+Distributed Tracing and Observability:
+
+Distributed Tracing and Observability
+Centralized Logging
+Error Tracking and Monitoring
+Automated Testing and Continuous Integration/Continuous Deployment (CI/CD)
+Configuration Management and Infrastructure as Code (IaC)
+....
+
+Q2: A network traffic analysis system that must process 10TB of log files per day. The system must efficiently store and search strings with high prefix similarity and perform real-time detection of unique, malicious URL patterns embedded within the logs. The development team is creating a LogParser class in Java:
+class LogParser {
+	...
+	pubilc void storeLogInfo(String LogInfo) {
+		//...
+	}
+
+	public boolean searchPattern(String pattern) {
+		//...
+	}
+}
+
+The team has shortlisted two data structures to store the parse logs - Trie and hash map. They have also identified two algorithms for pattern detection - Rolling hash and the KMP algorithm.
+Give the requirement of high prefix similarity and real-time detection, which combination should they implement in the LogParser class? Trie & KMP
+
+Q3. SQL
+create a MySQL query for an advertising system that returns a list of AB tests and the total number of visits for today allocated to them.
+The result should have the following format: name | allocation_path_prefix | allocation_percentage | total_visits
+
+An AB test is considered allocated when the visit URL starts with an allocation path prefix.
+only visits for June 02, 2023 should be included in the report.
+
+SELECT
+    ab_test.name,
+    ab_test.allocation_path_prefix,
+    ab_test.allocation_percentage,
+    COUNT(*) AS total_visits
+FROM
+    ab_tests AS ab_test
+JOIN
+    visits AS visit
+ON
+    DATE(visit.visit_date) = '2023-06-02' -- Use DATE function to extract date portion
+    AND visit.url LIKE CONCAT(ab_test.allocation_path_prefix, '%')
+GROUP BY
+    ab_test.name,
+    ab_test.allocation_path_prefix,
+    ab_test.allocation_percentage
+
+-------------------------------------- 
+allocation_percentage?
+
+SELECT
+    name,
+    allocation_path_prefix,
+    total_visits,
+    CONCAT(FORMAT((total_visits / SUM(total_visits) OVER ()) * 100, 2), '%') AS allocation_percentage
+FROM (
+    SELECT
+        ab_test.name,
+        ab_test.allocation_path_prefix,
+        COUNT(*) AS total_visits
+    FROM
+        ab_tests AS ab_test
+    JOIN
+        visits AS visit
+    ON
+        DATE(visit.visit_date) = '2023-06-02'
+        AND visit.url LIKE CONCAT(ab_test.allocation_path_prefix, '%')
+    GROUP BY
+        ab_test.name,
+        ab_test.allocation_path_prefix
+) AS subquery
+ORDER BY name
+
+Q4. Find palindrome with minimum difference
+https://stackoverflow.com/questions/77085260/find-palindrome-with-minimum-difference
+
+Given an array of strings, each string has same length m.
+The error between two strings s1 and s2 is defined as the sum of the absolute distance between the characters s1[i] and s2[i] in the English alphabet.
+Find a lexicographically smallest palindromic string say alpha of length m, such that the sum of the errors between this alpha string and the array of strings is minimum.
+
+def solution(arr):
+	n, m = len(arr), len(arr[0])
+	res = []
+	for i in range((m+1)//2):
+		counter = [0]*26
+		j = m-i-1
+		for word in arr:
+			counter[ord(word[i])-ord('a')] += 1
+			counter[ord(word[j])-ord('a')] += 1
+		# Get the median character based on these character frequencies
+		# print(counter)
+		median = -1
+		count = 0
+		while count < n:
+			median += 1
+			count += counter[median]
+			print("median, count, n", median, count, n)
+		res.append(chr(median + ord('a')))
+	s = "".join(res)
+	return s + s[::-1][m%2:]
+
+Q5.
+distortion = max abs difference between adjacent elements of the array.
+replace 0 in the array with x and x is in the range of [0, max_frame] to minimize the distortion
+given n = 4, arr = [4,0,3,2], max_frame = 2
+
