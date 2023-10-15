@@ -20,41 +20,77 @@ followup2：如何得到最优解？这里你需要问面试官如何定义最�
 # [80,140,110,120,70]
 
 def balance_accounts(arr):
-	ins, outs = [], []
-	transfers = []
-	# s points to the accounts that need money
-	for i in range(len(arr)):
-		if arr[i][1] > 100:
-			outs.append(i)
-		elif arr[i][1] < 100:
-			ins.append(i)
-	i, j = 0, 0
-	while i < len(ins) and j < len(outs):
-		s, t = ins[i], outs[j]
-		# transfer from t to s
-		required = 100-arr[s][1]
-		available = arr[t][1]-100
-		# if t does not have enough money for s, move t to the next accounts
-		if required > available:
-			transfers.append((arr[t][0], arr[s][0], available))
-			arr[s][1] += available
-			j += 1
-		elif required == available:
-			transfers.append((arr[t][0], arr[s][0], available))
-			i += 1
-			j += 1
-		# if t has extra money
-		else:
-			transfers.append((arr[t][0], arr[s][0], required))
-			arr[t][1] -= required
-			i += 1
-	if i == len(ins):
-		return transfers
-	if j == len(outs):
-		return []
+    ins, outs = [], []
+    transfers = []
+    # s points to the accounts that need money
+    for i in range(len(arr)):
+        if arr[i][1] > 100:
+            outs.append(i)
+        elif arr[i][1] < 100:
+            ins.append(i)
+    i, j = 0, 0
+    while i < len(ins) and j < len(outs):
+        s, t = ins[i], outs[j]
+        # transfer from t to s
+        required = 100-arr[s][1]
+        available = arr[t][1]-100
+        # if t does not have enough money for s, move t to the next accounts
+        if required > available:
+            transfers.append((arr[t][0], arr[s][0], available))
+            arr[s][1] += available
+            j += 1
+        elif required == available:
+            transfers.append((arr[t][0], arr[s][0], available))
+            i += 1
+            j += 1
+        # if t has extra money
+        else:
+            transfers.append((arr[t][0], arr[s][0], required))
+            arr[t][1] -= required
+            i += 1
+    if i == len(ins):
+        return transfers
+    if j == len(outs):
+        return []
+
+import heapq
+# optimization: minimize transactions
+def min_transactions(arr):
+    ins, outs = [], []
+    transfers = []
+    for i in range(len(arr)):
+        if arr[i][1] > 100:
+            heapq.heappush(outs, (-arr[i][1], i)) # max heap, order by money, index
+        elif arr[i][1] < 100:
+            heapq.heappush(ins, (arr[i][1], i)) # min heap
+    while len(ins) > 0 and len(outs) > 0:
+        moneyi, i = heapq.heappop(ins)
+        x = heapq.heappop(outs)
+        moneyj, j = -x[0], x[1]
+        # transfer from j to i
+        required = 100-moneyi
+        available = moneyj-100
+        # if j does not have enough money for i, push s back to ins
+        if required > available:
+            transfers.append((arr[j][0], arr[i][0], available))
+            heapq.heappush(ins, (arr[i][1]+available, i))
+        elif required == available:
+            transfers.append((arr[j][0], arr[i][0], available))
+        # if t has extra money, push t back to outs
+        else:
+            transfers.append((arr[j][0], arr[i][0], required))
+            heapq.heappush(outs, (required-arr[j][1], j))
+    if len(ins) == 0:
+        return transfers
+    if len(outs) == 0:
+        return []
+
 
 if __name__ == '__main__':
-	print(balance_accounts([["AU",80], ["US",140], ["MX",110], ["SG",120], ["FR",70]]))
+    # [('US', 'AU', 20), ('US', 'FR', 20), ('MX', 'FR', 10)]
+    print(balance_accounts([["AU",80], ["US",140], ["MX",110], ["SG",120], ["FR",70]]))
+    # [('US', 'FR', 30), ('SG', 'AU', 20)]
+    print(min_transactions([["AU",80], ["US",140], ["MX",110], ["SG",120], ["FR",70]]))
 
 
 
